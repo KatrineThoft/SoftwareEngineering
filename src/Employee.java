@@ -2,7 +2,7 @@
  * Created by katrinethoft on 27/03/17.
  */
 public class Employee {
-  /*  private String employeeName;
+    private String employeeName;
     private List<Activiy> ongoingActivities;
 
     public Employee(String employeeName, List<Activity> ongoingActivities){
@@ -25,5 +25,16 @@ public class Employee {
     public void editRegisteredTime(double hours, String employeeName, Date day){
         //Do stuff
     }
-    */
+
+    public String getEmployeeName(){
+        return employeeName;
+    }
+
+    public List<Activity> getOngoingActivities(){
+        return ongoingActivities;
+    }
+
+    public void setOngoingActivities(List<Activity> ongoingActivities){
+        this.ongoingActivities = ongoingActivities;
+    }
 }
