@@ -15,7 +15,8 @@ public class testClient01 {
 
         Project project01 = new Project();
 
-        Client NovoNordisk = new Client(endDate, )
+        Client NovoNordisk = new Client(endDate, project01);
+
 
     }
 }
