@@ -11,6 +11,14 @@ import java.util.List;
 
 public class Test1 {
     @Test
+    public void TimeManagerTest01(){
+        /* Test TimeManager class here
+         *
+         *
+         *
+         */
+    }
+    @Test
     public void ClientTest01(){
         //Test that the client is correctly constructed
         //Data used to test the client class
@@ -37,14 +45,40 @@ public class Test1 {
         assertEqual(client01t.getEndDate, date);
 
         assertEqual(client01.getEstimatedTimeUse,100);
-
-
-
-
-
     }
+
     @Test
-    public void ProjectTest(){
+    public void ActivityTest(){
+        /* Test Activity class here
+            *
+            *
+            *
+        */
+    }
+
+
+    @Test
+    public void EmployeeTest(){
+        /* Test employee class here
+            *
+            *
+            *
+        */
+    }
+
+    @Test
+    public void ProjectManagerTest(){
+        /* Test ProjectManager class here
+         *
+         *
+         *
+         */
+    }
+
+
+    @Test
+    public void ProjectTest01(){
+        // Creating a client (no testing)
         TimeManager endDate = TimeManager.setDate(23,1,2018);
         double estimatedTimeUse = 100;
         String projectName = "novoProject";
@@ -52,7 +86,9 @@ public class Test1 {
 
         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName);
 
+        // Creating a project
         Project project01 = new Project(client01);
+
         //Test of constructor
         int projectID = 23011801;
         project01.setProjectID(projectID);
@@ -61,23 +97,28 @@ public class Test1 {
         assertEqual(project01.getProjectName(),projectName);
         asserEqual(project01.getEndDate(),endDate);
         assertEqual(project01.getEstimatedTimeUse(),estimatedTimeUse);
+
         // Test of set/get TimeUsed
         assertEgual(project01.getTimeUsed(),null);
         double timeUsed = 17.5;
         project01.setTimeUsed(timeUsed);
         assertEqual(project01.getTimeUsed(), timeUsed);
+
         // Test of getRemainingTime
         double remainingTime = estimatedTimeUse - timeUsed;
         assertEqual(project01.getRemainingTime(),remainingTime);
+
         // Test of updateEstimatedTimeUse
         estimatedTimeUse = estimatedTimeUse + 50;
         project01.updateEstimatedTimeUse(estimatedTimeUse);
         assertEquals(project01.getEstimatedTimeUse(),estimatedTimeUse);
+
         // Test of set/get ProjectManager
         assertEqual(project01.getProjectManager(),null);
         Employee projMan = new Employee("Helga");
         project01.setProjectManager(projMan);
         assertEqual(project01.getProjectManager(),projMan);
+
         // Test of set/get WorkingEmployees
         assertEqual(project01.getWorkingEmployees, null);
         List<Employee> workingEmployees = new ArrayList<Employee>();
@@ -86,11 +127,12 @@ public class Test1 {
         }
         project01.setWorkingEmployees(workingEmployees);
         assertEqual(project01.getWorkingEmployees(),workingEmployees);
+
         // Test of makeProjectReport
         // Make employees as String
         String employees = "";
         for (Employee e : workingEmployees){
-            employees = employees + e.getEmployeeName();
+            employees = employees + e.getName();
         }
         // Make activities and acticities as String
         List<Activity> activityList = new ArrayList<Activity>();
@@ -106,18 +148,6 @@ public class Test1 {
                 + ", Remaining time = " + remainingTime + ", Employees = " + employees + ", Activities = " + activities;
         assertEquals(project01.makeProjectReport(),projectReport);
     }
-
-    @Test
-    public void EmployeeTest(){
-        /* Test employee class here
-            *
-            *
-            *
-        */
-    }
-
-
-
 
     @Test
     public void ClientTest02(){
@@ -138,12 +168,6 @@ public class Test1 {
 
         //Step 1: Test that it is the correct project manager
         assertEqual(project01.getProjectManager,"Hanne");
-
-        /*Activity tests
-
-
-
-        */
 
         //Step 2:  Test that when the wished project manager is unavailiable another employee is chosen
         String eName02 = "Niels";

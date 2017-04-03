@@ -5,7 +5,6 @@ import java.util.List;
  * Created by Daniel Hildebrand on 27-03-2017.
  */
 public class Project {
-
         public String projectID;
         public String projectName;
         public TimeManager endDate;
@@ -16,8 +15,6 @@ public class Project {
         public double estimatedTimeUse;
         public List<Activity> activities;
 
-
-
         public Project(Client client) {
             this.client = client;
             this.projectName = client.getProjectName;
@@ -25,14 +22,5 @@ public class Project {
             this.estimatedTimeUse = client.getEstimatedTimeUse();
             this.projectID = getProjectId();
         }
-
-}
-    //public String getProjectID(){
-    //   return ProjectID();
-    // }
-    //  public String ProjectName(String){}
-    //int EndDate= 5;
-
-    //}
 
 }

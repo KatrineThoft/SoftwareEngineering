@@ -7,23 +7,26 @@ import java.util.Calendar;
 public class Client {
     public String clientName;
     public TimeManager endDate;
-    public Project newProject;
+    public double estimatedTimeUse;
+    public String projectName;
 
-    public Client (String clientName,TimeManager endDate, Project newProject){
+    public Client (String clientName, TimeManager endDate, double estimatedTimeUse, String projectName){
         this.clientName = clientName;
         this.endDate = endDate;
-        this.newProject = newProject;
+        this.estimatedTimeUse = estimatedTimeUse;
+        this.projectName = projectName;
     }
 
-    public Client (String clientName,TimeManager endDate, Project newProject, Employee projectManager){
+    public Client (String clientName,TimeManager endDate, double estimatedTimeUse, String projectName, Employee projectManager){
         this.clientName = clientName;
         this.endDate = endDate;
-        this.newProject = newProject;
+        this.estimatedTimeUse = estimatedTimeUse;
+        this.projectName = projectName;
         designateProjectManager(projectManager);
     }
 
 
     public static void designateProjectManager(Employee empl){
-        newProject.setProjectManager(empl);
+        project.setProjectManager(empl);
     }
 }

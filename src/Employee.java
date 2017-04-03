@@ -28,7 +28,7 @@ public class Employee {
         //Do stuff
     }
 
-    public String getEmployeeName(){
+    public String getName(){
         return employeeName;
     }
 
