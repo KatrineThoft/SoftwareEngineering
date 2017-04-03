@@ -1,10 +1,12 @@
+import java.util.List;
+
 /**
  * Created by katrinethoft on 27/03/17.
  */
 public class ProjectManager extends Employee  {
     private Employee manager;
 
-    public ProjectManager(Employee manager, String employeeName, List<Activities> ongoingActivities){
+    public ProjectManager(Employee manager, String employeeName, List<Activity> ongoingActivities){
         super(employeeName, ongoingActivities);
         this.manager = manager;
     }

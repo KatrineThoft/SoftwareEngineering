@@ -1,12 +1,14 @@
+import java.util.Calendar;
+
 /**
  * Created by EmilieKvist on 29-03-2017.
  */
 
 public class Client {
-    public Date endDate;
+    public TimeManager endDate;
     public Project newProject;
 
-    public Client (Date endDate, Project newProject){
+    public Client (TimeManager endDate, Project newProject){
         this.endDate = endDate;
         this.newProject = newProject;
     }

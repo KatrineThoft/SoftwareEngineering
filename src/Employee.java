@@ -1,9 +1,11 @@
+import java.util.List;
+
 /**
  * Created by katrinethoft on 27/03/17.
  */
 public class Employee {
     private String employeeName;
-    private List<Activiy> ongoingActivities;
+    private List<Activity> ongoingActivities;
 
     public Employee(String employeeName, List<Activity> ongoingActivities){
         this.employeeName = employeeName;
