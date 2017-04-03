@@ -12,11 +12,17 @@ public class testClient01 {
     @Test
     public void test(){
         TimeManager endDate = TimeManager.setDate(23,1,2018);
+        double estimatedTimeUse = 100;
+        String projectName = "novoProject"
+         String clientName = "NovoNordisk"
 
-        Project project01 = new Project();
+        Client client01 = new Client(clientName,endDate, estimatedTimeUse, projectName);
 
-        Client NovoNordisk = new Client(endDate, project01);
+        Project project01 = new Project(NovoNordisk);
+
+        assertEqual(client01.getName(),"NovoNordisk" );
 
 
+    
     }
 }

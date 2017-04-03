@@ -1,15 +1,31 @@
+import java.sql.Time;
+import java.util.List;
+
 /**
  * Created by Daniel Hildebrand on 27-03-2017.
  */
 public class Project {
 
-    public static void main(String[] args) {
-        public String ProjectID;
-        public String ProjectName;
-    public Project(String ProjectID, String ProjectName)
-        this.ProjectID = ProjectID;
-        this.ProjectName = ProjectName;
-    }
+        public String projectID;
+        public String projectName;
+        public TimeManager endDate;
+        public List<Employee> workingEmployees;
+        public double TimeUsed;
+        public ProjectManager projectManager;
+        public Client client;
+        public double estimatedTimeUse;
+        public List<Activity> activities;
+
+
+
+        public Project(Client client) {
+            this.client = client;
+            this.projectName = client.getProjectName;
+            this.endDate = client.getEndDate;
+            this.estimatedTimeUse = client.getEstimatedTimeUse();
+            this.projectID = getProjectId();
+        }
+
 }
     //public String getProjectID(){
     //   return ProjectID();
