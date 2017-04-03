@@ -9,6 +9,10 @@ public class ProjectManager extends Employee  {
         this.manager = manager;
     }
 
+    public List<Activity> createActivities{
+
+    }
+
     public List<Activity, Employee> delegateActivities(List<Employee> employees, List<Activity> activities){
         List<Activity, Employee> list = new List<Activity, Employee>;
         //Do stuff

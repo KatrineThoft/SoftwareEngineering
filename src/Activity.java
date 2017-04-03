@@ -1,12 +1,12 @@
 /**
  * Created by EmilieKvist on 29-03-2017.
  */
-public class Assignment {
+public class Activity {
     public String activityName;
     public double estimatedTimeUse;
     public double timeUsed;
 
-    public Assignment(String activityName, double estimatedTimeUse){
+    public Activity(String activityName, double estimatedTimeUse){
         this.activityName = activityName;
         this.estimatedTimeUse = estimatedTimeUse;
     }
