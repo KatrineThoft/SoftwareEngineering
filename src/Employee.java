@@ -1,3 +1,4 @@
+
 import java.util.List;
 
 /**
@@ -7,9 +8,8 @@ public class Employee {
     private String employeeName;
     private List<Activity> ongoingActivities;
 
-    public Employee(String employeeName, List<Activity> ongoingActivities){
+    public Employee(String employeeName){
         this.employeeName = employeeName;
-        this.ongoingActivities = ongoingActivities;
 
     }
 
@@ -24,7 +24,7 @@ public class Employee {
         //Do stuff
     }
 
-    public void editRegisteredTime(double hours, String employeeName, Date day){
+    public void editRegisteredTime(double hours, String employeeName, TimeManager day){
         //Do stuff
     }
 
