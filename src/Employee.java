@@ -7,10 +7,8 @@ public class Employee {
     private String employeeName;
     private List<Activity> ongoingActivities;
 
-    public Employee(String employeeName, List<Activity> ongoingActivities){
+    public Employee(String employeeName){
         this.employeeName = employeeName;
-        this.ongoingActivities = ongoingActivities;
-
     }
 
     public boolean checkAbsense(String employeeName){
