@@ -1,3 +1,4 @@
+
 import java.util.List;
 
 /**
@@ -9,6 +10,7 @@ public class Employee {
 
     public Employee(String employeeName){
         this.employeeName = employeeName;
+
     }
 
     public boolean checkAbsense(String employeeName){
@@ -22,7 +24,7 @@ public class Employee {
         //Do stuff
     }
 
-    public void editRegisteredTime(double hours, String employeeName, Date day){
+    public void editRegisteredTime(double hours, String employeeName, TimeManager day){
         //Do stuff
     }
 
