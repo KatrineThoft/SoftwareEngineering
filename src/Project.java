@@ -10,7 +10,7 @@ public class Project {
         public TimeManager endDate;
         public List<Employee> workingEmployees;
         public double TimeUsed;
-        public ProjectManager projectManager;
+        //public ProjectManager projectManager;
         public Client client;
         public double estimatedTimeUse;
         public List<Activity> activities;

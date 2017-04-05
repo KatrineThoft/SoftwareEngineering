@@ -152,8 +152,11 @@ public class Test1 {
         assertEquals(project01.getEstimatedTimeUse(),estimatedTimeUse);
         */
 
-        /* // Test of set/get ProjectManager
-        assertEquals(project01.getProjectManager(),null);
+        /*
+        set / get project manager is not necessary because
+        the project is attatched to a project manager from the beginning
+        // Test of set/get ProjectManager
+        assertEqual(project01.getProjectManager(),null);
         Employee projMan = new Employee("Helga");
         project01.setProjectManager(projMan);
         assertEquals(project01.getProjectManager(),projMan);
@@ -166,6 +169,15 @@ public class Test1 {
         }
         project01.setWorkingEmployees(workingEmployees);
         assertEquals(project01.getWorkingEmployees(),workingEmployees);
+
+        // Test of set/get Activities
+        assertEqual(project01.getActivities(), null);
+        List<Activity> activities = new ArrayList<Activity>();
+        for (int i = 1; i <= 5; i++){
+            activities.add(new Activity("activity"+i, 10));
+        }
+        project01.setActivities(activities);
+        assertEqual(project01.getActivities(),activities);
 
         // Test of makeProjectReport
         // Make employees as String
@@ -216,12 +228,25 @@ public class Test1 {
         ProjectManager manager = new ProjectManager(employee01, project01);
 
         // Test of constructor
-        Assertions.assertTrue(manager.employee == employee01);
+        assertTrue(manager.employee == employee01);
         assertTrue(manager.project == project01);
 
-        // Test of delegateActivities
+        // Test of createActivities
+        assertTrue(manager.project.activities == null);
+        manager.createActivities();
+        assertFalse(manager.project.activities == null);
 
-        assert
+        // Test of delegateActivities
+        assertFalse(manager.project.activities == null);
+        assertTrue(manager.project.workingEmployees == null);
+        manager.delegateActivities();
+        assertTrue(manager.project.workingEmployees.size() == manager.project.activities.size());
+
+        // Test findSubstitute
+        assertTrue(*liste med *);
+        assertFalse(manager.project.workingEmployees.size() == manager.project.activities.size());
+
+
         // Test of delayProject
         assertTrue(manager.project.estimatedTimeUse == 100);
         assertTrue(manager.project.endDate == endDate);
@@ -235,6 +260,9 @@ public class Test1 {
         assertTrue(manager.project.active);
         manager.endProject();
         assertFalse(manager.project.active);
+
+        // Test of project meeting
+
     }
 
     @Test
