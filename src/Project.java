@@ -14,13 +14,13 @@ public class Project {
         public Client client;
         public double estimatedTimeUse;
         public List<Activity> activities;
+        public boolean active;
 
-        public Project(Client client) {
+    public Project(Client client) {
             this.client = client;
             this.projectName = client.getProjectName;
             this.endDate = client.getEndDate;
             this.estimatedTimeUse = client.getEstimatedTimeUse();
             this.projectID = getProjectId();
         }
-
 }

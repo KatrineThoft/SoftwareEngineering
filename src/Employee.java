@@ -7,12 +7,15 @@ import java.util.List;
 public class Employee {
     private String employeeName;
     private List<Activity> ongoingActivities;
+    public boolean absence;
+    public double registeredHours;
 
     public Employee(String employeeName){
         this.employeeName = employeeName;
-
+        this.absence = false;
+        this.registeredHours = 0.0;
     }
-
+/*
     public boolean checkAbsense(String employeeName){
         //Do stuff
 
@@ -39,4 +42,5 @@ public class Employee {
     public void setOngoingActivities(List<Activity> ongoingActivities){
         this.ongoingActivities = ongoingActivities;
     }
+    */
 }
