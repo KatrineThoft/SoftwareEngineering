@@ -1,8 +1,11 @@
 import org.junit.jupiter.api.Test;
 
-import org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -12,11 +15,24 @@ import java.util.List;
 public class Test1 {
     @Test
     public void TimeManagerTest01(){
-        /* Test TimeManager class here
-         *
-         *
-         *
-         */
+        // Test TimeManager class here
+        Calendar date =  Calendar.getInstance();
+        double remainingTime = 0.0d;
+        List<availibleEmployee> availible = new ArrayList<availibleEmployee>(){
+            String employee1;
+            String employee2;
+        };
+        List<TimeUsedprActivity> TimeUsedprActivity= new ArrayList<TimeUsedprActivity>(){
+            double activity1 = 3.5;
+            double activity2 = 4.5;
+        }
+
+        assertEquals(TimeManager.getCalender,date);
+        assertEquals(TimeManager.getremainingTime,remainingTime);
+        assertEquals(TimeManager.getavailibleEmployee,availible);
+        assertEquals(TimeManager.getTimeUsedprActivity,TimeUsedprActivity);
+
+
     }
     @Test
     public void ClientTest01(){
@@ -37,14 +53,14 @@ public class Test1 {
         assertFalse(client01,null);
 
         //Step 2: Test that the client name is correct
-        assertEqual(client01.getName(),"NovoNordisk" );
+        assertEquals(client01.getName(),"NovoNordisk" );
 
         Calendar date = new Calendar(23,1,2018);
 
         //Step 3: Test that the end date and estimated time use is correct
-        assertEqual(client01.getEndDate, date);
+        assertEquals(client01.getEndDate, date);
 
-        assertEqual(client01.getEstimatedTimeUse,100);
+        assertEquals(client01.getEstimatedTimeUse,100);
     }
 
     @Test
@@ -55,10 +71,10 @@ public class Test1 {
         double timeUsed = 50.5;
         double remainingTime= estimatedTimeUse - timeUsed;
 
-        assertEqual(Activity.getactivityName,"name");
-        assertEqual(Activity.getestimatedTimeUse,estimatedTimeUse);
-        assertEqual(Activity.getTimeused,timeUsed);
-        assertEqual(Activity.getremainingTime,50);
+        assertEquals(Activity.getactivityName,"name");
+        assertEquals(Activity.getestimatedTimeUse,estimatedTimeUse);
+        assertEquals(Activity.getTimeused,timeUsed);
+        assertEquals(Activity.getremainingTime,remainingTime);
 
 
     }
@@ -99,21 +115,21 @@ public class Test1 {
         //Test of constructor
         int projectID = 23011801;
         project01.setProjectID(projectID);
-        assertEqual(project01.getProjectID(), projectID);
-        assertEqual(project01.getClient(),client01);
-        assertEqual(project01.getProjectName(),projectName);
-        asserEqual(project01.getEndDate(),endDate);
-        assertEqual(project01.getEstimatedTimeUse(),estimatedTimeUse);
+        assertEquals(project01.getProjectID(), projectID);
+        assertEquals(project01.getClient(),client01);
+        assertEquals(project01.getProjectName(),projectName);
+        assertEquals(project01.getEndDate(),endDate);
+        assertEquals(project01.getEstimatedTimeUse(),estimatedTimeUse);
 
         // Test of set/get TimeUsed
-        assertEgual(project01.getTimeUsed(),null);
+        assertEquals(project01.getTimeUsed(),null);
         double timeUsed = 17.5;
         project01.setTimeUsed(timeUsed);
-        assertEqual(project01.getTimeUsed(), timeUsed);
+        assertEquals(project01.getTimeUsed(), timeUsed);
 
         // Test of getRemainingTime
         double remainingTime = estimatedTimeUse - timeUsed;
-        assertEqual(project01.getRemainingTime(),remainingTime);
+        assertEquals(project01.getRemainingTime(),remainingTime);
 
         // Test of updateEstimatedTimeUse
         estimatedTimeUse = estimatedTimeUse + 50;
@@ -121,19 +137,19 @@ public class Test1 {
         assertEquals(project01.getEstimatedTimeUse(),estimatedTimeUse);
 
         // Test of set/get ProjectManager
-        assertEqual(project01.getProjectManager(),null);
+        assertEquals(project01.getProjectManager(),null);
         Employee projMan = new Employee("Helga");
         project01.setProjectManager(projMan);
-        assertEqual(project01.getProjectManager(),projMan);
+        assertEquals(project01.getProjectManager(),projMan);
 
         // Test of set/get WorkingEmployees
-        assertEqual(project01.getWorkingEmployees, null);
+        assertEquals(project01.getWorkingEmployees, null);
         List<Employee> workingEmployees = new ArrayList<Employee>();
         for (int i = 1; i <= 5; i++){
             workingEmployees.add(new Employee("employee"+i));
         }
         project01.setWorkingEmployees(workingEmployees);
-        assertEqual(project01.getWorkingEmployees(),workingEmployees);
+        assertEquals(project01.getWorkingEmployees(),workingEmployees);
 
         // Test of makeProjectReport
         // Make employees as String
@@ -174,7 +190,7 @@ public class Test1 {
         Project project01 = new Project(client01);
 
         //Step 1: Test that it is the correct project manager
-        assertEqual(project01.getProjectManager,"Hanne");
+        assertEquals(project01.getProjectManager,"Hanne");
 
         //Step 2:  Test that when the wished project manager is unavailiable another employee is chosen
         String eName02 = "Niels";
