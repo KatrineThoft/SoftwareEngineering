@@ -42,18 +42,25 @@ public class Test1 {
         Calendar date = new Calendar(23,1,2018);
 
         //Step 3: Test that the end date and estimated time use is correct
-        assertEqual(client01t.getEndDate, date);
+        assertEqual(client01.getEndDate, date);
 
         assertEqual(client01.getEstimatedTimeUse,100);
     }
 
     @Test
     public void ActivityTest(){
-        /* Test Activity class here
-            *
-            *
-            *
-        */
+        /* Test Activity class here*/
+        String activityName = "name";
+        double estimatedTimeUse = 100;
+        double timeUsed = 50.5;
+        double remainingTime= estimatedTimeUse - timeUsed;
+
+        assertEqual(Activity.getactivityName,"name");
+        assertEqual(Activity.getestimatedTimeUse,estimatedTimeUse);
+        assertEqual(Activity.getTimeused,timeUsed);
+        assertEqual(Activity.getremainingTime,50);
+
+
     }
 
 
