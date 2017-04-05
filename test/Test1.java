@@ -22,7 +22,7 @@ public class Test1 {
             String employee1;
             String employee2;
         };
-        List<TimeUsedprActivity> TimeUsedprActivity= new ArrayList<TimeUsedprActivity>(){
+        List<TimeManager> TimeUsedprActivity= new ArrayList<TimeManager>(){
             double activity1 = 3.5;
             double activity2 = 4.5;
         }
