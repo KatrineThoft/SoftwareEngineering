@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * Created by Daniel Hildebrand on 27-03-2017.
- */
 
 public class Test1 {
     @Test
@@ -250,8 +247,12 @@ public class Test1 {
         // Test of delayProject
         assertTrue(manager.project.estimatedTimeUse == 100);
         assertTrue(manager.project.endDate == endDate);
-        manager.delayProject(17.5);                 // updates estimated time use with amount of hours and updates end date with
-        estimatedTimeUse = estimatedTimeUse + 17.5; // amount of hours/8 (8 hrs. on a regular work day)
+        manager.delayProject(17.5);
+
+        // updates estimated time use with amount of hours and updates end date with
+        estimatedTimeUse = estimatedTimeUse + 17.5;
+
+        // amount of hours/8 (8 hrs. on a regular work day)
         endDate.setDate(23 + (int)(17.5/8) + 1,01,2018);
         assertTrue(manager.project.estimatedTimeUse == estimatedTimeUse);
         assertTrue(manager.project.endDate == endDate);
@@ -262,6 +263,9 @@ public class Test1 {
         assertFalse(manager.project.active);
 
         // Test of project meeting
+        assertEquals(project01.getProjectID,projectID);
+
+
 
     }
 

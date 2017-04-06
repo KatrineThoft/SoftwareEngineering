@@ -12,7 +12,7 @@ public class ProjectManager{// extends Employee  {
         this.employee = employee01;
         this.project = project;
     }
-/*
+
     public List<Activity> createActivities{
 
     }
@@ -43,5 +43,5 @@ public class ProjectManager{// extends Employee  {
     public void endProject(String projectID){
         //Do stuff
     }
-*/
+
 }
