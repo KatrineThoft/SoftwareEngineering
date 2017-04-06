@@ -16,15 +16,16 @@ public class Test1 {
         // Test TimeManager class here
         Calendar date =  Calendar.getInstance();
         double remainingTime = 0.0d;
-        List<availibleEmployee> availible = new ArrayList<availibleEmployee>(){
-            String employee1;
-            String employee2;
-        }
+        List<availibleEmployee> availible = new ArrayList<availibleEmployee>();
+        availible.add(employee1);
+        availible.add(employee2);
 
-        List<TimeManager> TimeUsedprActivity= new ArrayList<TimeManager>(){
-            double activity1 = 3.5;
-            double activity2 = 4.5;
-        }
+
+        List<TimeManager> TimeUsedprActivity= new ArrayList<TimeManager>();
+        double activity1 = 3.5;
+        double activity2 = 4.5;
+        TimeUsedprActivity.add(activity1);
+        TimeUsedprActivity.add(activity2);
 
         assertEquals(TimeManager.getCalender,date);
         assertEquals(TimeManager.getremainingTime,remainingTime);
