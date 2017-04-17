@@ -1,14 +1,12 @@
 import org.junit.jupiter.api.Test;
 
 //import org.junit.assert.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 
 public class Test1 {
     @Test
@@ -34,7 +32,8 @@ public class Test1 {
 
 
     }
-  /*  @Test
+
+    @Test
     public void ClientTest01(){
         //Test that the client is correctly constructed
         //Data used to test the client class
@@ -62,8 +61,8 @@ public class Test1 {
 
         assertEquals(client01.getEstimatedTimeUse(),100);
     }
-*/
-  /*  @Test
+
+   @Test
     public void ActivityTest(){
         //Test Activity class here*
         String activityName = "name";
@@ -78,10 +77,10 @@ public class Test1 {
 
 
     }
-    */
 
 
-    /*@Test
+
+
     public void EmployeeTest(){
         // Creating an employee
         String employeename = "Helga";
@@ -109,7 +108,6 @@ public class Test1 {
         employee01.updateRegisteredHours(17.5);
         assertTrue(employee01.registeredHours == 17.5);
     }
-*/
 
    /* @Test
     public void ProjectTest01(){

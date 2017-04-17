@@ -27,6 +27,6 @@ public class Client {
 
 
     public static void designateProjectManager(Employee empl){
-        Project.setProjectManager(empl);
+       // Project.setProjectManager(empl);
     }
 }

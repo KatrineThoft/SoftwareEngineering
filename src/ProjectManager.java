@@ -13,15 +13,17 @@ public class ProjectManager{// extends Employee  {
         this.project = project;
     }
 
-    public List<Activity> createActivities{
-
+    public List<Activity> createActivities(){
+        List<Activity> act = null;
+        return act;
     }
 
-    public List<Activity, Employee> delegateActivities(List<Employee> employees, List<Activity> activities){
+   /* public List<Activity, Employee> delegateActivities(List<Employee> employees, List<Activity> activities){
         List<Activity, Employee> list = new List<Activity, Employee>;
         //Do stuff
         return list;
     }
+    */
 
     public void projectMeeting(String projectID){
         //Do stuff

@@ -18,9 +18,11 @@ public class Project {
 
     public Project(Client client) {
             this.client = client;
-            this.projectName = client.getProjectName();
+            /*this.projectName = client.getProjectName();
             this.endDate = client.getEndDate();
             this.estimatedTimeUse = client.getEstimatedTimeUse();
             this.projectID = getProjectId();
+            */
         }
+
 }
