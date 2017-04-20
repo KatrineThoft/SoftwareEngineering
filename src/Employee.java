@@ -15,13 +15,26 @@ public class Employee {
         this.absence = false;
         this.registeredHours = 0.0;
     }
-/*
-    public boolean checkAbsense(String employeeName){
-        //Do stuff
 
-        return false;
+    public void setActivities(List<Activity> activities) {
+        this.ongoingActivities = activities;
     }
 
+    public List<Activity> getActivities() {
+        return ongoingActivities;
+    }
+
+    public String getName() {
+        return employeeName;
+    }
+
+    public void updateAbsence(boolean b) {
+        this.absence = b;
+    }
+
+    public void updateRegisteredHours(double v) {
+        this.registeredHours = this.registeredHours + v;
+    }
 
     public void timeRegistering(double hours, String employeeName){
         //Do stuff
@@ -31,16 +44,5 @@ public class Employee {
         //Do stuff
     }
 
-    public String getName(){
-        return employeeName;
-    }
 
-    public List<Activity> getOngoingActivities(){
-        return ongoingActivities;
-    }
-
-    public void setOngoingActivities(List<Activity> ongoingActivities){
-        this.ongoingActivities = ongoingActivities;
-    }
-    */
 }

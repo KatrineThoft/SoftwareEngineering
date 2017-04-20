@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +14,8 @@ public class ProjectManager{// extends Employee  {
         this.project = project;
     }
 
-    public List<Activity> createActivities(){
-        List<Activity> act = null;
+    public List<Activity> createActivities(List<Activity>){
+        project.setActivities();
         return act;
     }
 

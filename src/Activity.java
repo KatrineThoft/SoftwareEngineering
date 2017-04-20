@@ -15,7 +15,19 @@ public class Activity {
         this.timeUsed = timeUsed;
     }
 
-    public double remainingTime(){
+    public String getActivityName() {
+        return activityName;
+    }
+
+    public double getEstimatedTimeUse() {
+        return estimatedTimeUse;
+    }
+
+    public double getTimeUsed() {
+        return timeUsed;
+    }
+
+    public double getRemainingTime() {
         return estimatedTimeUse - timeUsed;
     }
 }

@@ -14,7 +14,7 @@ public class Test1 {
         // Test TimeManager class here
         Calendar date =  Calendar.getInstance();
         double remainingTime = 0.0d;
-        List<availibleEmployee> availible = new ArrayList<availibleEmployee>();
+        ArrayList<availableEmployee> availible = new ArrayList<availableEmployee>();
         availible.add(employee1);
         availible.add(employee2);
 
@@ -29,8 +29,6 @@ public class Test1 {
         assertEquals(TimeManager.getremainingTime,remainingTime);
         assertEquals(TimeManager.getavailibleEmployee,availible);
         assertEquals(TimeManager.getTimeUsedprActivity,TimeUsedprActivity);
-
-
     }
 
     @Test
@@ -64,22 +62,24 @@ public class Test1 {
 
    @Test
     public void ActivityTest(){
-        //Test Activity class here*
+        // Creating an Activity
         String activityName = "name";
         double estimatedTimeUse = 100;
+        Activity activity1 = new Activity(activityName,estimatedTimeUse);
+
+        // Test of constructor
+        assertEquals(activity1.getActivityName(),"name");
+        assertEquals(activity1.getEstimatedTimeUse(),estimatedTimeUse);
+
+        // Test of set/get timeUsed
         double timeUsed = 50.5;
-        double remainingTime= estimatedTimeUse - timeUsed;
+        activity1.setTimeUsed(timeUsed);
+        assertEquals(activity1.getTimeUsed(),timeUsed);
 
-        assertEquals(Activity.getactivityName,"name");
-        assertEquals(Activity.getestimatedTimeUse,estimatedTimeUse);
-        assertEquals(Activity.getTimeused,timeUsed);
-        assertEquals(Activity.getremainingTime,remainingTime);
-
-
+        // Test of getRemainingTime
+        double remainingTime = estimatedTimeUse - timeUsed;
+        assertEquals(activity1.getRemainingTime(),remainingTime);
     }
-
-
-
 
     public void EmployeeTest(){
         // Creating an employee
@@ -141,26 +141,26 @@ public class Test1 {
         double remainingTime = estimatedTimeUse - timeUsed;
         assertEquals(project01.getRemainingTime(),remainingTime);
 
-        /*
-        updateEstimatedTimeUse is the same function as
-        delayProject in ProjectManager
+
+       // updateEstimatedTimeUse is the same function as
+        //delayProject in ProjectManager
         // Test of updateEstimatedTimeUse
         estimatedTimeUse = estimatedTimeUse + 50;
         project01.updateEstimatedTimeUse(estimatedTimeUse);
         assertEquals(project01.getEstimatedTimeUse(),estimatedTimeUse);
-        */
 
-        /*
-        set / get project manager is not necessary because
-        the project is attatched to a project manager from the beginning
+
+
+        //set / get project manager is not necessary because
+        //the project is attatched to a project manager from the beginning
         // Test of set/get ProjectManager
         assertEqual(project01.getProjectManager(),null);
         Employee projMan = new Employee("Helga");
         project01.setProjectManager(projMan);
         assertEquals(project01.getProjectManager(),projMan);
-*/
+
         // Test of set/get WorkingEmployees
-       /* assertEquals(project01.getWorkingEmployees(), null);
+        assertEquals(project01.getWorkingEmployees(), null);
         List<Employee> workingEmployees = new ArrayList<Employee>();
         for (int i = 1; i <= 5; i++){
             workingEmployees.add(new Employee("employee"+i));
@@ -197,9 +197,9 @@ public class Test1 {
                 + ", Remaining time = " + remainingTime + ", Employees = " + employees + ", Activities = " + activities;
         assertEquals(project01.makeProjectReport(),projectReport);
     }
-    */
 
-   /* @Test
+
+    @Test
     public void ProjectManagerTest(){
         // Creating an employee
         String employeename = "Helga";
@@ -266,13 +266,10 @@ public class Test1 {
 
         // Test of project meeting
         assertEquals(project01.getProjectID,projectID);
-
-
-
     }
-    */
 
-  /*  @Test
+
+    @Test
     public void ClientTest02(){
         //Check that client can designate a project manager
 
@@ -305,5 +302,5 @@ public class Test1 {
         assertFalse()
 
     }
-    */
+
 }
