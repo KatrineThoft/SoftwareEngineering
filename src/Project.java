@@ -9,7 +9,7 @@ public class Project {
         public String projectName;
         public TimeManager endDate;
         public List<Employee> workingEmployees;
-        public double TimeUsed;
+        public double timeUsed;
         //public ProjectManager projectManager;
         public Client client;
         public double estimatedTimeUse;
@@ -25,4 +25,40 @@ public class Project {
             */
         }
 
+        public void setProjectID(int projectID) {
+                this.projectID = projectID;
+        }
+
+        public String getProjectID() {
+                return projectID;
+        }
+
+        public Client getClient() {
+                return client;
+        }
+
+        public String getProjectName() {
+                return projectName;
+        }
+
+        public TimeManager getEndDate() {
+                return endDate;
+        }
+
+        public double getEstimatedTimeUse() {
+                return estimatedTimeUse;
+        }
+
+        public double getTimeUsed() {
+                return timeUsed;
+        }
+
+        public void setTimeUsed(double timeUsed) {
+                this.timeUsed = timeUsed;
+        }
+
+        public double getRemainingTime() {
+            double remainingTime=estimatedTimeUse-timeUsed;
+                return remainingTime;
+        }
 }

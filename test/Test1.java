@@ -57,7 +57,7 @@ public class Test1 {
         Calendar date = new Calendar(23,1,2018);
 
         //Step 3: Test that the end date and estimated time use is correc
-        assertEquals(client01.getEndDate, date);
+        assertEquals(client01.getEndDate(), date);
 
         assertEquals(client01.getEstimatedTimeUse(),100);
     }
@@ -109,7 +109,7 @@ public class Test1 {
         assertTrue(employee01.registeredHours == 17.5);
     }
 
-   /* @Test
+    @Test
     public void ProjectTest01(){
         // Creating a client (no testing)
         TimeManager endDate = TimeManager.setDate(23,1,2018);

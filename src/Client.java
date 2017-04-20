@@ -29,4 +29,18 @@ public class Client {
     public static void designateProjectManager(Employee empl){
        // Project.setProjectManager(empl);
     }
+
+    public String getName() {
+        return clientName;
+    }
+
+
+    public TimeManager getEndDate() {
+        return endDate;
+    }
+
+
+    public double getEstimatedTimeUse() {
+        return estimatedTimeUse;
+    }
 }
