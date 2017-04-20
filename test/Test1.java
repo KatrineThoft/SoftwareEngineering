@@ -265,7 +265,7 @@ public class Test1 {
         assertFalse(manager.project.active);
 
         // Test of project meeting
-        assertEquals(project01.getProjectID,projectID);
+        assertEquals(project01.getProjectID(),projectID);
     }
 
 
@@ -287,14 +287,14 @@ public class Test1 {
         Project project01 = new Project(client01);
 
         //Step 1: Test that it is the correct project manager
-        assertEquals(project01.getProjectManager,"Hanne");
+        assertEquals(project01.getProjectManager(),"Hanne");
 
         //Step 2:  Test that when the wished project manager is unavailiable another employee is chosen
         String eName02 = "Niels";
         Employee employee02 = new Employee(eName02);
 
         for(int i = 0; i < 20; i++){
-            employee02.ongoingActivities.add(new Activity("act" + i, 10));
+            employee02.getActivities().add(new Activity("act" + i, 10));
         }
 
         Client client02 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee02);

@@ -98,5 +98,5 @@ public class Project {
             return  "Name = " + projectName + ", ID = " + projectID + ", Time used = " + timeUsed
                     + ", Remaining time = " + remainingTime + ", Employees = " + workingEmployees + ", Activities = " + activities;
         }
-        
+
 }
