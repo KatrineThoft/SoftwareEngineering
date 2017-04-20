@@ -47,7 +47,7 @@ public class Test1 {
         Project project01 = new Project(client01);
 
         //Step 1: Test that the client is non-empty
-        assertFalse(client01,null);
+        assertFalse(client01 == null);
 
         //Step 2: Test that the client name is correct
         assertEquals(client01.getName(),"NovoNordisk" );
@@ -201,7 +201,7 @@ public class Test1 {
 
     @Test
     public void ProjectManagerTest(){
-        // Creating an employee
+        // Creating an employee to be project manager
         String employeename = "Helga";
         Employee employee01 = new Employee(employeename);
         List<Activity> ongoingactivities = new ArrayList<Activity>();
@@ -232,30 +232,37 @@ public class Test1 {
 
         // Test of createActivities
         assertTrue(manager.project.activities == null);
-        manager.createActivities();
+        List<Activity> newActivities = new ArrayList<Activity>();
+        for (int i = 1; i <= 5; i++){
+            newActivities.add(new Activity("activity"+i, 10));
+        }
+        manager.createActivities(newActivities);
         assertFalse(manager.project.activities == null);
 
-        // Test of delegateActivities
-        assertFalse(manager.project.activities == null);
+        // Test of createEmployees
         assertTrue(manager.project.workingEmployees == null);
-        manager.delegateActivities();
-        assertTrue(manager.project.workingEmployees.size() == manager.project.activities.size());
+        manager.createEmployees();
+        assertFalse(manager.project.workingEmployees == null);
+
+        // Test of delegateActivities and getDelegatedActivities
+        assertTrue(manager.project.activities.size() == manager.project.workingEmployees.size());
+        manager.delegateActivities(manager.project.activities, manager.project.workingEmployees);
+        assertFalse(manager.getDelegatedActivities() == null);
 
         // Test findSubstitute
-        assertTrue(*liste med *);
-        assertFalse(manager.project.workingEmployees.size() == manager.project.activities.size());
-
+        Employee employee02 = manager.project.workingEmployees.get(0);
+        Activity activity02 = manager.project.activities.get(0);
+        employee02.updateAbsence(true);                             //employee02 is now absent
+        assertTrue(employee02.absence == true);
+        manager.findSubstitute(activity02,employee02);
+        assertTrue(manager.project.workingEmployees.size() == manager.project.activities.size());
 
         // Test of delayProject
         assertTrue(manager.project.estimatedTimeUse == 100);
         assertTrue(manager.project.endDate == endDate);
         manager.delayProject(17.5);
-
-        // updates estimated time use with amount of hours and updates end date with
         estimatedTimeUse = estimatedTimeUse + 17.5;
-
-        // amount of hours/8 (8 hrs. on a regular work day)
-        endDate.setDate(23 + (int)(17.5/8) + 1,01,2018);
+        endDate.setDate(23 + (int)(17.5/8) + 1,01,2018);    // amount of hours/8 (8 hrs. on a regular work day)
         assertTrue(manager.project.estimatedTimeUse == estimatedTimeUse);
         assertTrue(manager.project.endDate == endDate);
 
