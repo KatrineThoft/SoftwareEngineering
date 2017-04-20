@@ -30,4 +30,6 @@ public class Activity {
     public double getRemainingTime() {
         return estimatedTimeUse - timeUsed;
     }
+
+
 }
