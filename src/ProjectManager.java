@@ -43,8 +43,8 @@ public class ProjectManager{// extends Employee  {
     }
 
     public Employee findSubstitute(Activity act, Employee empl){
-        if (TimeManager.freeEmployees != null) {
-            Employee newEmpl = TimeManager.freeEmployees.get(0);
+        if (TimeManager.getFreeEmployees() != null) {
+            Employee newEmpl = TimeManager.getFreeEmployees().get(0);
             delegatedActivities.replace(act, empl, newEmpl);
             return newEmpl;
         } else {

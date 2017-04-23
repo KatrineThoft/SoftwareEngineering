@@ -21,4 +21,11 @@ public class TimeManager {
         return GregorianCalendar.getInstance();
     }
 
+
+    public List<Employee> getFreeEmployees(){
+        return freeEmployees;
+    }
+
 }
+
+

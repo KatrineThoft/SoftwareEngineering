@@ -26,8 +26,8 @@ public class Project {
             */
         }
 
-        public void setProjectID(int projectID) {
-                this.projectID = projectID;
+        public void setProjectID(String newProjectID) {
+                projectID = newProjectID;
         }
 
         public String getProjectID() {
