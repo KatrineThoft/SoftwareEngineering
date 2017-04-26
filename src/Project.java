@@ -5,98 +5,79 @@ import java.util.List;
  * Created by Daniel Hildebrand on 27-03-2017.
  */
 public class Project {
-        public String projectID;
-        public String projectName;
-        public TimeManager endDate;
-        public List<Employee> workingEmployees;
-        public double timeUsed;
-        public ProjectManager projectManager;
-        public Client client;
-        public double estimatedTimeUse;
-        public List<Activity> activities;
-        public boolean active;
-        public double remainingTime;
+    public boolean active;
+    public Client client;
+    public String projectName;
+    public Date endDate;
+    private double estimatedTimeUse;
+    private double timeUsed;
+    private String projectID;
+    public ProjectManager projectManager;
+    private List<Employee> workingEmployees;
+    private List<Activity> activities;
 
     public Project(Client client) {
-            this.client = client;
-            /*this.projectName = client.getProjectName();
-            this.endDate = client.getEndDate();
-            this.estimatedTimeUse = client.getEstimatedTimeUse();
-            this.projectID = getProjectId();
-            */
-        }
+        this.active = true;
+        this.client = client;
+        this.projectName = client.projectName;
+        this.endDate = client.endDate;
+        this.estimatedTimeUse = client.estimatedTimeUse;
+        this.timeUsed = 0;
+    }
 
-        public void setProjectID(String newProjectID) {
-                projectID = newProjectID;
-        }
+    public void setProjectID(String newProjectID) {
+        projectID = newProjectID;
+    }
 
-        public String getProjectID() {
-                return projectID;
-        }
+    public void setProjectManager(Employee projectManager) {
+        ProjectManager manager = new ProjectManager(projectManager,this);
+        this.projectManager = manager;
+    }
 
-        public Client getClient() {
-                return client;
-        }
+    public void setWorkingEmployees(List<Employee> workingEmployees) {
+        this.workingEmployees = workingEmployees;
+    }
 
-        public String getProjectName() {
-                return projectName;
-        }
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
 
-        public TimeManager getEndDate() {
-                return endDate;
-        }
+    public double updateEstimatedTimeUse(double estimatedTimeUse) {
+        return estimatedTimeUse;
+    }
 
-        public double getEstimatedTimeUse() {
-                return estimatedTimeUse;
-        }
+    public void updateTimeUsed(double timeUsed) {
+        this.timeUsed = timeUsed;
+    }
 
-        public double getTimeUsed() {
-                return timeUsed;
-        }
+    public double getRemainingTime() {
+        double remainingTime=estimatedTimeUse-timeUsed;
+        return remainingTime;
+    }
 
-        public void setTimeUsed(double timeUsed) {
-                this.timeUsed = timeUsed;
-        }
+    public String makeProjectReport() {
+        return  "Name = " + projectName + ", ID = " + projectID + ", Time used = " + timeUsed
+                + ", Remaining time = " + (estimatedTimeUse-timeUsed) + ", Employees = " + workingEmployees + ", Activities = " + activities;
+    }
 
-        public double getRemainingTime() {
-            double remainingTime=estimatedTimeUse-timeUsed;
-                return remainingTime;
-        }
+    public String getProjectID() {
+        return projectID;
+    }
 
-        public double updateEstimatedTimeUse(double estimatedTimeUse) {
-            return estimatedTimeUse;
-        }
+    public double getEstimatedTimeUse() {
+        return estimatedTimeUse;
+    }
 
-        public ProjectManager getProjectManager() {
-                return projectManager;
-        }
+    public double getTimeUsed() {
+        return timeUsed;
+    }
 
+    public List<Employee> getWorkingEmployees() {
+        return workingEmployees;
+    }
 
-
-        public void setProjectManager(Employee projectManager,Project project) {
-            ProjectManager hej = new ProjectManager(projectManager,project);
-            this.projectManager = hej;
-        }
-
-        public List<Employee> getWorkingEmployees() {
-                return workingEmployees;
-        }
-
-        public void setWorkingEmployees(List<Employee> workingEmployees) {
-                this.workingEmployees = workingEmployees;
-        }
-
-        public List<Activity> getActivities() {
-                return activities;
-        }
-
-        public void setActivities(List<Activity> activities) {
-                this.activities = activities;
-        }
-
-        public String makeProjectReport() {
-            return  "Name = " + projectName + ", ID = " + projectID + ", Time used = " + timeUsed
-                    + ", Remaining time = " + remainingTime + ", Employees = " + workingEmployees + ", Activities = " + activities;
-        }
+    public List<Activity> getActivities() {
+        return activities;
+    }
 
 }

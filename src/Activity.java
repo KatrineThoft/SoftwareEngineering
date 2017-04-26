@@ -2,17 +2,22 @@
  * Created by EmilieKvist on 29-03-2017.
  */
 public class Activity {
-    public String activityName;
-    public double estimatedTimeUse;
-    public double timeUsed;
+    private String activityName;
+    private double estimatedTimeUse;
+    private double timeUsed;
 
     public Activity(String activityName, double estimatedTimeUse){
         this.activityName = activityName;
         this.estimatedTimeUse = estimatedTimeUse;
+        this.timeUsed = 0;
     }
 
     public void setTimeUsed(double timeUsed){
         this.timeUsed = timeUsed;
+    }
+
+    public double getRemainingTime() {
+        return estimatedTimeUse - timeUsed;
     }
 
     public String getActivityName() {
@@ -25,10 +30,6 @@ public class Activity {
 
     public double getTimeUsed() {
         return timeUsed;
-    }
-
-    public double getRemainingTime() {
-        return estimatedTimeUse - timeUsed;
     }
 
 

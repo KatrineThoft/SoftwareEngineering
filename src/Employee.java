@@ -1,4 +1,5 @@
 
+import java.sql.Time;
 import java.util.List;
 
 /**
@@ -36,13 +37,6 @@ public class Employee {
         this.registeredHours = this.registeredHours + v;
     }
 
-    public void timeRegistering(double hours, String employeeName){
-        //Do stuff
-    }
-
-    public void editRegisteredTime(double hours, String employeeName, TimeManager day){
-        //Do stuff
-    }
 
 
 }

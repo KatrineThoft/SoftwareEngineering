@@ -1,3 +1,5 @@
+import javax.management.timer.TimerMBean;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -6,26 +8,51 @@ import java.util.List;
  * Created by katrinethoft on 03/04/17.
  */
 public class TimeManager {
-    int month;
-    int year;
-    int date;
-    List<Employee> freeEmployees;
+    private List<Client> allClients;
+    private List<Project> allProjects;
+    private List<Employee> allEmployees;
+    private List<Employee> freeEmployees;
 
-    public void setDate(int date, int month, int year){
-        this.date = date;
-        this.month = month;
-        this.year = year;
+    public TimeManager() {
+        this.allClients = new ArrayList<>();
+        this.allProjects = new ArrayList<>();
+        this.allEmployees = new ArrayList<>();
+        this.freeEmployees = new ArrayList<>();
     }
 
-    public Calendar getDate(){
-        return GregorianCalendar.getInstance();
+    public List<Client> getClients() {
+        return allClients;
     }
 
+    public List<Project> getProjects() {
+        return allProjects;
+    }
 
-    public List<Employee> getFreeEmployees(){
+    public List<Employee> getEmployees() {
+        return allEmployees;
+    }
+
+    public List<Employee> getFreeEmployees() {
         return freeEmployees;
     }
 
+    public void addClient(Client client) {
+        this.allClients.add(client);
+    }
+
+    public void addProject(Project project) {
+        this.allProjects.add(project);
+    }
+
+    public void addEmployee(Employee employee) {
+        this.allEmployees.add(employee);
+    }
+
+    public void addFreeEmployee(Employee employee) {
+        if (employee.absence == false && employee.getActivities().size() < 10) {
+            this.freeEmployees.add(employee);
+        }
+    }
 }
 
 

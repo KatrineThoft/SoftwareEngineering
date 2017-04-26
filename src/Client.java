@@ -6,18 +6,19 @@ import java.util.Calendar;
 
 public class Client {
     public String clientName;
-    public TimeManager endDate;
+    public Date endDate;
     public double estimatedTimeUse;
     public String projectName;
+    private Project tempProject;
 
-    public Client (String clientName, TimeManager endDate, double estimatedTimeUse, String projectName){
+    public Client (String clientName, Date endDate, double estimatedTimeUse, String projectName){
         this.clientName = clientName;
         this.endDate = endDate;
         this.estimatedTimeUse = estimatedTimeUse;
         this.projectName = projectName;
     }
 
-    public Client (String clientName,TimeManager endDate, double estimatedTimeUse, String projectName, Employee projectManager){
+    public Client (String clientName,Date endDate, double estimatedTimeUse, String projectName, Employee projectManager){
         this.clientName = clientName;
         this.endDate = endDate;
         this.estimatedTimeUse = estimatedTimeUse;
@@ -25,17 +26,27 @@ public class Client {
         designateProjectManager(projectManager);
     }
 
-
-    public static void designateProjectManager(Employee empl){
-       // Project.setProjectManager(empl);
+    public void designateProjectManager(Employee empl){
+        if (TimeManager.getFreeEmployees().contains(empl)) {
+            this.tempProject = new Project(this);
+            this.tempProject.setProjectManager(empl);
+        } else {
+            this.tempProject = null;
+        }
     }
 
+    public Project getTempProject() {
+        return tempProject;
+    }
+
+    // getter functions are not needed when fields are public
+    /*
     public String getName() {
         return clientName;
     }
 
 
-    public TimeManager getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
@@ -43,4 +54,5 @@ public class Client {
     public double getEstimatedTimeUse() {
         return estimatedTimeUse;
     }
+    */
 }

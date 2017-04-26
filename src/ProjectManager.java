@@ -4,13 +4,12 @@ import java.util.*;
 /**
  * Created by katrinethoft on 27/03/17.
  */
-public class ProjectManager{// extends Employee  {
+public class ProjectManager{
     public Employee employee;
     public Project project;
     private Map<Activity, Employee> delegatedActivities;
 
-    public ProjectManager(Employee employee01, Project project){//, String employeeName, List<Activity> ongoingActivities){
-        //super(employeeName, ongoingActivities);
+    public ProjectManager(Employee employee01, Project project){
         this.employee = employee01;
         this.project = project;
     }
@@ -21,8 +20,8 @@ public class ProjectManager{// extends Employee  {
 
     public void createEmployees() {
         for (int i = 0; i < project.activities.size(); i++){
-            if (TimeManager.freeEmployees.get(i) != null) {
-                project.workingEmployees.add(TimeManager.freeEmployees.get(i));
+            if (TimeManager.getFreeEmployees().get(i) != null) {
+                project.workingEmployees.add(TimeManager.getFreeEmployees().get(i));
             } else {
                 System.out.println("not enough available employees");
             }
@@ -32,7 +31,6 @@ public class ProjectManager{// extends Employee  {
     public void delegateActivities(List<Activity> activities, List<Employee> employees){
         Map<Activity, Employee> delegatedActivities = new HashMap<Activity, Employee>();
         for (int i = 0; i < employees.size(); i++) {
-
             delegatedActivities.put(activities.get(i), employees.get(i));
         }
         this.delegatedActivities = delegatedActivities;
@@ -54,7 +52,7 @@ public class ProjectManager{// extends Employee  {
     }
 
     public void delayProject(double hours){
-        project.estimatedTimeUse = project.estimatedTimeUse + hours;
+        project.updateEstimatedTimeUse(hours);
         project.endDate.date = 23 + (int)(hours/8) + 1;    // amount of hours/8 (8 hrs. on a regular work day)
         while (project.endDate.date > 30) {
             project.endDate.date = project.endDate.date - 30;
@@ -69,6 +67,7 @@ public class ProjectManager{// extends Employee  {
     public void endProject(){
         project.active = false;
     }
+
     /*
     public void projectMeeting(String projectID){
         //Do stuff

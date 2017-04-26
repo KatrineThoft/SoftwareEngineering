@@ -9,12 +9,70 @@ import java.util.Calendar;
 import java.util.List;
 
 public class Test1 {
+
+    // Test af Date klassen
+
     @Test
     public void TimeManagerTest01(){
+        // creating a TimeManager
+        TimeManager firm01 = new TimeManager();
+
+        // test of constructor and get clients/projects/employees/freeEmployees
+        assertTrue(firm01.getClients().isEmpty());
+        assertTrue(firm01.getProjects().isEmpty());
+        assertTrue(firm01.getEmployees().isEmpty());
+        assertTrue(firm01.getFreeEmployees().isEmpty());
+
+        // creating clients
+        Date endDate = new Date(23,1,2018);
+        double estimatedTimeUse = 100;
+        List<Client> clients = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            clients.add(new Client("client" + i, endDate, estimatedTimeUse, "project" + i));
+        }
+        // test of add/get clients
+        for (Client c : clients) {
+            firm01.addClient(c);
+        }
+        assertEquals(firm01.getClients(),clients);
+
+        // creating projects
+        List<Project> projects = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            projects.add(new Project(clients.get(i)));
+        }
+        // test of add/get project
+        for (Project p : projects) {
+            firm01.addProject(p);
+        }
+        assertEquals(firm01.getProjects(),projects);
+
+        // creating Employees
+        List<Employee> employees = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            employees.add(new Employee("employee" + i));
+        }
+        // test of add/get employee
+        for (Employee e : employees) {
+            firm01.addEmployee(e);
+        }
+        assertEquals(firm01.getEmployees(),employees);
+
+        // creating some unavailable Employees
+        for (int i = 0; i < 5; i++) {
+            employees.get(i).absence = true;
+        }
+        // test of add / get FreeEmployees
+        for (Employee e : employees) {
+            firm01.addFreeEmployee(e);
+        }
+        assertTrue(firm01.getFreeEmployees().size() == 5);
+
+        // Dunno what dis is
         // Test TimeManager class here
-        Calendar date =  Calendar.getInstance();
+        /*Calendar date =  Calendar.getInstance();
         double remainingTime = 0.0d;
-        ArrayList<availableEmployee> availible = new ArrayList<availableEmployee>();
+        ArrayList<Employee> availible = new ArrayList<availableEmployee>();
         availible.add(employee1);
         availible.add(employee2);
 
@@ -25,39 +83,37 @@ public class Test1 {
         TimeUsedprActivity.add(activity1);
         TimeUsedprActivity.add(activity2);
 
-        assertEquals(TimeManager.getCalender,date);
-        assertEquals(TimeManager.getremainingTime,remainingTime);
-        assertEquals(TimeManager.getavailibleEmployee,availible);
-        assertEquals(TimeManager.getTimeUsedprActivity,TimeUsedprActivity);
+        assertEquals(TimeManager.getCalender(),date);
+        assertEquals(TimeManager.getremainingTime(),remainingTime);
+        assertEquals(TimeManager.getavailibleEmployee(),availible);
+        assertEquals(TimeManager.getTimeUsedprActivity(),TimeUsedprActivity);*/
     }
 
     @Test
     public void ClientTest01(){
         //Test that the client is correctly constructed
         //Data used to test the client class
-        TimeManager endDate = TimeManager.setDate(23,1,2018);
+        Date endDate = new Date(23,1,2018);
         double estimatedTimeUse = 100;
         String projectName = "novoProject";
         String clientName = "NovoNordisk";
 
-
-        //Create a new client and a new project
+        // test of first constructor
+        //Create a new client
         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName);
-
-        Project project01 = new Project(client01);
 
         //Step 1: Test that the client is non-empty
         assertFalse(client01 == null);
 
-        //Step 2: Test that the client name is correct
-        assertEquals(client01.getName(),"NovoNordisk" );
+        //Step 2: Test that the client and project  name is correct
+        assertEquals(client01.clientName,clientName);
 
-        Calendar date = new Calendar(23,1,2018);
+        assertEquals(client01.projectName, projectName);
 
-        //Step 3: Test that the end date and estimated time use is correc
-        assertEquals(client01.getEndDate(), date);
+        //Step 3: Test that the end date and estimated time use is correct
+        assertEquals(client01.endDate, endDate);
 
-        assertEquals(client01.getEstimatedTimeUse(),100);
+        assertEquals(client01.estimatedTimeUse,estimatedTimeUse);
     }
 
    @Test
@@ -81,6 +137,7 @@ public class Test1 {
         assertEquals(activity1.getRemainingTime(),remainingTime);
     }
 
+    @Test
     public void EmployeeTest(){
         // Creating an employee
         String employeename = "Helga";
@@ -110,9 +167,9 @@ public class Test1 {
     }
 
     @Test
-    public void ProjectTest01(){
+    public void ProjectTest(){
         // Creating a client (no testing)
-        TimeManager endDate = TimeManager.setDate(23,1,2018);
+        Date endDate = new Date(23,1,2018);
         double estimatedTimeUse = 100;
         String projectName = "novoProject";
         String clientName = "NovoNordisk";
@@ -123,24 +180,26 @@ public class Test1 {
         Project project01 = new Project(client01);
 
         //Test of constructor
-        int projectID = 23011801;
+        assertTrue(project01.active);
+        assertEquals(project01.client,client01);
+        assertEquals(project01.projectName,projectName);
+        assertEquals(project01.endDate,endDate);
+        assertEquals(project01.getEstimatedTimeUse(),estimatedTimeUse);
+        assertEquals(project01.getTimeUsed(),0);
+
+        // Test of set ProjectID
+        String projectID = "23011801";
         project01.setProjectID(projectID);
         assertEquals(project01.getProjectID(), projectID);
-        assertEquals(project01.getClient(),client01);
-        assertEquals(project01.getProjectName(),projectName);
-        assertEquals(project01.getEndDate(),endDate);
-        assertEquals(project01.getEstimatedTimeUse(),estimatedTimeUse);
 
-        // Test of set/get TimeUsed
-        assertEquals(project01.getTimeUsed(),null);
+        // Test of update TimeUsed
         double timeUsed = 17.5;
-        project01.setTimeUsed(timeUsed);
+        project01.updateTimeUsed(timeUsed);
         assertEquals(project01.getTimeUsed(), timeUsed);
 
         // Test of getRemainingTime
         double remainingTime = estimatedTimeUse - timeUsed;
         assertEquals(project01.getRemainingTime(),remainingTime);
-
 
        // updateEstimatedTimeUse is the same function as
         //delayProject in ProjectManager
@@ -150,16 +209,13 @@ public class Test1 {
         assertEquals(project01.getEstimatedTimeUse(),estimatedTimeUse);
 
 
-
-        //set / get project manager is not necessary because
-        //the project is attatched to a project manager from the beginning
         // Test of set/get ProjectManager
-        assertEquals(project01.getProjectManager(),null);
+        assertEquals(project01.projectManager,null);
         Employee projMan = new Employee("Helga");
-        project01.setProjectManager(projMan,project01);
-        assertEquals(project01.getProjectManager(),projMan);
+        project01.setProjectManager(projMan);
+        assertEquals(project01.projectManager,projMan);
 
-        // Test of set/get WorkingEmployees
+        // Test of set WorkingEmployees
         assertEquals(project01.getWorkingEmployees(), null);
         List<Employee> workingEmployees = new ArrayList<Employee>();
         for (int i = 1; i <= 5; i++){
@@ -168,7 +224,7 @@ public class Test1 {
         project01.setWorkingEmployees(workingEmployees);
         assertEquals(project01.getWorkingEmployees(),workingEmployees);
 
-        // Test of set/get Activities
+        // Test of set Activities
         assertEquals(project01.getActivities(), null);
         List<Activity> activities = new ArrayList<Activity>();
         for (int i = 1; i <= 5; i++){
@@ -183,21 +239,16 @@ public class Test1 {
         for (Employee e : workingEmployees){
             employees = employees + e.getName();
         }
-        // Make activities and activities as String
-        List<Activity> activityList = new ArrayList<Activity>();
-        for (int i = 1; i <= 5; i++){
-            activityList.add(new Activity("activity"+i, 10));
-        }
-        String activities = "";
-        for (Activity a : activityList){
-            activities = activities + a.getActivityName() + ", " + a.getRemainingTime() + "; ";
+        // Make activities as String
+        String activitiesStr = "";
+        for (Activity a : activities){
+            activitiesStr = activitiesStr + a.getActivityName() + ", " + a.getRemainingTime() + "; ";
         }
         // The test
         String projectReport = "Name = " + projectName + ", ID = " + projectID + ", Time used = " + timeUsed
                 + ", Remaining time = " + remainingTime + ", Employees = " + employees + ", Activities = " + activities;
         assertEquals(project01.makeProjectReport(),projectReport);
     }
-
 
     @Test
     public void ProjectManagerTest(){
@@ -211,7 +262,7 @@ public class Test1 {
         employee01.setActivities(ongoingactivities);
 
         // Creating a client (to create a project)
-        TimeManager endDate = TimeManager.setDate(23,1,2018);
+        Date endDate = new Date(23,1,2018);
         double estimatedTimeUse = 100;
         String projectName = "novoProject";
         String clientName = "NovoNordisk";
@@ -220,7 +271,7 @@ public class Test1 {
 
         // Creating a project
         Project project01 = new Project(client01);
-        int projectID = 23011801;
+        String projectID = "23011801";
         project01.setProjectID(projectID);
 
         // Creating a projectManager
@@ -231,39 +282,39 @@ public class Test1 {
         assertTrue(manager.project == project01);
 
         // Test of createActivities
-        assertTrue(manager.project.activities == null);
+        assertTrue(manager.project.getActivities() == null);
         List<Activity> newActivities = new ArrayList<Activity>();
         for (int i = 1; i <= 5; i++){
             newActivities.add(new Activity("activity"+i, 10));
         }
         manager.createActivities(newActivities);
-        assertFalse(manager.project.activities == null);
+        assertFalse(manager.project.getActivities() == null);
 
         // Test of createEmployees
-        assertTrue(manager.project.workingEmployees == null);
+        assertTrue(manager.project.getWorkingEmployees() == null);
         manager.createEmployees();
-        assertFalse(manager.project.workingEmployees == null);
+        assertFalse(manager.project.getWorkingEmployees() == null);
 
         // Test of delegateActivities and getDelegatedActivities
-        assertTrue(manager.project.activities.size() == manager.project.workingEmployees.size());
-        manager.delegateActivities(manager.project.activities, manager.project.workingEmployees);
+        assertTrue(manager.project.getActivities().size() == manager.project.getWorkingEmployees().size());
+        manager.delegateActivities(manager.project.getActivities(), manager.project.getWorkingEmployees());
         assertFalse(manager.getDelegatedActivities() == null);
 
         // Test findSubstitute
-        Employee employee02 = manager.project.workingEmployees.get(0);
-        Activity activity02 = manager.project.activities.get(0);
+        Employee employee02 = manager.project.getWorkingEmployees().get(0);
+        Activity activity02 = manager.project.getActivities().get(0);
         employee02.updateAbsence(true);                             //employee02 is now absent
         assertTrue(employee02.absence == true);
         manager.findSubstitute(activity02,employee02);
-        assertTrue(manager.project.workingEmployees.size() == manager.project.activities.size());
+        assertTrue(manager.project.getWorkingEmployees().size() == manager.project.getActivities().size());
 
         // Test of delayProject
-        assertTrue(manager.project.estimatedTimeUse == 100);
+        assertTrue(manager.project.getEstimatedTimeUse() == 100);
         assertTrue(manager.project.endDate == endDate);
         manager.delayProject(17.5);
         estimatedTimeUse = estimatedTimeUse + 17.5;
-        endDate.setDate(23 + (int)(17.5/8) + 1,01,2018);    // amount of hours/8 (8 hrs. on a regular work day)
-        assertTrue(manager.project.estimatedTimeUse == estimatedTimeUse);
+        endDate.alterDate(23 + (int)(17.5/8) + 1,01,2018);    // amount of hours/8 (8 hrs. on a regular work day)
+        assertTrue(manager.project.getEstimatedTimeUse() == estimatedTimeUse);
         assertTrue(manager.project.endDate == endDate);
 
         // Test of endProject
@@ -281,7 +332,7 @@ public class Test1 {
         //Check that client can designate a project manager
 
         //Data used to test the client class
-        TimeManager endDate = TimeManager.setDate(23,1,2018);
+        Date endDate = new Date(23,1,2018);
         double estimatedTimeUse = 100;
         String projectName = "novoProject";
         String clientName = "NovoNordisk";
@@ -291,23 +342,11 @@ public class Test1 {
         //Create new client with a chosen project manager and a new project
         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee01);
 
-        Project project01 = new Project(client01);
+        assertFalse(client01.getTempProject() == null);
+        Project project01 = client01.getTempProject();
 
-        //Step 1: Test that it is the correct project manager
-        assertEquals(project01.getProjectManager(),"Hanne");
-
-        //Step 2:  Test that when the wished project manager is unavailiable another employee is chosen
-        String eName02 = "Niels";
-        Employee employee02 = new Employee(eName02);
-
-        for(int i = 0; i < 20; i++){
-            employee02.getActivities().add(new Activity("act" + i, 10));
-        }
-
-        Client client02 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee02);
-
-        assertFalse()
-
+        //Test that it is the correct project manager
+        assertEquals(project01.projectManager,"Hanne");
     }
 
 }
