@@ -19,13 +19,14 @@ public class ProjectManager{
     }
 
     public void createEmployees() {
-        for (int i = 0; i < project.activities.size(); i++){
+        for (int i = 0; i < project.getActivities().size(); i++){
             if (TimeManager.getFreeEmployees().get(i) != null) {
-                project.workingEmployees.add(TimeManager.getFreeEmployees().get(i));
+                project.getWorkingEmployees().add(TimeManager.getFreeEmployees().get(i));
             } else {
                 System.out.println("not enough available employees");
             }
         }
+        int i = 1;
     }
 
     public void delegateActivities(List<Activity> activities, List<Employee> employees){
@@ -41,14 +42,15 @@ public class ProjectManager{
     }
 
     public Employee findSubstitute(Activity act, Employee empl){
-        if (TimeManager.getFreeEmployees() != null) {
+        /*if (TimeManager.getFreeEmployees() != null) {
             Employee newEmpl = TimeManager.getFreeEmployees().get(0);
             delegatedActivities.replace(act, empl, newEmpl);
             return newEmpl;
         } else {
             System.out.println("not enough available employees");
             return null;
-        }
+        }*/
+        return empl;
     }
 
     public void delayProject(double hours){
@@ -67,15 +69,6 @@ public class ProjectManager{
     public void endProject(){
         project.active = false;
     }
-
-    /*
-    public void projectMeeting(String projectID){
-        //Do stuff
-    }
-
-    public void informClient(String projectID, String message){
-        //Do stuff
-    }*/
 
 
 }

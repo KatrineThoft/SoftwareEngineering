@@ -27,12 +27,13 @@ public class Client {
     }
 
     public void designateProjectManager(Employee empl){
-        if (TimeManager.getFreeEmployees().contains(empl)) {
+    /*    if (TimeManager.getFreeEmployees().contains(empl)) {
             this.tempProject = new Project(this);
             this.tempProject.setProjectManager(empl);
         } else {
             this.tempProject = null;
-        }
+        }*/
+    int i = 1;
     }
 
     public Project getTempProject() {

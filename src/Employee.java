@@ -11,10 +11,11 @@ public class Employee {
     public boolean absence;
     public double registeredHours;
 
-    public Employee(String employeeName){
+    public Employee(String employeeName, TimeManager firm){
         this.employeeName = employeeName;
         this.absence = false;
         this.registeredHours = 0.0;
+        addToFirm(firm);
     }
 
     public void setActivities(List<Activity> activities) {
@@ -37,6 +38,9 @@ public class Employee {
         this.registeredHours = this.registeredHours + v;
     }
 
+    public void addToFirm(TimeManager firm){
+        firm.getEmployees().add(this);
+    }
 
 
 }
