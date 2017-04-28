@@ -28,7 +28,7 @@ public class Test1 {
         double estimatedTimeUse = 100;
         List<Client> clients = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            clients.add(new Client("client" + i, endDate, estimatedTimeUse, "project" + i));
+            clients.add(new Client("client" + i, endDate, estimatedTimeUse, "project" + i, firm01));
         }
         // test of add/get clients
         for (Client c : clients) {
@@ -39,7 +39,7 @@ public class Test1 {
         // creating projects
         List<Project> projects = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            projects.add(new Project(clients.get(i)));
+            projects.add(new Project(clients.get(i), firm01));
         }
         // test of add/get project
         for (Project p : projects) {
@@ -50,7 +50,7 @@ public class Test1 {
         // creating Employees
         List<Employee> employees = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            employees.add(new Employee("employee" + i));
+            employees.add(new Employee("employee" + i, firm01));
         }
         // test of add/get employee
         for (Employee e : employees) {
@@ -67,32 +67,13 @@ public class Test1 {
             firm01.addFreeEmployee(e);
         }
         assertTrue(firm01.getFreeEmployees().size() == 5);
-
-        // Dunno what dis is
-        // Test TimeManager class here
-        /*Calendar date =  Calendar.getInstance();
-        double remainingTime = 0.0d;
-        ArrayList<Employee> availible = new ArrayList<availableEmployee>();
-        availible.add(employee1);
-        availible.add(employee2);
-
-
-        List<TimeManager> TimeUsedprActivity= new ArrayList<TimeManager>();
-        double activity1 = 3.5;
-        double activity2 = 4.5;
-        TimeUsedprActivity.add(activity1);
-        TimeUsedprActivity.add(activity2);
-
-        assertEquals(TimeManager.getCalender(),date);
-        assertEquals(TimeManager.getremainingTime(),remainingTime);
-        assertEquals(TimeManager.getavailibleEmployee(),availible);
-        assertEquals(TimeManager.getTimeUsedprActivity(),TimeUsedprActivity);*/
     }
 
     @Test
     public void ClientTest01(){
         //Test that the client is correctly constructed
         //Data used to test the client class
+        TimeManager firm01 = new TimeManager();
         Date endDate = new Date(23,1,2018);
         double estimatedTimeUse = 100;
         String projectName = "novoProject";
@@ -100,7 +81,7 @@ public class Test1 {
 
         // test of first constructor
         //Create a new client
-        Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName);
+        Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
 
         //Step 1: Test that the client is non-empty
         assertFalse(client01 == null);
@@ -126,10 +107,11 @@ public class Test1 {
         // Test of constructor
         assertEquals(activity1.getActivityName(),"name");
         assertEquals(activity1.getEstimatedTimeUse(),estimatedTimeUse);
+        assertEquals(activity1.getTimeUsed(), 0);
 
         // Test of set/get timeUsed
         double timeUsed = 50.5;
-        activity1.setTimeUsed(timeUsed);
+        activity1.updateTimeUsed(timeUsed);
         assertEquals(activity1.getTimeUsed(),timeUsed);
 
         // Test of getRemainingTime
@@ -140,8 +122,9 @@ public class Test1 {
     @Test
     public void EmployeeTest(){
         // Creating an employee
+        TimeManager firm01 = new TimeManager();
         String employeename = "Helga";
-        Employee employee01 = new Employee(employeename);
+        Employee employee01 = new Employee(employeename, firm01);
 
         // Test of constructor
         assertEquals(employee01.getName(),"Helga");
@@ -169,15 +152,16 @@ public class Test1 {
     @Test
     public void ProjectTest(){
         // Creating a client (no testing)
+        TimeManager firm01 = new TimeManager();
         Date endDate = new Date(23,1,2018);
         double estimatedTimeUse = 100;
         String projectName = "novoProject";
         String clientName = "NovoNordisk";
 
-        Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName);
+        Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
 
         // Creating a project
-        Project project01 = new Project(client01);
+        Project project01 = new Project(client01, firm01);
 
         //Test of constructor
         assertTrue(project01.active);
@@ -211,7 +195,7 @@ public class Test1 {
 
         // Test of set/get ProjectManager
         assertEquals(project01.projectManager,null);
-        Employee projMan = new Employee("Helga");
+        Employee projMan = new Employee("Helga", firm01);
         project01.setProjectManager(projMan);
         assertEquals(project01.projectManager,projMan);
 
@@ -219,7 +203,7 @@ public class Test1 {
         assertEquals(project01.getWorkingEmployees(), null);
         List<Employee> workingEmployees = new ArrayList<Employee>();
         for (int i = 1; i <= 5; i++){
-            workingEmployees.add(new Employee("employee"+i));
+            workingEmployees.add(new Employee("employee"+i, firm01));
         }
         project01.setWorkingEmployees(workingEmployees);
         assertEquals(project01.getWorkingEmployees(),workingEmployees);
@@ -253,8 +237,9 @@ public class Test1 {
     @Test
     public void ProjectManagerTest(){
         // Creating an employee to be project manager
+        TimeManager firm01 = new TimeManager();
         String employeename = "Helga";
-        Employee employee01 = new Employee(employeename);
+        Employee employee01 = new Employee(employeename, firm01);
         List<Activity> ongoingactivities = new ArrayList<Activity>();
         for (int i = 1; i <= 5; i++){
             ongoingactivities.add(new Activity("activity"+i, 10));
@@ -267,10 +252,10 @@ public class Test1 {
         String projectName = "novoProject";
         String clientName = "NovoNordisk";
 
-        Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName);
+        Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
 
         // Creating a project
-        Project project01 = new Project(client01);
+        Project project01 = new Project(client01, firm01);
         String projectID = "23011801";
         project01.setProjectID(projectID);
 
@@ -332,15 +317,16 @@ public class Test1 {
         //Check that client can designate a project manager
 
         //Data used to test the client class
+        TimeManager firm01 = new TimeManager();
         Date endDate = new Date(23,1,2018);
         double estimatedTimeUse = 100;
         String projectName = "novoProject";
         String clientName = "NovoNordisk";
         String eName01 = "Hanne";
-        Employee employee01 = new Employee(eName01);
+        Employee employee01 = new Employee(eName01, firm01);
 
         //Create new client with a chosen project manager and a new project
-        Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee01);
+        Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee01, firm01);
 
         assertFalse(client01.getTempProject() == null);
         Project project01 = client01.getTempProject();

@@ -25,7 +25,7 @@ import javafx.util.converter.NumberStringConverter;
 
 import java.awt.*;
 //First draft of GUI
-
+// using Java Fx
 public class GUIdraft extends Application {
     //Creating the fields
     Button cliButton, empButton, backButton, backButton2, dateButton, okButton, exitButton, conButton, timeRegButton, editTimeRegButton, hourButton, actButton, pmButton ;

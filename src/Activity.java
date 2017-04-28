@@ -12,8 +12,8 @@ public class Activity {
         this.timeUsed = 0;
     }
 
-    public void setTimeUsed(double timeUsed){
-        this.timeUsed = timeUsed;
+    public void updateTimeUsed(double h){
+        this.timeUsed = this.timeUsed + h;
     }
 
     public double getRemainingTime() {

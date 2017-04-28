@@ -10,11 +10,13 @@ public class Employee {
     private List<Activity> ongoingActivities;
     public boolean absence;
     public double registeredHours;
+    public TimeManager firm;
 
     public Employee(String employeeName, TimeManager firm){
         this.employeeName = employeeName;
         this.absence = false;
         this.registeredHours = 0.0;
+        this.firm = firm;
         addToFirm(firm);
     }
 
@@ -32,10 +34,22 @@ public class Employee {
 
     public void updateAbsence(boolean b) {
         this.absence = b;
+        if (this.absence) {
+            firm.getFreeEmployees().remove(this);
+        }
     }
 
-    public void updateRegisteredHours(double v) {
-        this.registeredHours = this.registeredHours + v;
+    public void updateRegisteredHours(double h) {
+        this.registeredHours = this.registeredHours + h;
+    }
+
+    public void regHoursOnAct(double h, Activity act) {
+        if (ongoingActivities.contains(act)) {
+            act.updateTimeUsed(h);
+            updateRegisteredHours(h);
+        } else {
+            System.out.println("activity is not in your ongoing activities");
+        }
     }
 
     public void addToFirm(TimeManager firm){

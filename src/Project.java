@@ -1,5 +1,6 @@
 import java.sql.Time;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by Daniel Hildebrand on 27-03-2017.
@@ -15,14 +16,17 @@ public class Project {
     public ProjectManager projectManager;
     private List<Employee> workingEmployees;
     private List<Activity> activities;
+    public TimeManager firm;
 
-    public Project(Client client) {
+    public Project(Client client, TimeManager firm) {
         this.active = true;
         this.client = client;
         this.projectName = client.projectName;
         this.endDate = client.endDate;
         this.estimatedTimeUse = client.estimatedTimeUse;
         this.timeUsed = 0;
+        this.firm = firm;
+        addToFirm(firm);
     }
 
     public void setProjectID(String newProjectID) {
@@ -78,6 +82,10 @@ public class Project {
 
     public List<Activity> getActivities() {
         return activities;
+    }
+
+    public void addToFirm(TimeManager firm){
+        firm.getProjects().add(this);
     }
 
 }

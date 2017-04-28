@@ -4,8 +4,13 @@
 public class CompanyMain {
 
     public static void main(String[] args) {
+        // make firm
         TimeManager SoftwarehusetAS = new TimeManager();
 
-        
+        // make employees
+
+
+
+
     }
 }

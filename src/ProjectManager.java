@@ -20,8 +20,8 @@ public class ProjectManager{
 
     public void createEmployees() {
         for (int i = 0; i < project.getActivities().size(); i++){
-            if (TimeManager.getFreeEmployees().get(i) != null) {
-                project.getWorkingEmployees().add(TimeManager.getFreeEmployees().get(i));
+            if (project.firm.getFreeEmployees().get(i) != null) {
+                project.getWorkingEmployees().add(project.firm.getFreeEmployees().get(i));
             } else {
                 System.out.println("not enough available employees");
             }
@@ -33,6 +33,10 @@ public class ProjectManager{
         Map<Activity, Employee> delegatedActivities = new HashMap<Activity, Employee>();
         for (int i = 0; i < employees.size(); i++) {
             delegatedActivities.put(activities.get(i), employees.get(i));
+            employees.get(i).getActivities().add(activities.get(i));
+            if (employees.get(i).getActivities().size() >= 10) {
+                project.firm.getFreeEmployees().remove(employees.get(i));
+            }
         }
         this.delegatedActivities = delegatedActivities;
     }
@@ -42,15 +46,14 @@ public class ProjectManager{
     }
 
     public Employee findSubstitute(Activity act, Employee empl){
-        /*if (TimeManager.getFreeEmployees() != null) {
-            Employee newEmpl = TimeManager.getFreeEmployees().get(0);
+        if (project.firm.getFreeEmployees() != null) {
+            Employee newEmpl = project.firm.getFreeEmployees().get(0);
             delegatedActivities.replace(act, empl, newEmpl);
             return newEmpl;
         } else {
             System.out.println("not enough available employees");
             return null;
-        }*/
-        return empl;
+        }
     }
 
     public void delayProject(double hours){
