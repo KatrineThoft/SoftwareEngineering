@@ -31,7 +31,7 @@ import java.awt.*;
 
 public class GUIdraft extends Application {
     //Creating the fields
-    Button cliButton, empButton, backButton, backButton2, dateButton, okButton, exitButton, conButton, timeRegButton, editTimeRegButton, hourButton, actButton, pmButton, newProjectButton, addEmployee ;
+    Button cliButton, empButton, backButton, backButton2, dateButton, okButton, exitButton, conButton, timeRegButton, editTimeRegButton, hourButton, actButton, pmButton, newProjectButton, addEmplButton ;
     GridPane pane1, pane2, pane3, pane4, pane5,  pane7, pane8, pane9;
     Scene scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9;
     Stage thestage;
@@ -49,32 +49,38 @@ public class GUIdraft extends Application {
         //Setting the stage
         thestage = primaryStage;
         TimeManager SoftwareHuset = new TimeManager();
+        //SoftwareHuset.addEmployee(new Employee("Alice",SoftwareHuset));
 
-
-
-        //Creating the menu scene
+        // START MENU BOX
         VBox menu = new VBox();
 
+        // Creating buttons for box
         cliButton = new Button("Client");
         empButton = new Button("Employee");
+        exitButton = new Button("Exit");
 
+        // Assigning actions to buttons
         cliButton.setOnAction(e -> ButtonClicked(e));
         empButton.setOnAction(e -> ButtonClicked(e));
-
-
-        exitButton = new Button("Exit");
         exitButton.setOnAction(actionEvent -> Platform.exit());
 
+        // Adding buttons to box
         menu.getChildren().addAll(cliButton, empButton, exitButton);
         menu.setAlignment(Pos.CENTER);
 
-        //Client scenes
+        // CLIENT BOX
         VBox cliBox = new VBox();
+
+        // Creating buttons for box
         backButton = new Button("Go back");
+
+        // Assigning actions to buttons
         backButton.setOnAction(e -> ButtonClicked(e));
         newProjectButton = new Button("Create new project");
         newProjectButton.setOnAction(e->ButtonClicked(e));
 
+        // Adding buttons to box
+        cliBox.getChildren().addAll(backButton);
         cliBox.getChildren().addAll(newProjectButton , backButton);
         cliBox.setAlignment(Pos.CENTER);
 
@@ -105,7 +111,7 @@ public class GUIdraft extends Application {
         DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
         java.util.Date date = format.parse(info[1]);
         int hours = Integer.parseInt(info[2]);
-        
+
 
 
 
@@ -126,60 +132,81 @@ public class GUIdraft extends Application {
             }
         });*/
 
+        // EMPLOYEE BOX
+        VBox emplBox = new VBox();
 
-        //Creating the sign in form
-        Label lblUserName = new Label("Username");
+        // Creating buttons and textfield for box
+        //Label lblUserName = new Label("Username");
         final TextField txtUserName = new TextField();
-        okButton = new Button("Login");
         final Label lblMessage = new Label();
-        addEmployee = new Button("Add a new employee");
+        okButton = new Button("Login");
+        //Label lblNewEmpl = new Label("New Employee");
+        final TextField txtNewEmpl = new TextField();
+        final Label lblMessage2 = new Label();
+        addEmplButton = new Button("Add a new employee");
 
-        //Handler method for sign in form
+        // Assigning actions for buttons
+        //Handler method for signing in (okButton)
         okButton.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                empName =txtUserName.getText().toString();
-                if(SoftwareHuset.getEmployees().contains(empName)) {
-                    lblMessage.setTextFill(Color.GREEN);
+                empName = txtUserName.getText().toString();
+                if (SoftwareHuset.getEmployeeNames().contains(empName)) {
                     thestage.setScene(scene4);
                     thestage.setTitle("What would you like to do?");
                 } else {
                     lblMessage.setText("Incorrect user, try again or add new employee.");
                     lblMessage.setTextFill(Color.RED);
                 }
+                empName = "";
+            }
+        });
+        // Handler method for adding employee (addEmplButton)
+        addEmplButton.setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                empName = txtNewEmpl.getText().toString();
+                if(!(SoftwareHuset.getEmployees().contains(empName))) {
+                    Employee emp = new Employee(empName, SoftwareHuset);
+                    SoftwareHuset.addEmployee(emp);
+                    lblMessage2.setText("Employee added to SoftwareHuset.");
+                    lblMessage2.setTextFill(Color.GREEN);
+                } else {
+                    lblMessage2.setText("Employee already in system, try again or login.");
+                    lblMessage2.setTextFill(Color.RED);
+                }
                 empName="";
             }
         });
 
+        // Adding buttons and text fields to box
+        emplBox.getChildren().addAll(txtUserName, okButton, txtNewEmpl, addEmplButton);
+        cliBox.setAlignment(Pos.CENTER);
+
+        // EMPLOYEE OPTIONS BOX
         VBox empOpBox = new VBox();
+
+        // Creating buttons for box
         timeRegButton = new Button("Time registering");
         editTimeRegButton = new Button("Edit registered time");
         actButton = new Button("See your ongoing activities");
         pmButton = new Button("Project manager profile");
         hourButton = new Button("See your registered hours");
+        backButton2 = new Button("Go back");
 
-
-
+        // Assigning actions for buttons
         timeRegButton.setOnAction(e -> ButtonClicked(e));
         editTimeRegButton.setOnAction(e -> ButtonClicked(e));
         actButton.setOnAction(e -> ButtonClicked(e));
         pmButton.setOnAction(e -> ButtonClicked(e));
         hourButton.setOnAction(e->ButtonClicked(e));
-
-
-        empOpBox.getChildren().addAll(timeRegButton, editTimeRegButton, actButton, pmButton, hourButton);
-
-
-        backButton2 = new Button("Go back");
         backButton2.setOnAction(e -> ButtonClicked(e));
-        HBox empBox = new HBox(backButton2);
 
-        empBox.setAlignment(Pos.CENTER);
+        // Adding buttons to box
+        empOpBox.getChildren().addAll(timeRegButton, editTimeRegButton, actButton, pmButton, hourButton, backButton2);
 
-
+        // Dunno wat diz iz
         dateButton = new Button("Confirm");
-
-
 
         //Creating a datepicker
         datePicker = new DatePicker();
@@ -234,16 +261,59 @@ public class GUIdraft extends Application {
             }
         }); */
 
-        //making the panes
+        // Menu pane
         pane1 = new GridPane();
+        pane1.setStyle("-fx-background-color: blue;-fx-padding: 10px;");
+        pane1.add(menu, 4, 1);
+        scene1 = new Scene(pane1, 300, 275);
+
+        // Client pane
         pane2 = new GridPane();
+        pane2.setStyle("-fx-background-color: red;-fx-padding: 10px;");
+        pane2.add(cliBox, 4, 1);
+        scene2 = new Scene(pane2, 300, 275);
+
+        // Employee pane (login or add)
         pane3 = new GridPane();
+        pane3.setStyle("-fx-background-color: yellow;-fx-padding: 10px;");
+        pane3.add(emplBox, 4, 1);
+        /*pane3.add(lblUserName, 0, 0);
+        pane3.add(txtUserName, 1, 0);
+        pane3.add(okButton, 2, 1);*/
+        pane3.add(lblMessage, 5, 3);
+        pane3.add(lblMessage2, 5,3);
+        scene3 = new Scene(pane3, 300, 275);
+
+        // Employee Options pane
         pane4 = new GridPane();
+        pane4.setStyle("-fx-background-color: green;-fx-padding: 10px;");
+        pane4.add(empOpBox, 4,1);
+        scene4 = new Scene(pane4, 300, 275);
+
+        // Date pane
         pane5 = new GridPane();
-        //pane6 = new GridPane();
+        pane5.setStyle("-fx-background-color: purple;-fx-padding: 10px;");
+        pane5.add(dateLabel, 0, 0);
+        pane5.add(datePicker, 0,1);
+        pane5.add(dateButton, 4, 1);
+        scene5 = new Scene(pane5, 300,275);
+
+        // pane 6
+        pane6.setStyle("-fx-background-color: orange;-fx-padding: 10px;");
+        scene6 = new Scene(pane6, 300,275);
+
+        // pane 7
         pane7 = new GridPane();
+        pane7.setStyle("-fx-background-color: tan;-fx-padding: 10px;");
+        pane7.add(projectForm, 4,1);
+        scene7 = new Scene(pane7, 300,275);
+
+        // pane 8
         pane8 = new GridPane();
-        pane9 = new GridPane();
+        pane8.setStyle("-fx-background-color: turquoise;-fx-padding: 10px;");
+        pane8.add(backButton2, 4,1);
+        scene8 = new Scene(pane8, 300,275);
+
         pane1.setVgap(20);
         pane2.setVgap(20);
         pane3.setVgap(20);
@@ -253,47 +323,7 @@ public class GUIdraft extends Application {
         pane8.setVgap(20);
         pane9.setVgap(20);
 
-
-        //set background color of each Pane
-        pane1.setStyle("-fx-background-color: blue;-fx-padding: 10px;");
-        pane2.setStyle("-fx-background-color: red;-fx-padding: 10px;");
-        pane3.setStyle("-fx-background-color: yellow;-fx-padding: 10px;");
-        pane4.setStyle("-fx-background-color: green;-fx-padding: 10px;");
-        pane5.setStyle("-fx-background-color: purple;-fx-padding: 10px;");
-        pane6.setStyle("-fx-background-color: orange;-fx-padding: 10px;");
-        pane7.setStyle("-fx-background-color: tan;-fx-padding: 10px;");
-        pane8.setStyle("-fx-background-color: turquoise;-fx-padding: 10px;");
-       // pane9.setStyle("-fx-background-color: magenta;-fx-padding: 10px;");
-
-
-
-
-
-        //add everything to panes
-        pane1.add(menu, 4, 1);
-        pane2.add(cliBox, 4, 1);
-        pane3.add(empBox, 4, 1);
-        pane3.add(lblUserName, 0, 0);
-        pane3.add(txtUserName, 1, 0);
-        pane3.add(okButton, 2, 1);
-        pane3.add(lblMessage, 1, 2);
-        pane4.add(empOpBox, 4,1);
-        pane5.add(dateLabel, 0, 0);
-        pane5.add(datePicker, 0,1);
-        pane5.add(dateButton, 4, 1);
-        pane7.add(projectForm, 4,1);
-        pane8.add(backButton2, 4,1);
-
-        scene1 = new Scene(pane1, 300, 275);
-        scene2 = new Scene(pane2, 300, 275);
-        scene3 = new Scene(pane3, 300, 275);
-        scene4 = new Scene(pane4, 300, 275);
-        scene5 = new Scene(pane5, 300,275);
-        scene6 = new Scene(pane6, 300,275);
-        scene7 = new Scene(pane7, 300,275);
-        scene8 = new Scene(pane8, 300,275);
-       // scene9 = new Scene(pane9, 300,275);
-
+        // Setting start
         primaryStage.setTitle("Welcome to Softwarehuset A/S!");
         primaryStage.setScene(scene1);
         primaryStage.show();
@@ -321,7 +351,5 @@ public class GUIdraft extends Application {
             thestage.setScene(scene1);
             thestage.setTitle("Welcome to Softwarehuset A/S!");
         }
-
-
     }
 }

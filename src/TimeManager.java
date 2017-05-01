@@ -33,6 +33,14 @@ public class TimeManager {
         return allEmployees;
     }
 
+    public List<String> getEmployeeNames() {
+        List<String> emplNames = new ArrayList<String>();
+        for (Employee e : allEmployees) {
+            emplNames.add(e.getName());
+        }
+        return emplNames;
+    }
+
     public List<Employee> getFreeEmployees() {
         return freeEmployees;
     }
