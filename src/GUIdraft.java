@@ -27,11 +27,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.layout.GridPane;
 import javafx.util.converter.NumberStringConverter;
 
+import static java.lang.Integer.parseInt;
+
 public class GUIdraft extends Application {
     //Creating the fields
-    Button cliButton, empButton, backButton, backButton2, dateButton, okButton, exitButton, conButton, timeRegButton, editTimeRegButton, hourButton, actButton, nextButton,pmButton, newProjectButton, addEmplButton ;
-    GridPane pane1, pane2, pane3, pane4, pane5,  pane7, pane8, pane9;
-    Scene scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9;
+    Button cliButton, empButton, backButton, backButton2, dateButton, okButton, exitButton, conButton, timeRegButton, editTimeRegButton, hourButton, actButton, nextButton,pmButton, newProjectButton,timeEstimateButton,  endDateButton,addEmplButton ;
+    GridPane pane1, pane2, pane3, pane4, pane5,  pane7, pane8, pane9, pane10;
+    Scene scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9, scene10;
     Stage thestage;
     String empName, userName;
     private DatePicker datePicker;
@@ -46,6 +48,7 @@ public class GUIdraft extends Application {
     public void start(Stage primaryStage) {
         //Setting the stage
         thestage = primaryStage;
+        final Label lblMessage = new Label();
         TimeManager SoftwareHuset = new TimeManager();
         //SoftwareHuset.addEmployee(new Employee("Alice",SoftwareHuset));
 
@@ -78,18 +81,16 @@ public class GUIdraft extends Application {
         newProjectButton.setOnAction(e->ButtonClicked(e));
 
         // Adding buttons to box
-        cliBox.getChildren().addAll(backButton);
         cliBox.getChildren().addAll(newProjectButton , backButton);
         cliBox.setAlignment(Pos.CENTER);
 
         //Creating a new project
+        //Part 1:
         int numTextFields = 3 ;
         String[] text = new String[6];
        text[0] = "Your company name:";
-       //text[1] = "End date (numbers only, ddMMyyyy):";
       // text[2] = "Number of hours to be used (numbers only):";
        text[1] = "Project Name:";
-       //text[4] = "Firm to solve the project:";
        text[2] = "For specific project manager please write the employees name here:";
        String[] info = new String[6];
 
@@ -106,13 +107,62 @@ public class GUIdraft extends Application {
 
         String clientName = info[0];
         String projectName = info[1];
-        String employeName = info[3];
+        String employeName = info[2];
+        nextButton = new Button("Next");
 
+        //Skal have handlermetode:
+        nextButton.setOnAction(e->ButtonClicked(e));
+        projectForm.getChildren().add(nextButton);
+
+        //Part 2:
+        endDateButton = new Button("Next.");
+        DatePicker endDatePicker = new DatePicker();
+        Label datelabel1 = new Label("Please choose an end date:");
+        endDatePicker.setShowWeekNumbers(true);
+        GridPane.setHalignment(datelabel1, HPos.LEFT);
+        //Handler metode til datepicker
+        endDateButton.setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                if(endDatePicker.getValue()!=null) {
+                    thestage.setScene(scene9);
+                    thestage.setTitle("Please fill out the form.");
+                } else {
+                    lblMessage.setText("Please choose a date.");
+                    lblMessage.setTextFill(Color.RED);
+                }
+
+            }
+        });
+
+        //Part 3:
+        VBox cliBox2 = new VBox();
+        timeEstimateButton = new Button("Click to confirm.");
+        TextField estimateText = new TextField();
+        Label label3 = new Label("Number of hours estimated for project.");
+        timeEstimateButton.setOnAction(e->ButtonClicked(e));
+        cliBox2.getChildren().addAll(label3,estimateText ,timeEstimateButton);
+
+
+        timeEstimateButton.setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+               int estimate = Integer.parseInt(estimateText.getText());
+                if(estimate > 0) {
+                    thestage.setScene(scene10);
+                    thestage.setTitle("Thank you. Your project has been created.");
+                } else {
+                    lblMessage.setText("Please enter a number.");
+                    lblMessage.setTextFill(Color.RED);
+                }
+
+            }
+        });
         /*DateFormat format = new SimpleDateFormat("ddMMyyyy");
         Date date = format.parse(info[1]);*/
-        int hours = textFields[2].setTextFormatter(new TextFormatter<>(new NumberStringConverter()));;
+       // int hours = textFields[2].setTextFormatter(new TextFormatter<>(new NumberStringConverter()));;
 
-        try {
+        /*try {
             DateTimeFormatter formatter =
                     DateTimeFormatter.ofPattern("ddMMyyyy");
             LocalDate endDate = LocalDate.parse(info[1], formatter);
@@ -123,11 +173,7 @@ catch (DateTimeParseException exc) {
             throw exc;      // Rethrow the exception.
         }
 
-
-        nextButton = new Button("Next");
-        nextButton.setOnAction(e->ButtonClicked(e));
-        projectForm.getChildren().add(nextButton);
-
+*/
 
 
         /*conButton.setOnAction(new EventHandler() {
@@ -146,7 +192,7 @@ catch (DateTimeParseException exc) {
         // Creating buttons and textfield for box
         //Label lblUserName = new Label("Username");
         final TextField txtUserName = new TextField();
-        final Label lblMessage = new Label();
+
         okButton = new Button("Login");
         //Label lblNewEmpl = new Label("New Employee");
         final TextField txtNewEmpl = new TextField();
@@ -213,7 +259,7 @@ catch (DateTimeParseException exc) {
         // Adding buttons to box
         empOpBox.getChildren().addAll(timeRegButton, editTimeRegButton, actButton, pmButton, hourButton, backButton2);
 
-        // Dunno wat diz iz
+        // Button to confirm date
         dateButton = new Button("Confirm");
 
         //Creating a datepicker
@@ -229,7 +275,7 @@ catch (DateTimeParseException exc) {
                     thestage.setScene(scene6);
                     thestage.setTitle("Please enter the hours worked on each activity.");
                 } else {
-                    lblMessage.setText("Please enter a number.");
+                    lblMessage.setText("Please choose a date.");
                     lblMessage.setTextFill(Color.RED);
                 }
 
@@ -320,8 +366,22 @@ catch (DateTimeParseException exc) {
         // pane 8
         pane8 = new GridPane();
         pane8.setStyle("-fx-background-color: turquoise;-fx-padding: 10px;");
-        pane8.add(backButton2, 4,1);
+        pane8.add(endDatePicker, 0,0);
+        pane8.add(endDateButton, 4, 1);
         scene8 = new Scene(pane8, 300,275);
+
+        // pane 9
+        pane9 = new GridPane();
+        pane9.setStyle("-fx-background-color: mud;-fx-padding: 10px;");
+        pane9.add(cliBox2, 4,1);
+        scene9 = new Scene(pane9, 300, 275);
+
+        //pane 10
+        pane10 = new GridPane();
+        pane10.setStyle("-fx-background-color: grey;-fx-padding: 10px;");
+        pane10.add(backButton2, 4,1);
+        scene10 = new Scene(pane10, 300, 275 );
+
 
         pane1.setVgap(20);
         pane2.setVgap(20);
@@ -331,6 +391,7 @@ catch (DateTimeParseException exc) {
         pane7.setVgap(20);
         pane8.setVgap(20);
         pane9.setVgap(20);
+        pane10.setVgap(20);
 
         // Setting start
         primaryStage.setTitle("Welcome to Softwarehuset A/S!");
@@ -356,9 +417,12 @@ catch (DateTimeParseException exc) {
         } else if (e.getSource() == dateButton) {
             thestage.setScene(scene6);
             thestage.setTitle("Please enter working hours.");
-        } else if(e.getSource() == nextButton){
+        } else if(e.getSource() == nextButton) {
             thestage.setScene(scene8);
             thestage.setTitle("Please fill out the form.");
+        } else if(e.getSource() == timeEstimateButton){
+                thestage.setScene(scene10);
+                thestage.setTitle("Thank you. Your project has been created.");
         }  else {
             thestage.setScene(scene1);
             thestage.setTitle("Welcome to Softwarehuset A/S!");
