@@ -26,14 +26,15 @@ import java.util.*;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.GridPane;
 import javafx.util.converter.NumberStringConverter;
+import javafx.scene.text.Text;
 
 import static java.lang.Integer.parseInt;
 
 public class GUIdraft extends Application {
     //Creating the fields
-    Button cliButton, empButton, backButton, backButton2, dateButton, okButton, exitButton, conButton, timeRegButton, editTimeRegButton, hourButton, actButton, nextButton,pmButton, newProjectButton,timeEstimateButton,  endDateButton,addEmplButton ;
-    GridPane pane1, pane2, pane3, pane4, pane5,  pane7, pane8, pane9, pane10;
-    Scene scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9, scene10;
+    Button cliButton, empButton, backButton, backButton2, backButton3, dateButton, okButton, exitButton, conButton, timeRegButton, editTimeRegButton, hourButton, actButton, nextButton,pmButton, newProjectButton, timeEstimateButton,  endDateButton,addEmplButton ;
+    GridPane pane1, pane2, pane3, pane4, pane5,  pane7, pane8, pane9, actP, pane10;
+    Scene scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9, actScene, scene10;
     Stage thestage;
     String empName, userName;
     private DatePicker datePicker;
@@ -50,6 +51,7 @@ public class GUIdraft extends Application {
         thestage = primaryStage;
         final Label lblMessage = new Label();
         TimeManager SoftwareHuset = new TimeManager();
+        Employee currentEmpl = new Employee("", SoftwareHuset);
         //SoftwareHuset.addEmployee(new Employee("Alice",SoftwareHuset));
 
         // START MENU BOX
@@ -168,12 +170,11 @@ public class GUIdraft extends Application {
             LocalDate endDate = LocalDate.parse(info[1], formatter);
             System.out.printf("%s%n", endDate);
         }
-catch (DateTimeParseException exc) {
+        catch (DateTimeParseException exc) {
             System.out.printf("%s is not parsable!%n", info[1]);
             throw exc;      // Rethrow the exception.
-        }
+        }*/
 
-*/
 
 
         /*conButton.setOnAction(new EventHandler() {
@@ -206,6 +207,7 @@ catch (DateTimeParseException exc) {
             public void handle(Event event) {
                 empName = txtUserName.getText().toString();
                 if (SoftwareHuset.getEmployeeNames().contains(empName)) {
+                    currentEmpl = SoftwareHuset.getEmployee(empName);
                     thestage.setScene(scene4);
                     thestage.setTitle("What would you like to do?");
                 } else {
@@ -259,6 +261,25 @@ catch (DateTimeParseException exc) {
         // Adding buttons to box
         empOpBox.getChildren().addAll(timeRegButton, editTimeRegButton, actButton, pmButton, hourButton, backButton2);
 
+        // VIEW ACTIVITIES BOX
+        VBox ViewActsBox = new VBox();
+
+        // Creating buttons an text for box
+        String txt = "";
+        for (Activity a : currentEmpl.getActivities()) {
+            txt += a.getActivityName() + ", remaining time: " + a.getRemainingTime() + "\n";
+        }
+        Text t = new Text();
+        t.setText(txt);
+        backButton3 = new Button("Go back");
+
+        // Assigning actions for buttons
+        backButton3.setOnAction(e -> ButtonClicked(e));
+
+
+
+
+
         // Button to confirm date
         dateButton = new Button("Confirm");
 
@@ -296,10 +317,9 @@ catch (DateTimeParseException exc) {
             Label label1 = new Label("Activity" + i);
             root.getChildren().add(label1, tf);
             textFields[i-1] = tf ;
-        }
-*/
-/*TextField workingHours = new TextField();
-     //Handler metode til datepicker
+        }*/
+        /*TextField workingHours = new TextField();
+        //Handler metode til datepicker
         conButton.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
@@ -315,34 +335,38 @@ catch (DateTimeParseException exc) {
             }
         }); */
 
-        // Menu pane
+        // Menu scene
         pane1 = new GridPane();
         pane1.setStyle("-fx-background-color: blue;-fx-padding: 10px;");
         pane1.add(menu, 4, 1);
         scene1 = new Scene(pane1, 300, 275);
 
-        // Client pane
+        // Client scene
         pane2 = new GridPane();
         pane2.setStyle("-fx-background-color: red;-fx-padding: 10px;");
         pane2.add(cliBox, 4, 1);
         scene2 = new Scene(pane2, 300, 275);
 
-        // Employee pane (login or add)
+        // Employee scene (login or add)
         pane3 = new GridPane();
         pane3.setStyle("-fx-background-color: yellow;-fx-padding: 10px;");
         pane3.add(emplBox, 4, 1);
-        /*pane3.add(lblUserName, 0, 0);
-        pane3.add(txtUserName, 1, 0);
-        pane3.add(okButton, 2, 1);*/
         pane3.add(lblMessage, 5, 3);
-        pane3.add(lblMessage2, 5,3);
+        pane3.add(lblMessage2, 5,4);
         scene3 = new Scene(pane3, 300, 275);
 
-        // Employee Options pane
+        // Employee Options scene
         pane4 = new GridPane();
         pane4.setStyle("-fx-background-color: green;-fx-padding: 10px;");
         pane4.add(empOpBox, 4,1);
         scene4 = new Scene(pane4, 300, 275);
+
+        // View activities scene
+        GridPane actP = new GridPane();
+        actP.setStyle("-fx-background-color: pink;-fx-padding: 10px;");
+        actP.add(ViewActsBox, 4, 1);
+        actP.add(t,4,5);
+        actScene = new Scene(actP, 300,275);
 
         // Date pane
         pane5 = new GridPane();
@@ -410,10 +434,13 @@ catch (DateTimeParseException exc) {
             thestage.setTitle("Please fill out the form to create new project.");
         } else if (e.getSource() == empButton) {
             thestage.setScene(scene3);
-            thestage.setTitle("Please enter you name:");
+            thestage.setTitle("Please enter your name:");
         } else if (e.getSource() == timeRegButton) {
             thestage.setScene(scene5);
             thestage.setTitle("Please choose a date");
+        } else if (e.getSource() == actButton) {
+            thestage.setScene(actScene);
+            thestage.setTitle("current activities");
         } else if (e.getSource() == dateButton) {
             thestage.setScene(scene6);
             thestage.setTitle("Please enter working hours.");
