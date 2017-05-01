@@ -51,56 +51,35 @@ public class GUIdraft extends Application {
 
         //Creating boxes to hold the buttons on each scene
         VBox menu = new VBox();
-        VBox cliBox = new VBox();
-        VBox dateBox = new VBox();
-        VBox empOpBox = new VBox();
 
-        //Creating the buttons for the scenes
         cliButton = new Button("Client");
         empButton = new Button("Employee");
-        backButton = new Button("Go back");
-        backButton2 = new Button("Go back");
-        dateButton = new Button("Confirm");
-        timeRegButton = new Button("Time registering");
-        editTimeRegButton = new Button("Edit registered time");
-        actButton = new Button("See your ongoing activities");
-        pmButton = new Button("Project manager profile");
-        conButton = new Button("Confirm");
-        hourButton = new Button("See your registered hours");
-        addEmployee = new Button("Add a new employee");
 
-        //Adding actions to the buttons
         cliButton.setOnAction(e -> ButtonClicked(e));
         empButton.setOnAction(e -> ButtonClicked(e));
-        backButton.setOnAction(e -> ButtonClicked(e));
-        backButton2.setOnAction(e -> ButtonClicked(e));
-        timeRegButton.setOnAction(e -> ButtonClicked(e));
-        editTimeRegButton.setOnAction(e -> ButtonClicked(e));
-        actButton.setOnAction(e -> ButtonClicked(e));
-        pmButton.setOnAction(e -> ButtonClicked(e));
-        hourButton.setOnAction(e->ButtonClicked(e));
 
 
         exitButton = new Button("Exit");
         exitButton.setOnAction(actionEvent -> Platform.exit());
 
-
-        //Start page:
-        HBox empBox = new HBox(backButton2);
-        //Add buttons to the scenes
         menu.getChildren().addAll(cliButton, empButton, exitButton);
         menu.setAlignment(Pos.CENTER);
+
+
+        VBox cliBox = new VBox();
+        backButton = new Button("Go back");
+        backButton.setOnAction(e -> ButtonClicked(e));
+
         cliBox.getChildren().addAll(backButton);
         cliBox.setAlignment(Pos.CENTER);
-        // empBox.getChildren().addAll(backButton2);
-        empBox.setAlignment(Pos.CENTER);
-        empOpBox.getChildren().addAll(timeRegButton, editTimeRegButton, actButton, pmButton, hourButton);
+
 
         //Creating the sign in form
         Label lblUserName = new Label("Username");
         final TextField txtUserName = new TextField();
         okButton = new Button("Login");
         final Label lblMessage = new Label();
+        addEmployee = new Button("Add a new employee");
 
         //Handler method for sign in form
         okButton.setOnAction(new EventHandler() {
@@ -112,12 +91,57 @@ public class GUIdraft extends Application {
                     thestage.setScene(scene4);
                     thestage.setTitle("What would you like to do?");
                 } else {
-                    lblMessage.setText("Incorrect user, try again.");
+                    lblMessage.setText("Incorrect user, try again or add new employee.");
                     lblMessage.setTextFill(Color.RED);
                 }
                 empName="";
             }
         });
+
+        VBox empOpBox = new VBox();
+        timeRegButton = new Button("Time registering");
+        editTimeRegButton = new Button("Edit registered time");
+        actButton = new Button("See your ongoing activities");
+        pmButton = new Button("Project manager profile");
+        hourButton = new Button("See your registered hours");
+
+
+        backButton2.setOnAction(e -> ButtonClicked(e));
+        timeRegButton.setOnAction(e -> ButtonClicked(e));
+        editTimeRegButton.setOnAction(e -> ButtonClicked(e));
+        actButton.setOnAction(e -> ButtonClicked(e));
+        pmButton.setOnAction(e -> ButtonClicked(e));
+        hourButton.setOnAction(e->ButtonClicked(e));
+
+
+        empOpBox.getChildren().addAll(timeRegButton, editTimeRegButton, actButton, pmButton, hourButton);
+        //Creating the buttons for the scenes
+
+
+        HBox empBox = new HBox();
+        backButton2 = new Button("Go back");
+        empBox.getChildren().addAll(backButton2);
+        empBox.setAlignment(Pos.CENTER);
+
+        dateButton = new Button("Confirm");
+
+        //conButton = new Button("Confirm");
+
+
+        //Adding actions to the buttons
+
+
+
+
+
+
+
+        //Add buttons to the scenes
+
+
+
+
+
 
         //Creating a datepicker
         datePicker = new DatePicker();
@@ -262,12 +286,6 @@ public class GUIdraft extends Application {
             thestage.setTitle("Welcome to Softwarehuset A/S!");
         }
 
-/*
-timeRegButton.setOnAction(e -> ButtonClicked(e));
-        editTimeRegButton.setOnAction(e -> ButtonClicked(e));
-        actButton.setOnAction(e -> ButtonClicked(e));
-        pmButton.setOnAction(e -> ButtonClicked(e));
 
- */
     }
 }
