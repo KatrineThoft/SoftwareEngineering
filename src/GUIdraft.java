@@ -14,24 +14,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-import java.sql.Array;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
+
+import java.text.DateFormat;
 import java.util.*;
 
 import javafx.scene.paint.Color;
 import javafx.scene.layout.GridPane;
 import javafx.util.converter.NumberStringConverter;
 
-
-import java.awt.*;
-
 public class GUIdraft extends Application {
     //Creating the fields
-    Button cliButton, empButton, backButton, backButton2, dateButton, okButton, exitButton, conButton, timeRegButton, editTimeRegButton, hourButton, actButton, pmButton, newProjectButton, addEmplButton ;
+    Button cliButton, empButton, backButton, backButton2, dateButton, okButton, exitButton, conButton, timeRegButton, editTimeRegButton, hourButton, actButton, nextButton,pmButton, newProjectButton, addEmplButton ;
     GridPane pane1, pane2, pane3, pane4, pane5,  pane7, pane8, pane9;
     Scene scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9;
     Stage thestage;
@@ -45,7 +43,7 @@ public class GUIdraft extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws ParseException {
+    public void start(Stage primaryStage) {
         //Setting the stage
         thestage = primaryStage;
         TimeManager SoftwareHuset = new TimeManager();
@@ -85,14 +83,14 @@ public class GUIdraft extends Application {
         cliBox.setAlignment(Pos.CENTER);
 
         //Creating a new project
-        int numTextFields = 5 ;
+        int numTextFields = 3 ;
         String[] text = new String[6];
        text[0] = "Your company name:";
-       text[1] = "End date (numbers only, ddMMyyyy):";
-       text[2] = "Number of hours to be used (numbers only):";
-       text[3] = "Project Name:";
-       text[4] = "Firm to solve the project:";
-       text[5] = "For specific project manager please write the employees name here:";
+       //text[1] = "End date (numbers only, ddMMyyyy):";
+      // text[2] = "Number of hours to be used (numbers only):";
+       text[1] = "Project Name:";
+       //text[4] = "Firm to solve the project:";
+       text[2] = "For specific project manager please write the employees name here:";
        String[] info = new String[6];
 
         TextField[] textFields = new TextField[numTextFields];
@@ -103,23 +101,32 @@ public class GUIdraft extends Application {
             projectForm .getChildren().addAll(label1, tf);
             textFields[i] = tf;
             info[i] = tf.getText();
+
         }
 
         String clientName = info[0];
-        String projectName = info[3];
-        String firm = info[4];
-        DateFormat format = new SimpleDateFormat("ddMMyyyy", Locale.ENGLISH);
-        java.util.Date date = format.parse(info[1]);
-        int hours = Integer.parseInt(info[2]);
+        String projectName = info[1];
+        String employeName = info[3];
+
+        /*DateFormat format = new SimpleDateFormat("ddMMyyyy");
+        Date date = format.parse(info[1]);*/
+        int hours = textFields[2].setTextFormatter(new TextFormatter<>(new NumberStringConverter()));;
+
+        try {
+            DateTimeFormatter formatter =
+                    DateTimeFormatter.ofPattern("ddMMyyyy");
+            LocalDate endDate = LocalDate.parse(info[1], formatter);
+            System.out.printf("%s%n", endDate);
+        }
+catch (DateTimeParseException exc) {
+            System.out.printf("%s is not parsable!%n", info[1]);
+            throw exc;      // Rethrow the exception.
+        }
 
 
-
-
-
-
-
-        conButton = new Button("Confirm");
-        projectForm.getChildren().add(conButton);
+        nextButton = new Button("Next");
+        nextButton.setOnAction(e->ButtonClicked(e));
+        projectForm.getChildren().add(nextButton);
 
 
 
@@ -245,8 +252,8 @@ public class GUIdraft extends Application {
             textFields[i-1] = tf ;
         }
 */
-
-    /* //Handler metode til datepicker
+/*TextField workingHours = new TextField();
+     //Handler metode til datepicker
         conButton.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
@@ -293,6 +300,7 @@ public class GUIdraft extends Application {
 
         // Date pane
         pane5 = new GridPane();
+
         pane5.setStyle("-fx-background-color: purple;-fx-padding: 10px;");
         pane5.add(dateLabel, 0, 0);
         pane5.add(datePicker, 0,1);
@@ -345,9 +353,12 @@ public class GUIdraft extends Application {
         } else if (e.getSource() == timeRegButton) {
             thestage.setScene(scene5);
             thestage.setTitle("Please choose a date");
-        } else if (e.getSource() == dateButton){
+        } else if (e.getSource() == dateButton) {
             thestage.setScene(scene6);
             thestage.setTitle("Please enter working hours.");
+        } else if(e.getSource() == nextButton){
+            thestage.setScene(scene8);
+            thestage.setTitle("Please fill out the form.");
         }  else {
             thestage.setScene(scene1);
             thestage.setTitle("Welcome to Softwarehuset A/S!");
