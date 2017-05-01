@@ -38,6 +38,8 @@ public class GUIdraft extends Application {
     Stage thestage;
     String empName, userName;
     private DatePicker datePicker;
+    TimeManager SoftwareHuset = new TimeManager();
+    Employee currentEmpl = new Employee("", SoftwareHuset);
 
     public static void main(String[] args) {
         launch(args);
@@ -50,9 +52,10 @@ public class GUIdraft extends Application {
         //Setting the stage
         thestage = primaryStage;
         final Label lblMessage = new Label();
-        TimeManager SoftwareHuset = new TimeManager();
-        Employee currentEmpl = new Employee("", SoftwareHuset);
-        //SoftwareHuset.addEmployee(new Employee("Alice",SoftwareHuset));
+        Employee bob = new Employee("Bob",SoftwareHuset);
+        bob.setOngoingActivities();
+        SoftwareHuset.addEmployee(bob);
+
 
         // START MENU BOX
         VBox menu = new VBox();
@@ -207,7 +210,7 @@ public class GUIdraft extends Application {
             public void handle(Event event) {
                 empName = txtUserName.getText().toString();
                 if (SoftwareHuset.getEmployeeNames().contains(empName)) {
-                    currentEmpl = SoftwareHuset.getEmployee(empName);
+                    currentEmpl = SoftwareHuset.getEmployee(empName); // ændrer ikke currentEmpl
                     thestage.setScene(scene4);
                     thestage.setTitle("What would you like to do?");
                 } else {
@@ -265,9 +268,11 @@ public class GUIdraft extends Application {
         VBox ViewActsBox = new VBox();
 
         // Creating buttons an text for box
-        String txt = "";
-        for (Activity a : currentEmpl.getActivities()) {
-            txt += a.getActivityName() + ", remaining time: " + a.getRemainingTime() + "\n";
+        String txt = "Hej";
+        if (currentEmpl.getActivities() != null) {
+            for (Activity a : bob.getActivities()) {
+                txt += a.getActivityName() + ", remaining time: " + a.getRemainingTime() + "\n";
+            }
         }
         Text t = new Text();
         t.setText(txt);
