@@ -102,10 +102,11 @@ public class GUIdraft extends Application {
         String clientName = info[0];
         String projectName = info[3];
         String firm = info[4];
-        DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("ddMMyyyy", Locale.ENGLISH);
         java.util.Date date = format.parse(info[1]);
         int hours = Integer.parseInt(info[2]);
         
+
 
 
 
