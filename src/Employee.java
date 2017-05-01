@@ -54,6 +54,7 @@ public class Employee {
 
     public void addToFirm(TimeManager firm){
         firm.getEmployees().add(this);
+        firm.getFreeEmployees().add(this);
     }
 
 

@@ -189,14 +189,15 @@ public class Test1 {
         //delayProject in ProjectManager
         // Test of updateEstimatedTimeUse
         estimatedTimeUse = estimatedTimeUse + 50;
-        project01.updateEstimatedTimeUse(estimatedTimeUse);
+        project01.updateEstimatedTimeUse(50);
         assertEquals(project01.getEstimatedTimeUse(),estimatedTimeUse);
 
 
         // Test of set/get ProjectManager
         assertEquals(project01.projectManager,null);
-        Employee projMan = new Employee("Helga", firm01);
-        project01.setProjectManager(projMan);
+        Employee man = new Employee("Helga", firm01);
+        project01.setProjectManager(man);
+        ProjectManager projMan = new ProjectManager(man, project01);
         assertEquals(project01.projectManager,projMan);
 
         // Test of set WorkingEmployees
@@ -277,6 +278,7 @@ public class Test1 {
 
         // Test of createEmployees
         assertTrue(manager.project.getWorkingEmployees() == null);
+        assertFalse(manager.project.firm.getFreeEmployees() == null);
         manager.createEmployees();
         assertFalse(manager.project.getWorkingEmployees() == null);
 

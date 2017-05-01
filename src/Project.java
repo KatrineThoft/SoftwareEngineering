@@ -46,8 +46,8 @@ public class Project {
         this.activities = activities;
     }
 
-    public double updateEstimatedTimeUse(double estimatedTimeUse) {
-        return estimatedTimeUse;
+    public void updateEstimatedTimeUse(double h) {
+        this.estimatedTimeUse = this.estimatedTimeUse + h;
     }
 
     public void updateTimeUsed(double timeUsed) {
