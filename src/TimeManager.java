@@ -18,6 +18,7 @@ public class TimeManager {
         this.allProjects = new ArrayList<>();
         this.allEmployees = new ArrayList<>();
         this.freeEmployees = new ArrayList<>();
+
     }
 
     public List<Client> getClients() {
