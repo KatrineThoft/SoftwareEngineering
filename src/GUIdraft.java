@@ -17,8 +17,10 @@ import javafx.stage.Stage;
 
 import java.sql.Array;
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Locale;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javafx.scene.paint.Color;
 import javafx.scene.layout.GridPane;
@@ -43,7 +45,7 @@ public class GUIdraft extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws ParseException {
         //Setting the stage
         thestage = primaryStage;
         TimeManager SoftwareHuset = new TimeManager();
@@ -80,11 +82,12 @@ public class GUIdraft extends Application {
         int numTextFields = 5 ;
         String[] text = new String[6];
        text[0] = "Your company name:";
-       text[1] = "End date:";
-       text[2] = "Number of hours to be used:";
+       text[1] = "End date (numbers only, ddMMyyyy):";
+       text[2] = "Number of hours to be used (numbers only):";
        text[3] = "Project Name:";
        text[4] = "Firm to solve the project:";
        text[5] = "For specific project manager please write the employees name here:";
+       String[] info = new String[6];
 
         TextField[] textFields = new TextField[numTextFields];
         VBox projectForm = new VBox(5);
@@ -92,21 +95,36 @@ public class GUIdraft extends Application {
             TextField tf = new TextField();
             Label label1 = new Label(text[i]);
             projectForm .getChildren().addAll(label1, tf);
-            textFields[i] = tf ;
-
+            textFields[i] = tf;
+            info[i] = tf.getText();
         }
+
+        String clientName = info[0];
+        String projectName = info[3];
+        String firm = info[4];
+        DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+        java.util.Date date = format.parse(info[1]);
+        int hours = Integer.parseInt(info[2]);
+        
+
+
+
+
+
         conButton = new Button("Confirm");
         projectForm.getChildren().add(conButton);
 
 
 
-        conButton.setOnAction(new EventHandler() {
+        /*conButton.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
+                if(){
 
+                }
 
             }
-        });
+        });*/
 
 
         //Creating the sign in form
@@ -246,7 +264,7 @@ public class GUIdraft extends Application {
         pane7.setStyle("-fx-background-color: tan;-fx-padding: 10px;");
         pane8.setStyle("-fx-background-color: turquoise;-fx-padding: 10px;");
        // pane9.setStyle("-fx-background-color: magenta;-fx-padding: 10px;");
-        
+
 
 
 
