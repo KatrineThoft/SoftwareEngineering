@@ -84,10 +84,9 @@ public class GUIdraft extends Application {
         exitButton = new Button("Exit");
         exitButton.setOnAction(actionEvent -> Platform.exit());
 
+
+        //Start page:
         HBox empBox = new HBox(backButton2);
-
-
-
         //Add buttons to the scenes
         menu.getChildren().addAll(cliButton, empButton, exitButton);
         menu.setAlignment(Pos.CENTER);
