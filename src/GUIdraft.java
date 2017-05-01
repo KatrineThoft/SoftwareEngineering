@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.sql.Array;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -28,7 +29,7 @@ import java.awt.*;
 
 public class GUIdraft extends Application {
     //Creating the fields
-    Button cliButton, empButton, backButton, backButton2, dateButton, okButton, exitButton, conButton, timeRegButton, editTimeRegButton, hourButton, actButton, pmButton, addEmployee ;
+    Button cliButton, empButton, backButton, backButton2, dateButton, okButton, exitButton, conButton, timeRegButton, editTimeRegButton, hourButton, actButton, pmButton, newProjectButton, addEmployee ;
     GridPane pane1, pane2, pane3, pane4, pane5,  pane7, pane8, pane9;
     Scene scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9;
     Stage thestage;
@@ -49,7 +50,7 @@ public class GUIdraft extends Application {
 
 
 
-        //Creating boxes to hold the buttons on each scene
+        //Creating the menu scene
         VBox menu = new VBox();
 
         cliButton = new Button("Client");
@@ -65,13 +66,47 @@ public class GUIdraft extends Application {
         menu.getChildren().addAll(cliButton, empButton, exitButton);
         menu.setAlignment(Pos.CENTER);
 
-
+        //Client scenes
         VBox cliBox = new VBox();
         backButton = new Button("Go back");
         backButton.setOnAction(e -> ButtonClicked(e));
+        newProjectButton = new Button("Create new project");
+        newProjectButton.setOnAction(e->ButtonClicked(e));
 
-        cliBox.getChildren().addAll(backButton);
+        cliBox.getChildren().addAll(newProjectButton , backButton);
         cliBox.setAlignment(Pos.CENTER);
+
+        //Creating a new project
+        int numTextFields = 5 ;
+        String[] text = new String[6];
+       text[0] = "Your company name:";
+       text[1] = "End date:";
+       text[2] = "Number of hours to be used:";
+       text[3] = "Project Name:";
+       text[4] = "Firm to solve the project:";
+       text[5] = "For specific project manager please write the employees name here:";
+
+        TextField[] textFields = new TextField[numTextFields];
+        VBox projectForm = new VBox(5);
+        for (int i = 0; i < numTextFields; i++) {
+            TextField tf = new TextField();
+            Label label1 = new Label(text[i]);
+            projectForm .getChildren().addAll(label1, tf);
+            textFields[i] = tf ;
+
+        }
+        conButton = new Button("Confirm");
+        projectForm.getChildren().add(conButton);
+
+
+
+        conButton.setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+
+
+            }
+        });
 
 
         //Creating the sign in form
@@ -106,7 +141,7 @@ public class GUIdraft extends Application {
         hourButton = new Button("See your registered hours");
 
 
-        backButton2.setOnAction(e -> ButtonClicked(e));
+
         timeRegButton.setOnAction(e -> ButtonClicked(e));
         editTimeRegButton.setOnAction(e -> ButtonClicked(e));
         actButton.setOnAction(e -> ButtonClicked(e));
@@ -115,31 +150,16 @@ public class GUIdraft extends Application {
 
 
         empOpBox.getChildren().addAll(timeRegButton, editTimeRegButton, actButton, pmButton, hourButton);
-        //Creating the buttons for the scenes
 
 
-        HBox empBox = new HBox();
         backButton2 = new Button("Go back");
-        empBox.getChildren().addAll(backButton2);
+        backButton2.setOnAction(e -> ButtonClicked(e));
+        HBox empBox = new HBox(backButton2);
+
         empBox.setAlignment(Pos.CENTER);
 
+
         dateButton = new Button("Confirm");
-
-        //conButton = new Button("Confirm");
-
-
-        //Adding actions to the buttons
-
-
-
-
-
-
-
-        //Add buttons to the scenes
-
-
-
 
 
 
@@ -174,11 +194,8 @@ public class GUIdraft extends Application {
         VBox root = new VBox(5);
         for (int i = 1; i <= numTextFields; i++) {
             TextField tf = new TextField();
-            String name = "Activity "+i ;
-            tf.setOnAction(e -> {
-                System.out.println("Action on "+name+": text is "+tf.getText());
-            });
-            root.getChildren().add(tf);
+            Label label1 = new Label("Activity" + i);
+            root.getChildren().add(label1, tf);
             textFields[i-1] = tf ;
         }
 */
@@ -209,15 +226,14 @@ public class GUIdraft extends Application {
         pane7 = new GridPane();
         pane8 = new GridPane();
         pane9 = new GridPane();
-        /*pane1.setVgap(20);
+        pane1.setVgap(20);
         pane2.setVgap(20);
         pane3.setVgap(20);
         pane4.setVgap(20);
         pane5.setVgap(20);
-        pane6.setVgap(20);
         pane7.setVgap(20);
         pane8.setVgap(20);
-        pane9.setVgap(20);*/
+        pane9.setVgap(20);
 
 
         //set background color of each Pane
@@ -228,9 +244,9 @@ public class GUIdraft extends Application {
         pane5.setStyle("-fx-background-color: purple;-fx-padding: 10px;");
         pane6.setStyle("-fx-background-color: orange;-fx-padding: 10px;");
         pane7.setStyle("-fx-background-color: tan;-fx-padding: 10px;");
-        /*
         pane8.setStyle("-fx-background-color: turquoise;-fx-padding: 10px;");
-        pane9.setStyle("-fx-background-color: magenta;-fx-padding: 10px;");*/
+       // pane9.setStyle("-fx-background-color: magenta;-fx-padding: 10px;");
+        
 
 
 
@@ -247,9 +263,8 @@ public class GUIdraft extends Application {
         pane5.add(dateLabel, 0, 0);
         pane5.add(datePicker, 0,1);
         pane5.add(dateButton, 4, 1);
-        //pane6.add(workingHours, 1,0);
-        //pane6.add(conButton, 4,1);
-        pane7.add(backButton2, 4,1);
+        pane7.add(projectForm, 4,1);
+        pane8.add(backButton2, 4,1);
 
         scene1 = new Scene(pane1, 300, 275);
         scene2 = new Scene(pane2, 300, 275);
@@ -257,9 +272,9 @@ public class GUIdraft extends Application {
         scene4 = new Scene(pane4, 300, 275);
         scene5 = new Scene(pane5, 300,275);
         scene6 = new Scene(pane6, 300,275);
-       /* scene7 = new Scene(pane5, 300,275);
-        scene8 = new Scene(pane5, 300,275);
-        scene9 = new Scene(pane5, 300,275);*/
+        scene7 = new Scene(pane7, 300,275);
+        scene8 = new Scene(pane8, 300,275);
+       // scene9 = new Scene(pane9, 300,275);
 
         primaryStage.setTitle("Welcome to Softwarehuset A/S!");
         primaryStage.setScene(scene1);
@@ -272,6 +287,9 @@ public class GUIdraft extends Application {
         if (e.getSource() == cliButton) {
             thestage.setScene(scene2);
             thestage.setTitle("What would you like to do?");
+        } else if(e.getSource() == newProjectButton) {
+            thestage.setScene(scene7);
+            thestage.setTitle("Please fill out the form to create new project.");
         } else if (e.getSource() == empButton) {
             thestage.setScene(scene3);
             thestage.setTitle("Please enter you name:");
