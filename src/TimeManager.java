@@ -41,6 +41,15 @@ public class TimeManager {
         return emplNames;
     }
 
+    public Employee getEmployee(String name) {
+        for (Employee e : allEmployees) {
+            if (e.getName() == name) {
+                return e;
+            }
+        }
+        return null;
+    }
+
     public List<Employee> getFreeEmployees() {
         return freeEmployees;
     }
