@@ -127,10 +127,12 @@ public class GUIdraft extends Application {
         endDatePicker.setShowWeekNumbers(true);
         GridPane.setHalignment(datelabel1, HPos.LEFT);
         //Handler metode til datepicker
+        LocalDate date  = endDatePicker.getValue();
+
         endDateButton.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                if(endDatePicker.getValue()!=null) {
+                if(date!=null) {
                     thestage.setScene(scene9);
                     thestage.setTitle("Please fill out the form.");
                 } else {
@@ -141,7 +143,13 @@ public class GUIdraft extends Application {
             }
         });
 
-        Date endDate  = java.sql.Date.valueOf(String.valueOf(endDatePicker));
+
+        int year = date.getYear();
+        int month = date.getMonthValue();
+        int day = date.getDayOfMonth();
+
+        Date endDate = new Date(day,month, year);
+
 
         //Part 3:
         //EstimatedTimeUse
@@ -174,7 +182,7 @@ public class GUIdraft extends Application {
         //Creating a new client
         //MANGLER METODE TIL AT FINDE EN EMPLOYEE UD FRA NAVN??
         if(employeName != null){
-            Employee employee = getEmployee(employeName);
+            Employee employee = SoftwareHuset.getEmployee(employeName);
             Client client1 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee , SoftwareHuset);
         }
         else {
