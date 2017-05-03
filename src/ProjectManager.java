@@ -49,6 +49,7 @@ public class ProjectManager{
         if (project.firm.getFreeEmployees() != null) {
             Employee newEmpl = project.firm.getFreeEmployees().get(0);
             delegatedActivities.replace(act, empl, newEmpl);
+            System.out.println("There is found a employee");
             return newEmpl;
         } else {
             System.out.println("not enough available employees");
