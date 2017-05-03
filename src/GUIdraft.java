@@ -16,10 +16,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Date;
+
 
 import java.text.DateFormat;
 import java.util.*;
@@ -35,7 +32,7 @@ public class GUIdraft extends Application {
     //Creating the fields
     Button cliButton, empButton, backButton, backButton2, dateButton, okButton, exitButton, conButton, timeRegButton, editTimeRegButton, hourButton, actButton, nextButton,pmButton, cliEndButton,  newProjectButton,timeEstimateButton,  endDateButton,addEmplButton ;
     GridPane pane1, pane2, pane3, pane4, pane5,  pane7, pane8, pane9, pane10;
-    Scene scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9, scene10;
+    Scene scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9, scene10, actScene;
     Stage thestage;
     String empName, userName;
     private DatePicker datePicker;
@@ -92,13 +89,14 @@ public class GUIdraft extends Application {
 
         //Creating a new project
         //Part 1:
+        HBox cliBox2 = new HBox();
         int numTextFields = 3 ;
         String[] text = new String[6];
        text[0] = "Your company name:";
       // text[2] = "Number of hours to be used (numbers only):";
        text[1] = "Project Name:";
        text[2] = "For specific project manager please write the employees name here:";
-       String[] info = new String[6];
+        final String[] info = new String[6];
 
         TextField[] textFields = new TextField[numTextFields];
         VBox projectForm = new VBox(5);
@@ -107,18 +105,31 @@ public class GUIdraft extends Application {
             Label label1 = new Label(text[i]);
             projectForm .getChildren().addAll(label1, tf);
             textFields[i] = tf;
-            info[i] = tf.getText();
+            info[i] =  textFields[i].toString();
 
         }
 
-        String clientName = info[0];
-        String projectName = info[1];
-        String employeName = info[2];
-        nextButton = new Button("Next");
 
+        String clientName =info[0];
+        String projectName =info[1];
+        String employeName =info[2];
+        nextButton = new Button("Next");
         //Skal have handlermetode:
-        nextButton.setOnAction(e->ButtonClicked(e));
-        projectForm.getChildren().add(nextButton);
+        nextButton.setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                if(!(info[0].isEmpty()) && !(info[1].isEmpty()))  {
+                    thestage.setScene(scene8);
+                    thestage.setTitle("Please choose a date.");
+                } else {
+                    lblMessage.setText("Please fill out the form.");
+                    lblMessage.setTextFill(Color.RED);
+                }
+
+            }
+        });
+
+       projectForm.getChildren().add(nextButton);
 
         //Part 2:
         //Choosing the end date
@@ -127,13 +138,13 @@ public class GUIdraft extends Application {
         Label datelabel1 = new Label("Please choose an end date:");
         endDatePicker.setShowWeekNumbers(true);
         GridPane.setHalignment(datelabel1, HPos.LEFT);
+
         //Handler metode til datepicker
-        LocalDate date  = endDatePicker.getValue();
 
         endDateButton.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                if(date!=null) {
+                if(endDatePicker.getValue()!=null) {
                     thestage.setScene(scene9);
                     thestage.setTitle("Please fill out the form.");
                 } else {
@@ -143,17 +154,21 @@ public class GUIdraft extends Application {
 
             }
         });
-        
+
+
+      /*  LocalDate date  = endDatePicker.getValue();
+
+
+        //Får nullpointerexception her:
         int year = date.getYear();
         int month = date.getMonthValue();
         int day = date.getDayOfMonth();
 
         Date endDate = new Date(day,month, year);
 
-
+*/
         //Part 3:
         //EstimatedTimeUse
-        VBox cliBox2 = new VBox();
         timeEstimateButton = new Button("Click to confirm.");
         TextField estimateText = new TextField();
         Label label3 = new Label("Number of hours estimated for project.");
@@ -162,7 +177,7 @@ public class GUIdraft extends Application {
         timeEstimateButton.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-               int estimate = Integer.parseInt(estimateText.getText());
+               double estimate = Double.parseDouble(estimateText.getText());
                 if(estimate > 0) {
                     thestage.setScene(scene10);
                     thestage.setTitle("Thank you. Your project has been created.");
@@ -175,21 +190,20 @@ public class GUIdraft extends Application {
         });
 
         cliBox2.getChildren().addAll(label3,estimateText ,timeEstimateButton);
-        cliBox.setAlignment(Pos.CENTER);
+        cliBox2.setAlignment(Pos.CENTER);
 
-        double estimatedTimeUse = Double.parseDouble(estimateText.getText());
 
-        //Creating a new client
-        //MANGLER METODE TIL AT FINDE EN EMPLOYEE UD FRA NAVN??
+
+        /*//Creating a new client
         if(employeName != null){
             Employee employee = SoftwareHuset.getEmployee(employeName);
-            Client client1 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee , SoftwareHuset);
+            Client client1 = new Client(clientName, endDate, estimate, projectName, employee , SoftwareHuset);
         }
         else {
-            Client client1 = new Client(clientName, endDate, estimatedTimeUse, projectName, SoftwareHuset);
+            Client client1 = new Client(clientName, endDate, estimate, projectName, SoftwareHuset);
         }
 
-
+*/
         //Last scene for client
         cliEndButton = new Button("Back to menu.");
         cliEndButton.setOnAction(e->ButtonClicked(e));
@@ -240,7 +254,7 @@ public class GUIdraft extends Application {
             @Override
             public void handle(Event event) {
                 empName = txtNewEmpl.getText().toString();
-                if(!(SoftwareHuset.getEmployees().contains(empName))) {
+                if(!(SoftwareHuset.getEmployees().contains(empName)) && !(empName.isEmpty())) {
                     Employee emp = new Employee(empName, SoftwareHuset);
                     SoftwareHuset.addEmployee(emp);
                     lblMessage2.setText("Employee added to SoftwareHuset.");
@@ -358,35 +372,35 @@ public class GUIdraft extends Application {
         // Menu scene
         pane1 = new GridPane();
         pane1.setStyle("-fx-background-color: blue;-fx-padding: 10px;");
-        pane1.add(menu, 4, 1);
-        scene1 = new Scene(pane1, 300, 275);
+        pane1.add(menu, 8,2);
+        scene1 = new Scene(pane1,400,375);
 
         // Client scene
         pane2 = new GridPane();
         pane2.setStyle("-fx-background-color: red;-fx-padding: 10px;");
-        pane2.add(cliBox, 4, 1);
-        scene2 = new Scene(pane2, 300, 275);
+        pane2.add(cliBox, 8,2);
+        scene2 = new Scene(pane2,400,375);
 
         // Employee scene (login or add)
         pane3 = new GridPane();
         pane3.setStyle("-fx-background-color: yellow;-fx-padding: 10px;");
-        pane3.add(emplBox, 4, 1);
+        pane3.add(emplBox, 8,2);
         pane3.add(lblMessage, 5, 3);
         pane3.add(lblMessage2, 5,4);
-        scene3 = new Scene(pane3, 300, 275);
+        scene3 = new Scene(pane3, 400,375);
 
         // Employee Options scene
         pane4 = new GridPane();
         pane4.setStyle("-fx-background-color: green;-fx-padding: 10px;");
-        pane4.add(empOpBox, 4,1);
-        scene4 = new Scene(pane4, 300, 275);
+        pane4.add(empOpBox, 8,2);
+        scene4 = new Scene(pane4, 400,375);
 
         // View activities scene
         GridPane actP = new GridPane();
         actP.setStyle("-fx-background-color: pink;-fx-padding: 10px;");
-        actP.add(ViewActsBox, 4, 1);
+        actP.add(ViewActsBox, 8,2);
         actP.add(t,4,5);
-        actScene = new Scene(actP, 300,275);
+        actScene = new Scene(actP, 400,375);
 
         // Date pane
         pane5 = new GridPane();
@@ -394,37 +408,37 @@ public class GUIdraft extends Application {
         pane5.setStyle("-fx-background-color: purple;-fx-padding: 10px;");
         pane5.add(dateLabel, 0, 0);
         pane5.add(datePicker, 0,1);
-        pane5.add(dateButton, 4, 1);
-        scene5 = new Scene(pane5, 300,275);
+        pane5.add(dateButton, 8,2);
+        scene5 = new Scene(pane5, 400,375);
 
         // pane 6
         pane6.setStyle("-fx-background-color: orange;-fx-padding: 10px;");
-        scene6 = new Scene(pane6, 300,275);
+        scene6 = new Scene(pane6, 400,375);
 
         // pane 7
         pane7 = new GridPane();
         pane7.setStyle("-fx-background-color: tan;-fx-padding: 10px;");
-        pane7.add(projectForm, 4,1);
-        scene7 = new Scene(pane7, 300,275);
+        pane7.add(projectForm, 8,2);
+        scene7 = new Scene(pane7, 400,375);
 
         // pane 8
         pane8 = new GridPane();
         pane8.setStyle("-fx-background-color: turquoise;-fx-padding: 10px;");
         pane8.add(endDatePicker, 0,0);
-        pane8.add(endDateButton, 4, 1);
-        scene8 = new Scene(pane8, 300,275);
+        pane8.add(endDateButton, 8,2);
+        scene8 = new Scene(pane8, 400,375);
 
         // pane 9
         pane9 = new GridPane();
         pane9.setStyle("-fx-background-color: mud;-fx-padding: 10px;");
-        pane9.add(cliBox2, 4,1);
-        scene9 = new Scene(pane9, 300, 275);
+        pane9.add(cliBox2, 8,2);
+        scene9 = new Scene(pane9, 400, 375);
 
         //pane 10
         pane10 = new GridPane();
         pane10.setStyle("-fx-background-color: grey;-fx-padding: 10px;");
-        pane10.add(cliEndButton, 4,1);
-        scene10 = new Scene(pane10, 300, 275 );
+        pane10.add(cliEndButton, 8,2);
+        scene10 = new Scene(pane10, 400, 375 );
 
 
         pane1.setVgap(20);
@@ -435,7 +449,7 @@ public class GUIdraft extends Application {
         pane7.setVgap(20);
         pane8.setVgap(20);
         pane9.setVgap(20);
-        pane10.setVgap(20);
+//        pane10.setVgap(20);
 
         // Setting start
         primaryStage.setTitle("Welcome to Softwarehuset A/S!");
