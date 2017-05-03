@@ -121,6 +121,7 @@ public class GUIdraft extends Application {
         projectForm.getChildren().add(nextButton);
 
         //Part 2:
+        //Choosing the end date
         endDateButton = new Button("Next.");
         DatePicker endDatePicker = new DatePicker();
         Label datelabel1 = new Label("Please choose an end date:");
@@ -142,8 +143,7 @@ public class GUIdraft extends Application {
 
             }
         });
-
-
+        
         int year = date.getYear();
         int month = date.getMonthValue();
         int day = date.getDayOfMonth();
