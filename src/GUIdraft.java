@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
@@ -31,7 +32,7 @@ import static java.lang.Integer.parseInt;
 
 public class GUIdraft extends Application {
     //Creating the fields
-    Button cliButton, empButton, backButton, backButton2, dateButton, okButton, exitButton, conButton, timeRegButton, editTimeRegButton, hourButton, actButton, nextButton,pmButton, newProjectButton,timeEstimateButton,  endDateButton,addEmplButton ;
+    Button cliButton, empButton, backButton, backButton2, dateButton, okButton, exitButton, conButton, timeRegButton, editTimeRegButton, hourButton, actButton, nextButton,pmButton, cliEndButton,  newProjectButton,timeEstimateButton,  endDateButton,addEmplButton ;
     GridPane pane1, pane2, pane3, pane4, pane5,  pane7, pane8, pane9, pane10;
     Scene scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9, scene10;
     Stage thestage;
@@ -127,6 +128,7 @@ public class GUIdraft extends Application {
                 if(endDatePicker.getValue()!=null) {
                     thestage.setScene(scene9);
                     thestage.setTitle("Please fill out the form.");
+
                 } else {
                     lblMessage.setText("Please choose a date.");
                     lblMessage.setTextFill(Color.RED);
@@ -135,14 +137,15 @@ public class GUIdraft extends Application {
             }
         });
 
+        Date endDate  = java.sql.Date.valueOf(String.valueOf(endDatePicker));
+
         //Part 3:
+        //EstimatedTimeUse
         VBox cliBox2 = new VBox();
         timeEstimateButton = new Button("Click to confirm.");
         TextField estimateText = new TextField();
         Label label3 = new Label("Number of hours estimated for project.");
         timeEstimateButton.setOnAction(e->ButtonClicked(e));
-        cliBox2.getChildren().addAll(label3,estimateText ,timeEstimateButton);
-
 
         timeEstimateButton.setOnAction(new EventHandler() {
             @Override
@@ -158,22 +161,26 @@ public class GUIdraft extends Application {
 
             }
         });
-        /*DateFormat format = new SimpleDateFormat("ddMMyyyy");
-        Date date = format.parse(info[1]);*/
-       // int hours = textFields[2].setTextFormatter(new TextFormatter<>(new NumberStringConverter()));;
 
-        /*try {
-            DateTimeFormatter formatter =
-                    DateTimeFormatter.ofPattern("ddMMyyyy");
-            LocalDate endDate = LocalDate.parse(info[1], formatter);
-            System.out.printf("%s%n", endDate);
+        cliBox2.getChildren().addAll(label3,estimateText ,timeEstimateButton);
+        cliBox.setAlignment(Pos.CENTER);
+
+        double estimatedTimeUse = Double.parseDouble(estimateText.getText());
+
+        //Creating a new client
+        //MANGLER METODE TIL AT FINDE EN EMPLOYEE UD FRA NAVN??
+        if(employeName != null){
+            Employee employee = getEmployee(employeName);
+            Client client1 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee , SoftwareHuset);
         }
-catch (DateTimeParseException exc) {
-            System.out.printf("%s is not parsable!%n", info[1]);
-            throw exc;      // Rethrow the exception.
+        else {
+            Client client1 = new Client(clientName, endDate, estimatedTimeUse, projectName, SoftwareHuset);
         }
 
-*/
+
+        //Last scene for client
+        cliEndButton = new Button("Back to menu.");
+        cliEndButton.setOnAction(e->ButtonClicked(e));
 
 
         /*conButton.setOnAction(new EventHandler() {
@@ -235,7 +242,7 @@ catch (DateTimeParseException exc) {
 
         // Adding buttons and text fields to box
         emplBox.getChildren().addAll(txtUserName, okButton, txtNewEmpl, addEmplButton);
-        cliBox.setAlignment(Pos.CENTER);
+
 
         // EMPLOYEE OPTIONS BOX
         VBox empOpBox = new VBox();
@@ -379,7 +386,7 @@ catch (DateTimeParseException exc) {
         //pane 10
         pane10 = new GridPane();
         pane10.setStyle("-fx-background-color: grey;-fx-padding: 10px;");
-        pane10.add(backButton2, 4,1);
+        pane10.add(cliEndButton, 4,1);
         scene10 = new Scene(pane10, 300, 275 );
 
 
@@ -420,10 +427,7 @@ catch (DateTimeParseException exc) {
         } else if(e.getSource() == nextButton) {
             thestage.setScene(scene8);
             thestage.setTitle("Please fill out the form.");
-        } else if(e.getSource() == timeEstimateButton){
-                thestage.setScene(scene10);
-                thestage.setTitle("Thank you. Your project has been created.");
-        }  else {
+        } else {
             thestage.setScene(scene1);
             thestage.setTitle("Welcome to Softwarehuset A/S!");
         }
