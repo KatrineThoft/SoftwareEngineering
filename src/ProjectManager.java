@@ -24,9 +24,9 @@ public class ProjectManager{
                 project.getWorkingEmployees().add(project.firm.getFreeEmployees().get(i));
             } else {
                 System.out.println("not enough available employees");
-                break;
             }
         }
+        int i = 1;
     }
 
     public void delegateActivities(List<Activity> activities, List<Employee> employees){

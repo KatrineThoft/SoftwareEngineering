@@ -14,19 +14,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 
 
-import java.text.DateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import javafx.scene.paint.Color;
 import javafx.scene.layout.GridPane;
-import javafx.util.converter.NumberStringConverter;
+
 import javafx.scene.text.Text;
 
-import static java.lang.Integer.parseInt;
 
 public class GUIdraft extends Application {
     //Creating the fields
@@ -36,6 +35,8 @@ public class GUIdraft extends Application {
     Stage thestage;
     String empName, userName;
     private DatePicker datePicker;
+    private DatePicker endDatePicker;
+
     TimeManager SoftwareHuset = new TimeManager();
     Employee currentEmpl = new Employee("", SoftwareHuset);
 
@@ -133,18 +134,17 @@ public class GUIdraft extends Application {
 
         //Part 2:
         //Choosing the end date
-        endDateButton = new Button("Next.");
-        DatePicker endDatePicker = new DatePicker();
+        endDatePicker = new DatePicker();
         Label datelabel1 = new Label("Please choose an end date:");
         endDatePicker.setShowWeekNumbers(true);
         GridPane.setHalignment(datelabel1, HPos.LEFT);
 
-        //Handler metode til datepicker
-
+        endDateButton = new Button("Next.");
+        //Handler metode til endDatePicker
         endDateButton.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                if(endDatePicker.getValue()!=null) {
+                if(endDatePicker.getValue() != null) {
                     thestage.setScene(scene9);
                     thestage.setTitle("Please fill out the form.");
                 } else {
@@ -154,30 +154,26 @@ public class GUIdraft extends Application {
 
             }
         });
+        String stringDate  = endDatePicker.getValue().toString();
+        int day = Integer.parseInt(stringDate.substring(0,2));
+        int month = Integer.parseInt(stringDate.substring(2,4));
+        int year =  Integer.parseInt(stringDate.substring(4,6));
+
+        Date endDate = new Date(day, month, year);
 
 
-      /*  LocalDate date  = endDatePicker.getValue();
 
-
-        //Får nullpointerexception her:
-        int year = date.getYear();
-        int month = date.getMonthValue();
-        int day = date.getDayOfMonth();
-
-        Date endDate = new Date(day,month, year);
-
-*/
         //Part 3:
         //EstimatedTimeUse
         timeEstimateButton = new Button("Click to confirm.");
         TextField estimateText = new TextField();
         Label label3 = new Label("Number of hours estimated for project.");
+        double estimate = Double.parseDouble(estimateText.getText());
         timeEstimateButton.setOnAction(e->ButtonClicked(e));
 
         timeEstimateButton.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-               double estimate = Double.parseDouble(estimateText.getText());
                 if(estimate > 0) {
                     thestage.setScene(scene10);
                     thestage.setTitle("Thank you. Your project has been created.");
@@ -194,16 +190,21 @@ public class GUIdraft extends Application {
 
 
 
-        /*//Creating a new client
+        //Creating a new client
         if(employeName != null){
             Employee employee = SoftwareHuset.getEmployee(employeName);
             Client client1 = new Client(clientName, endDate, estimate, projectName, employee , SoftwareHuset);
+            SoftwareHuset.addClient(client1);
         }
         else {
             Client client1 = new Client(clientName, endDate, estimate, projectName, SoftwareHuset);
+            SoftwareHuset.addClient(client1);
+
+
         }
 
-*/
+
+
         //Last scene for client
         cliEndButton = new Button("Back to menu.");
         cliEndButton.setOnAction(e->ButtonClicked(e));
@@ -372,7 +373,7 @@ public class GUIdraft extends Application {
         // Menu scene
         pane1 = new GridPane();
         pane1.setStyle("-fx-background-color: blue;-fx-padding: 10px;");
-        pane1.add(menu, 8,2);
+        pane1.add(menu, 4,3);
         scene1 = new Scene(pane1,400,375);
 
         // Client scene
