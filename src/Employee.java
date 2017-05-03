@@ -18,7 +18,7 @@ public class Employee {
         this.absence = false;
         this.registeredHours = 0.0;
         this.firm = firm;
-        addToFirm(firm);
+        //addToFirm(firm);
     }
 
     public void setActivities(List<Activity> activities) {
@@ -63,7 +63,7 @@ public class Employee {
         for (int i = 0; i <= 5; i++) {
             acts.add(new Activity("activity" + (i+1), i+5));
         }
-        ongoingActivities = acts;
+        this.ongoingActivities = acts;
     }
 
 

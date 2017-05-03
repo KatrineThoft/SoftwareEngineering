@@ -15,10 +15,10 @@ public class TimeManager {
     private List<Employee> freeEmployees;
 
     public TimeManager() {
-        this.allClients = new ArrayList<>();
-        this.allProjects = new ArrayList<>();
-        this.allEmployees = new ArrayList<>();
-        this.freeEmployees = new ArrayList<>();
+        this.allClients = new ArrayList<Client>();
+        this.allProjects = new ArrayList<Project>();
+        this.allEmployees = new ArrayList<Employee>();
+        this.freeEmployees = new ArrayList<Employee>();
 
     }
 
@@ -44,7 +44,7 @@ public class TimeManager {
 
     public Employee getEmployee(String name) {
         for (Employee e : allEmployees) {
-            if (e.getName() == name) {
+            if (e.getName().equals(name)) {
                 return e;
             }
         }
@@ -65,6 +65,7 @@ public class TimeManager {
 
     public void addEmployee(Employee employee) {
         this.allEmployees.add(employee);
+        this.freeEmployees.add(employee);
     }
 
     public void addFreeEmployee(Employee employee) {
