@@ -283,10 +283,10 @@ public class GUIdraft extends Application {
         }
         Text t = new Text();
         t.setText(txt);
-        backButton3 = new Button("Go back");
+        backButton2 = new Button("Go back");
 
         // Assigning actions for buttons
-        backButton3.setOnAction(e -> ButtonClicked(e));
+        backButton2.setOnAction(e -> ButtonClicked(e));
 
 
 
