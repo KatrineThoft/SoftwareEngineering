@@ -18,6 +18,10 @@ public class ProjectManager{
         project.setActivities(actList);
     }
 
+    public void setEstTimeUse(Activity act, double estimatedTimeUse) {
+        act.setEstimatedTimeUse(estimatedTimeUse);
+    }
+
     public void createEmployees() {
         for (int i = 0; i < project.getActivities().size(); i++){
             if (project.firm.getFreeEmployees().get(i) != null) {
