@@ -148,7 +148,7 @@ public class GUIdraft extends Application {
             @Override
             public void handle(Event event) {
                 if(!(info[0].isEmpty()) && !(info[1].isEmpty()))  {
-                    thestage.setScene(scene8);
+                    thestage.setScene(scene10);
                     thestage.setTitle("Please choose a date.");
                 } else {
                     lblMessage.setText("Please fill out the form.");
@@ -162,7 +162,7 @@ public class GUIdraft extends Application {
         projectForm.getChildren().add(nextButton);
 
         //Part 2:
-        //Choosing the end date
+      /*  //Choosing the end date
         TextField endDateText = new TextField();
         Label datelabel1 = new Label("Please choose an end date:");
         GridPane.setHalignment(datelabel1, HPos.LEFT);
@@ -231,7 +231,7 @@ public class GUIdraft extends Application {
             CompanyMain.SoftwareHuset.addClient(client1);
 
 
-        }
+        }*/
 
 
         //Last scene for client
@@ -593,12 +593,12 @@ public class GUIdraft extends Application {
         scene7 = new Scene(pane7, 400,375);
 
         // pane 8
-        pane8 = new GridPane();
+       /* pane8 = new GridPane();
         pane8.setVgap(20);
         pane8.setStyle("-fx-background-color: turquoise;-fx-padding: 10px;");
-        pane8.add(endDateText, 0,0);
-        pane8.add(endDateButton, 8,2);
-        scene8 = new Scene(pane8, 400,375);
+        //pane8.add(endDateText, 0,0);
+//        pane8.add(endDateButton, 8,2);
+        scene8 = new Scene(pane8, 400,375);*/
 
         // pane 9
         pane9 = new GridPane();
