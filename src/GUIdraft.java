@@ -33,8 +33,8 @@ public class GUIdraft extends Application {
     String empName, newEmpName, userName;
     private DatePicker datePicker;
     private DatePicker endDatePicker;
-    TimeManager SoftwareHuset = new TimeManager();
-    Employee currentEmpl;
+    //TimeManager SoftwareHuset = new TimeManager();
+    //Employee currentEmpl;
 
 
     public static void main(String[] args) {
@@ -297,22 +297,19 @@ public class GUIdraft extends Application {
 
         // Assigning actions for buttons
 
-        newEmpName = txtNewEmpl.getText().toString();
-        if(!(SoftwareHuset.getEmployees().contains(newEmpName)) && !(newEmpName.isEmpty())) {
-            Employee emp = new Employee(newEmpName, SoftwareHuset);
-            emp.setOngoingActivities(); // for testing
-            SoftwareHuset.addEmployee(emp);
-        }
-
         // Handler method for adding employee
         conButton01.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                if(!(SoftwareHuset.getEmployees().contains(newEmpName)) && !(newEmpName.isEmpty())) {
-                    lblMessage.setText("Employee" + newEmpName + " succesfully added");
-                    lblMessage.setTextFill(Color.GREEN);
-                    //thestage.setScene(employeeScene01);
-                    //thestage.setTitle(newEmpName + " was succesfully added");
+                newEmpName = txtNewEmpl.getText().toString();
+                if(!(CompanyMain.SoftwareHuset.getEmployees().contains(newEmpName)) && !(newEmpName.isEmpty())) {
+                    Employee emp = new Employee(newEmpName, CompanyMain.SoftwareHuset);
+                    emp.setOngoingActivities(); // for testing
+                    CompanyMain.SoftwareHuset.addEmployee(emp);
+                    //lblMessage.setText("Employee" + newEmpName + " succesfully added");
+                    //lblMessage.setTextFill(Color.GREEN);
+                    thestage.setScene(employeeScene01);
+                    thestage.setTitle(newEmpName + " was succesfully added");
                 } else {
                     lblMessage.setText("Employee" + newEmpName + " already in system, try again or login.");
                     lblMessage.setTextFill(Color.RED);
@@ -354,17 +351,17 @@ public class GUIdraft extends Application {
 
         // Assigning actions for buttons
 
-        empName = txtUserName.getText().toString();
-        if (SoftwareHuset.getEmployeeNames().contains(empName))
-            currentEmpl = SoftwareHuset.getEmployee(empName);
+
 
         //Handler method for signing in (okButton)
         conButton02.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                if (SoftwareHuset.getEmployeeNames().contains(empName)) {
+                empName = txtUserName.getText().toString();
+                if (CompanyMain.SoftwareHuset.getEmployeeNames().contains(empName)) {
+                    CompanyMain.currentEmpl = CompanyMain.SoftwareHuset.getEmployee(empName);
                     thestage.setScene(employeeScene02);
-                    thestage.setTitle("Employee " + currentEmpl.getName() + " logged in");
+                    thestage.setTitle("Employee " + CompanyMain.currentEmpl.getName() + " logged in");
                 } else {
                     lblMessage.setText("Incorrect user, try again or add new employee.");
                     lblMessage.setTextFill(Color.RED);
@@ -396,10 +393,10 @@ public class GUIdraft extends Application {
         VBox emplOpBox = new VBox();
 
         // Textfield for box
-        Text employee = new Text("empty: " + SoftwareHuset.getEmployees().isEmpty());
-        if (currentEmpl != null)
-            employee = new Text("logged in: " + currentEmpl.getName());
-
+/*        Text employee = new Text("empty: " + CompanyMain.SoftwareHuset.getEmployees().isEmpty());
+        if (CompanyMain.currentEmpl != null)
+            employee = new Text("logged in: " + CompanyMain.currentEmpl.getName());
+*/
         // Creating buttons for box
         timeRegButton = new Button("Time registering");
         editTimeRegButton = new Button("Edit registered time");
@@ -417,7 +414,7 @@ public class GUIdraft extends Application {
         backButton.setOnAction(e -> ButtonClicked(e));
 
         // Adding buttons to box
-        emplOpBox.getChildren().addAll(employee, timeRegButton, editTimeRegButton, actButton, pmButton, hourButton, backButton);
+        emplOpBox.getChildren().addAll(/*employee,*/ timeRegButton, editTimeRegButton, actButton, pmButton, hourButton, backButton);
 
         // Setting the scene
         employeePane02 = new GridPane();
@@ -441,11 +438,11 @@ public class GUIdraft extends Application {
 
         // Creating text for box
         String txt = "no acts";
-        if (currentEmpl != null) {
-            txt = currentEmpl.getName();
-            if (currentEmpl.getActivities() != null) {
+        if (CompanyMain.currentEmpl != null) {
+            txt = CompanyMain.currentEmpl.getName();
+            if (CompanyMain.currentEmpl.getActivities() != null) {
                 txt = "";
-                for (Activity a : currentEmpl.getActivities()) {
+                for (Activity a : CompanyMain.currentEmpl.getActivities()) {
                     txt += a.getActivityName() + ", remaining time: " + a.getRemainingTime() + "\n";
                 }
             }
@@ -545,12 +542,12 @@ public class GUIdraft extends Application {
             @Override
             public void handle(Event event) {
                 for (int i = 0; i < textFields2.length; i++) {
-                    if (!(textFields2[i].getText().toString().equals("")) && currentEmpl != null) {
-                        currentEmpl.updateRegisteredHours(Integer.parseInt(textFields2[i].getText().toString()));
+                    if (!(textFields2[i].getText().toString().equals("")) && CompanyMain.currentEmpl != null) {
+                        CompanyMain.currentEmpl.updateRegisteredHours(Integer.parseInt(textFields2[i].getText().toString()));
                     }
                 }
                 thestage.setScene(menuScene);
-                thestage.setTitle("regH: " + currentEmpl.registeredHours);
+                thestage.setTitle("regH: " + CompanyMain.currentEmpl.registeredHours);
             }
         });
 
