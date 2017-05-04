@@ -86,8 +86,6 @@ public class GUIdraft extends Application {
 
 
 
-
-
         // CLIENT 01
         VBox cliBox = new VBox();
 
@@ -254,7 +252,7 @@ public class GUIdraft extends Application {
 
 
 
-        // EMPLOYEE 01
+        // EMPLOYEE 01 - employeeScene01
         VBox emplBox = new VBox();
 
         // Creating buttons for box
@@ -262,8 +260,14 @@ public class GUIdraft extends Application {
         addEmplButton = new Button("Add a new employee");
 
         // Assigning actions for buttons
-        loginButton.setOnAction(e -> ButtonClicked(e));
-        addEmplButton.setOnAction((e -> ButtonClicked(e)));
+        loginButton.setOnAction(e -> {
+            thestage.setScene(employeeLoginScene);
+            thestage.setTitle("Enter username");
+        });
+        addEmplButton.setOnAction(e -> {
+            thestage.setScene(addEmployeeScene);
+            thestage.setTitle("Enter name of employee");
+        });
 
         // Adding buttons and text fields to box
         emplBox.getChildren().addAll(loginButton, addEmplButton);
@@ -281,7 +285,9 @@ public class GUIdraft extends Application {
 
 
 
-        // ADD EMPLOYEE
+
+
+        // ADD EMPLOYEE - addEmployeeScene
         VBox addEmplBox = new VBox();
 
         // Creating buttons and textfields for box
@@ -303,8 +309,10 @@ public class GUIdraft extends Application {
             @Override
             public void handle(Event event) {
                 if(!(SoftwareHuset.getEmployees().contains(newEmpName)) && !(newEmpName.isEmpty())) {
-                    thestage.setScene(employeeScene01);
-                    thestage.setTitle(newEmpName + " was succesfully added");
+                    lblMessage.setText("Employee" + newEmpName + " succesfully added");
+                    lblMessage.setTextFill(Color.GREEN);
+                    //thestage.setScene(employeeScene01);
+                    //thestage.setTitle(newEmpName + " was succesfully added");
                 } else {
                     lblMessage.setText("Employee" + newEmpName + " already in system, try again or login.");
                     lblMessage.setTextFill(Color.RED);
@@ -313,7 +321,10 @@ public class GUIdraft extends Application {
             }
         });
 
-        backButton01.setOnAction(e -> ButtonClicked(e));
+        backButton01.setOnAction(e -> {
+            thestage.setScene(employeeScene01);
+            thestage.setTitle("Login or create employee");
+        });
 
         // Adding buttons and text fields to box
         addEmplBox.getChildren().addAll(txtNewEmpl, conButton01, backButton01);
@@ -323,8 +334,12 @@ public class GUIdraft extends Application {
         addEmployeePane.setVgap(20);
         addEmployeePane.setStyle("-fx-background-color: yellow;-fx-padding: 10px;");
         addEmployeePane.add(addEmplBox, 8,2);
-        addEmployeePane.add(lblMessage, 8,4);
+        addEmployeePane.add(lblMessage, 8,6);
         addEmployeeScene = new Scene(addEmployeePane, 400,375);
+
+
+
+
 
 
 
@@ -507,7 +522,6 @@ public class GUIdraft extends Application {
 
 
 
-
         // REGISTER HOURS 02
         VBox regHActBox = new VBox();
 
@@ -577,7 +591,9 @@ public class GUIdraft extends Application {
             }
         }); */
 
-        Panes:
+
+
+
 /*        // pane 7
         pane7 = new GridPane();
         pane7.setVgap(20);
@@ -622,9 +638,6 @@ public class GUIdraft extends Application {
         } else if (e.getSource() == empButton) {
             thestage.setScene(employeeScene01);
             thestage.setTitle("Login or create employee");
-        } else if (e.getSource() == loginButton) {
-            thestage.setScene(employeeLoginScene);
-            thestage.setTitle("Enter username");
         } else if (e.getSource() == addEmplButton) {
             thestage.setScene(addEmployeeScene);
             thestage.setTitle("Enter name of employee");
