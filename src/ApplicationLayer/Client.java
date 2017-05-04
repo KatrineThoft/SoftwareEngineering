@@ -39,7 +39,6 @@ public class Client {
         } else {
             this.tempProject = null;
         }
-    int i = 1;
     }
 
     public Project getTempProject() {

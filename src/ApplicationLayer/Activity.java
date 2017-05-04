@@ -8,10 +8,13 @@ public class Activity {
     private double estimatedTimeUse;
     private double timeUsed;
 
-    public Activity(String activityName, double estimatedTimeUse){
+    public Activity(String activityName){
         this.activityName = activityName;
-        this.estimatedTimeUse = estimatedTimeUse;
         this.timeUsed = 0;
+    }
+
+    public void setEstimatedTimeUse(double estimatedTimeUse) {
+        this.estimatedTimeUse = estimatedTimeUse;
     }
 
     public void updateTimeUsed(double h){

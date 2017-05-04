@@ -15,64 +15,67 @@ public class BlackBoxTest {
         double estimatedTimeUse = 100;
         String projectName = "novoProject";
         String clientName = "NovoZyme";
+        Employee employee01 = new Employee("Alice", firm01);
 
         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
+        Client client02 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee01, firm01);
+
+        // 1.1 + 3.2
         Project project01 = new Project(client01, firm01);
-
-        //Test of ApplicationLayer.Project is made
         assertTrue(project01.active);
+        assertEquals(project01.client,client01);
         assertEquals(project01.projectName,projectName);
-        String projectID = "23011801";
-        project01.setProjectID(projectID);
-        assertEquals(project01.getProjectID(), projectID);
-
         assertEquals(project01.endDate,endDate);
-        //a wish employee from the client
-        Employee man = new Employee("Helga", firm01);
-        project01.setProjectManager(man);
-        ProjectManager projMan = new ProjectManager(man, project01);
-        assertEquals(project01.projectManager,projMan);
-
-
-
-        //estimated time on project
         assertEquals(project01.getEstimatedTimeUse(),estimatedTimeUse);
+        assertEquals(project01.getTimeUsed(),0);
+        assertTrue(project01.active);
 
-        //test work employee
-        List<Employee> workingEmployees = new ArrayList<Employee>();
-        for (int i = 1; i <= 5; i++){
-            workingEmployees.add(new Employee("employee"+i, firm01));
-        }
-        project01.setWorkingEmployees(workingEmployees);
-        assertEquals(project01.getWorkingEmployees(),workingEmployees);
+        // 1.2 + 3.3
+        Project project02 = new Project(null, null);
+        assertEquals(project02, null);
 
-        //make a project repport
+        // 3.1
+        Project project03 = new Project(client02, firm01);
+        assertEquals(project03.client,client01);
+        assertEquals(project03.projectName,projectName);
+        assertEquals(project03.endDate,endDate);
+        assertEquals(project03.getEstimatedTimeUse(),estimatedTimeUse);
+        assertEquals(project03.getTimeUsed(),0);
+        assertTrue(project03.active);
+        assertEquals(project03.projectManager.employee.getName(),"Hanne");
+
+        // 4.1
+        ProjectManager projMan01 = project03.projectManager;
         List<Activity> activities = new ArrayList<Activity>();
         for (int i = 1; i <= 5; i++){
-            activities.add(new Activity("activity"+i, 10));
+            activities.add(new Activity("activity"+i));
         }
-        project01.setActivities(activities);
+        projMan01.createActivities(activities);
+        assertEquals(projMan01.project.getActivities(), activities);
 
-        String employees = "";
-        for (Employee e : workingEmployees){
-            employees = employees + e.getName();
+        // 4.2
+        projMan01.createActivities(null);
+        assertEquals(projMan01.project.getActivities(), null);
+
+        // 5.1
+        projMan01.createActivities(activities);
+        projMan01.setEstTimeUse(project03.getActivities().get(0),10);
+        assertTrue(projMan01.project.getActivities().get(0).getEstimatedTimeUse() == 10);
+
+        // 5.2
+        projMan01.setEstTimeUse(null, estimatedTimeUse);
+
+        // 6.1
+        List<Employee> employees = new ArrayList<Employee>();
+        for (int i = 1; i <= 5; i++){
+            employees.add(new Employee("employee"+i, firm01));
         }
-        // Make activities as String
-        String activitiesStr = "";
-        for (Activity a : activities){
-            activitiesStr = activitiesStr + a.getActivityName() + ", " + a.getRemainingTime() + "; ";
-        }
+        projMan01.delegateActivities(activities,employees);
+        assertEquals(projMan01.getDelegatedActivities().get(projMan01.project.getActivities().get(0)), employees.get(0));
 
-        double timeUsed = 0.0;
-        project01.updateTimeUsed(timeUsed);
-
-        double remainingTime = estimatedTimeUse - timeUsed;
-
-        // The test
-        String projectReport = "Name = " + projectName + ", ID = " + projectID + ", Time used = " + timeUsed
-                + ", Remaining time = " + remainingTime + ", Employees = " + employees + ", Activities = " + activities;
-        assertEquals(project01.makeProjectReport(),projectReport);
-
+        // 6.2
+        projMan01.delegateActivities(null,null);
+        assertEquals(projMan01.getDelegatedActivities().get(projMan01.project.getActivities().get(0)), null);
     }
 
     @Test

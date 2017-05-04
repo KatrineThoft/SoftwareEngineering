@@ -19,6 +19,8 @@ public class Project {
     public TimeManager firm;
 
     public Project(Client client, TimeManager firm) {
+        if (client.getTempProject() != null)
+            this.projectManager = client.getTempProject().projectManager;
         this.active = true;
         this.client = client;
         this.projectName = client.projectName;

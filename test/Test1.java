@@ -102,12 +102,15 @@ public class Test1 {
         // Creating an ApplicationLayer.Activity
         String activityName = "name";
         double estimatedTimeUse = 100;
-        Activity activity1 = new Activity(activityName,estimatedTimeUse);
+        Activity activity1 = new Activity(activityName);
 
         // Test of constructor
         assertEquals(activity1.getActivityName(),"name");
-        assertEquals(activity1.getEstimatedTimeUse(),estimatedTimeUse);
         assertEquals(activity1.getTimeUsed(), 0);
+
+        // Test of set/get estimatedTimeUse
+        activity1.setEstimatedTimeUse(estimatedTimeUse);
+        assertEquals(activity1.getEstimatedTimeUse(),estimatedTimeUse);
 
         // Test of set/get timeUsed
         double timeUsed = 50.5;
@@ -133,7 +136,7 @@ public class Test1 {
         assertEquals(employee01.getActivities(),null);
         List<Activity> ongoingactivities = new ArrayList<Activity>();
         for (int i = 1; i <= 5; i++){
-            ongoingactivities.add(new Activity("activity"+i, 10));
+            ongoingactivities.add(new Activity("activity"+i));
         }
         employee01.setActivities(ongoingactivities);
         assertEquals(employee01.getActivities(), ongoingactivities);
@@ -213,7 +216,7 @@ public class Test1 {
         assertEquals(project01.getActivities(), null);
         List<Activity> activities = new ArrayList<Activity>();
         for (int i = 1; i <= 5; i++){
-            activities.add(new Activity("activity"+i, 10));
+            activities.add(new Activity("activity"+i));
         }
         project01.setActivities(activities);
         assertEquals(project01.getActivities(),activities);
@@ -243,7 +246,7 @@ public class Test1 {
         Employee employee01 = new Employee(employeename, firm01);
         List<Activity> ongoingactivities = new ArrayList<Activity>();
         for (int i = 1; i <= 5; i++){
-            ongoingactivities.add(new Activity("activity"+i, 10));
+            ongoingactivities.add(new Activity("activity"+i));
         }
         employee01.setActivities(ongoingactivities);
 
@@ -271,10 +274,16 @@ public class Test1 {
         assertTrue(manager.project.getActivities() == null);
         List<Activity> newActivities = new ArrayList<Activity>();
         for (int i = 1; i <= 5; i++){
-            newActivities.add(new Activity("activity"+i, 10));
+            newActivities.add(new Activity("activity"+i));
         }
         manager.createActivities(newActivities);
         assertFalse(manager.project.getActivities() == null);
+
+        // Test of setEstTimeUse
+        for (Activity a : manager.project.getActivities()) {
+            manager.setEstTimeUse(a, 10);
+        }
+        assertTrue(manager.project.getActivities().get(0).getEstimatedTimeUse() == 10);
 
         // Test of createEmployees
         assertTrue(manager.project.getWorkingEmployees() == null);
@@ -331,10 +340,10 @@ public class Test1 {
         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee01, firm01);
 
         assertFalse(client01.getTempProject() == null);
-        Project project01 = client01.getTempProject();
+        Project project01 = new Project(client01, firm01);
 
         //Test that it is the correct project manager
-        assertEquals(project01.projectManager,"Hanne");
+        assertEquals(project01.projectManager.employee.getName(),"Hanne");
     }
 
 }
