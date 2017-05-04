@@ -30,11 +30,9 @@ public class GUIdraft extends Application {
     GridPane menuPane, clientPane01, employeePane01, addEmployeePane, employeeLoginPane, employeePane02, activityPane, regHoursPane01, regHoursPane02, pane7, pane8, pane9, pane10;
     Scene menuScene, clientScene01, employeeScene01, addEmployeeScene, employeeLoginScene, employeeScene02, activityScene, regHoursScene01, regHoursScene02, scene7, scene8, scene9, scene10;
     Stage thestage;
-    String empName, newEmpName, userName;
-    private DatePicker datePicker;
-    private DatePicker endDatePicker;
-    //TimeManager SoftwareHuset = new TimeManager();
-    //Employee currentEmpl;
+    String empName, newEmpName, stringDate;
+
+    Employee currentEmpl;
 
 
     public static void main(String[] args) {
@@ -114,7 +112,7 @@ public class GUIdraft extends Application {
 
 
 
- /*       // CLIENT 02
+       // CLIENT 02
         //Creating a new project
 
         // Part 1: Creating 1st box with text fields:
@@ -165,9 +163,8 @@ public class GUIdraft extends Application {
 
         //Part 2:
         //Choosing the end date
-        endDatePicker = new DatePicker();
+        TextField endDateText = new TextField();
         Label datelabel1 = new Label("Please choose an end date:");
-        endDatePicker.setShowWeekNumbers(true);
         GridPane.setHalignment(datelabel1, HPos.LEFT);
 
         endDateButton = new Button("Next.");
@@ -175,7 +172,9 @@ public class GUIdraft extends Application {
         endDateButton.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                if(endDatePicker.getValue() != null) {
+                if(endDateText.getText() != null) {
+                    stringDate  = endDateText.getText();
+                    System.out.println("1" + stringDate);
                     thestage.setScene(scene9);
                     thestage.setTitle("Please fill out the form.");
                 } else {
@@ -185,11 +184,13 @@ public class GUIdraft extends Application {
 
             }
         });
-        String stringDate  = endDatePicker.getValue().toString();
-        int day = Integer.parseInt(stringDate.substring(0,2));
-        int month = Integer.parseInt(stringDate.substring(2,4));
-        int year =  Integer.parseInt(stringDate.substring(4,6));
 
+        System.out.println("2 " + stringDate);
+
+      String[] splitDate = stringDate.split("-");
+        int day = Integer.parseInt(splitDate[0]);
+        int month = Integer.parseInt(splitDate[1]);
+        int year = Integer.parseInt(splitDate[2]);
         Date endDate = new Date(day, month, year);
 
         //Part 3:
@@ -221,17 +222,16 @@ public class GUIdraft extends Application {
 
         //Creating a new client
         if(employeName != null){
-            Employee employee = SoftwareHuset.getEmployee(employeName);
-            Client client1 = new Client(clientName, endDate, estimate, projectName, employee , SoftwareHuset);
+            Employee employee = CompanyMain.SoftwareHuset.getEmployee(employeName);
+            Client client1 = new Client(clientName, endDate, estimate, projectName, employee , CompanyMain.SoftwareHuset);
             //SoftwareHuset.addClient(client1);
         }
         else {
-            Client client1 = new Client(clientName, endDate, estimate, projectName, SoftwareHuset);
-            SoftwareHuset.addClient(client1);
+            Client client1 = new Client(clientName, endDate, estimate, projectName, CompanyMain.SoftwareHuset);
+            CompanyMain.SoftwareHuset.addClient(client1);
 
 
         }
-
 
 
         //Last scene for client
@@ -239,16 +239,8 @@ public class GUIdraft extends Application {
         cliEndButton.setOnAction(e->ButtonClicked(e));
 
 
-        conButton.setOnAction(new EventHandler() {
-            @Override
-            public void handle(Event event) {
-                if(){
 
-                }
 
-            }
-        });
-*/
 
 
 
@@ -301,7 +293,7 @@ public class GUIdraft extends Application {
         conButton01.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                newEmpName = txtNewEmpl.getText().toString();
+                newEmpName = txtNewEmpl.getText();
                 if(!(CompanyMain.SoftwareHuset.getEmployees().contains(newEmpName)) && !(newEmpName.isEmpty())) {
                     Employee emp = new Employee(newEmpName, CompanyMain.SoftwareHuset);
                     emp.setOngoingActivities(); // for testing
@@ -588,10 +580,12 @@ public class GUIdraft extends Application {
             }
         }); */
 
+      //  Panes:
+       // pane 7
 
 
 
-/*        // pane 7
+      // pane 7
         pane7 = new GridPane();
         pane7.setVgap(20);
         pane7.setStyle("-fx-background-color: tan;-fx-padding: 10px;");
@@ -602,7 +596,7 @@ public class GUIdraft extends Application {
         pane8 = new GridPane();
         pane8.setVgap(20);
         pane8.setStyle("-fx-background-color: turquoise;-fx-padding: 10px;");
-        pane8.add(endDatePicker, 0,0);
+        pane8.add(endDateText, 0,0);
         pane8.add(endDateButton, 8,2);
         scene8 = new Scene(pane8, 400,375);
 
@@ -619,7 +613,7 @@ public class GUIdraft extends Application {
         pane10.setStyle("-fx-background-color: grey;-fx-padding: 10px;");
         pane10.add(cliEndButton, 8,2);
         scene10 = new Scene(pane10, 400, 375 );
-*/
+
 
         // Setting start
         primaryStage.setTitle("Welcome to Softwarehuset A/S!");
