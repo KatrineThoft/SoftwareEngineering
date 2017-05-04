@@ -1,5 +1,7 @@
 import javafx.application.Application;
 
+import java.sql.Time;
+
 /**
  * Created by EmilieKvist on 28-04-2017.
  */
@@ -9,7 +11,11 @@ public class CompanyMain {
 
     public static void main(String[] args) {
         SoftwareHuset = new TimeManager();
-        //Employee currentEmpl;
+        currentEmpl = new Employee("Bob", SoftwareHuset);
+        currentEmpl.setOngoingActivities();
+        SoftwareHuset.addEmployee(currentEmpl);
         GUIdraft.main(args);
     }
+
+
 }

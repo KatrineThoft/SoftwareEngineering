@@ -30,9 +30,11 @@ public class GUIdraft extends Application {
     GridPane menuPane, clientPane01, employeePane01, addEmployeePane, employeeLoginPane, employeePane02, activityPane, regHoursPane01, regHoursPane02, pane7, pane8, pane9, pane10;
     Scene menuScene, clientScene01, employeeScene01, addEmployeeScene, employeeLoginScene, employeeScene02, activityScene, regHoursScene01, regHoursScene02, scene7, scene8, scene9, scene10;
     Stage thestage;
-    String empName, newEmpName, stringDate;
-
-    Employee currentEmpl;
+    String empName, newEmpName, userName, stringDate;
+    private DatePicker datePicker;
+    private DatePicker endDatePicker;
+    public static TimeManager SoftwareHuset = new TimeManager();
+    public Employee currentEmpl;
 
 
     public static void main(String[] args) {
@@ -283,11 +285,22 @@ public class GUIdraft extends Application {
         VBox addEmplBox = new VBox();
 
         // Creating buttons and textfields for box
-        TextField txtNewEmpl = new TextField();
+        final TextField txtNewEmpl = new TextField();
+        txtNewEmpl.setPromptText("enter name");
+        txtNewEmpl.setPrefColumnCount(10);
         conButton01 = new Button("Confirm");
         backButton01 = new Button("Back");
 
         // Assigning actions for buttons
+
+        if ((txtNewEmpl.getText() != null && !txtNewEmpl.getText().isEmpty())) {
+            newEmpName = txtNewEmpl.getText();
+            if (!(CompanyMain.SoftwareHuset.getEmployees().contains(newEmpName))) {
+                Employee emp = new Employee(newEmpName, CompanyMain.SoftwareHuset);
+                emp.setOngoingActivities(); // for testing
+                CompanyMain.SoftwareHuset.addEmployee(emp);
+            }
+        }
 
         // Handler method for adding employee
         conButton01.setOnAction(new EventHandler() {
@@ -301,12 +314,11 @@ public class GUIdraft extends Application {
                     //lblMessage.setText("Employee" + newEmpName + " succesfully added");
                     //lblMessage.setTextFill(Color.GREEN);
                     thestage.setScene(employeeScene01);
-                    thestage.setTitle(newEmpName + " was succesfully added");
+                    thestage.setTitle(empName + " was succesfully added");
                 } else {
                     lblMessage.setText("Employee" + newEmpName + " already in system, try again or login.");
                     lblMessage.setTextFill(Color.RED);
                 }
-                newEmpName="";
             }
         });
 
@@ -342,14 +354,15 @@ public class GUIdraft extends Application {
         conButton02 = new Button("Login");
 
         // Assigning actions for buttons
-
-
+        Text empl = new Text("nothing");
+        if (!GUIdraft.SoftwareHuset.getEmployees().isEmpty())
+            empl.setText(GUIdraft.SoftwareHuset.getEmployees().get(0).getName());
 
         //Handler method for signing in (okButton)
         conButton02.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                empName = txtUserName.getText().toString();
+                empName = txtUserName.getText();
                 if (CompanyMain.SoftwareHuset.getEmployeeNames().contains(empName)) {
                     CompanyMain.currentEmpl = CompanyMain.SoftwareHuset.getEmployee(empName);
                     thestage.setScene(employeeScene02);
@@ -363,7 +376,7 @@ public class GUIdraft extends Application {
         });
 
         // Adding buttons and text fields to box
-        emplLoginBox.getChildren().addAll(txtUserName, conButton02);
+        emplLoginBox.getChildren().addAll(empl, txtUserName, conButton02);
 
         // Setting the scene
         employeeLoginPane = new GridPane();
@@ -385,10 +398,10 @@ public class GUIdraft extends Application {
         VBox emplOpBox = new VBox();
 
         // Textfield for box
-/*        Text employee = new Text("empty: " + CompanyMain.SoftwareHuset.getEmployees().isEmpty());
+        Text employee = new Text("empty: " + CompanyMain.SoftwareHuset.getEmployees().isEmpty());
         if (CompanyMain.currentEmpl != null)
             employee = new Text("logged in: " + CompanyMain.currentEmpl.getName());
-*/
+
         // Creating buttons for box
         timeRegButton = new Button("Time registering");
         editTimeRegButton = new Button("Edit registered time");
@@ -406,7 +419,7 @@ public class GUIdraft extends Application {
         backButton.setOnAction(e -> ButtonClicked(e));
 
         // Adding buttons to box
-        emplOpBox.getChildren().addAll(/*employee,*/ timeRegButton, editTimeRegButton, actButton, pmButton, hourButton, backButton);
+        emplOpBox.getChildren().addAll(employee, timeRegButton, editTimeRegButton, actButton, pmButton, hourButton, backButton);
 
         // Setting the scene
         employeePane02 = new GridPane();
