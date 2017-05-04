@@ -25,9 +25,9 @@ import javafx.scene.text.Text;
 
 public class GUIdraft extends Application {
     //Creating the fields
-    Button backButton, backButton01, dateButton, okButton, exitButton, conButton, conButton01, conButton02;
+    Button backButton, backButton01, dateButton, exitButton, conButton, conButton01, conButton02;
     Button cliButton, empButton, loginButton,  timeRegButton, editTimeRegButton, hourButton, actButton, nextButton, pmButton, cliEndButton,  newProjectButton,timeEstimateButton,  endDateButton,addEmplButton ;
-    GridPane menuPane, clientPane01, employeePane01, addEmployeePane, employeeLoginPane, employeePane02, activityPane, regHoursPane01, regHoursPane02, pane7, pane8, pane9, pane10;
+    GridPane menuPane, clientPane01, employeePane01, addEmployeePane, employeeLoginPane, employeePane02, activityPane, regHoursPane01, regHoursPane02, pane7, pane9, pane10;
     Scene menuScene, clientScene01, employeeScene01, addEmployeeScene, employeeLoginScene, employeeScene02, activityScene, regHoursScene01, regHoursScene02, scene7, scene8, scene9, scene10;
     Stage thestage;
     String empName, newEmpName, userName, stringDate;
@@ -134,14 +134,13 @@ public class GUIdraft extends Application {
             Label label1 = new Label(text[i]);
             projectForm .getChildren().addAll(label1, tf);
             textFields[i] = tf;
-            info[i] =  textFields[i].toString();
+            info[i] =  tf.getText();
 
         }
 
         String clientName = info[0];
         String projectName = info[1];
         String employeName = info[2];
-
         // Adding button to box
         nextButton = new Button("Next");
 
@@ -150,7 +149,7 @@ public class GUIdraft extends Application {
             @Override
             public void handle(Event event) {
                 if(!(info[0].isEmpty()) && !(info[1].isEmpty()))  {
-                    thestage.setScene(scene10);
+                    thestage.setScene(scene8);
                     thestage.setTitle("Please choose a date.");
                 } else {
                     lblMessage.setText("Please fill out the form.");
@@ -164,7 +163,7 @@ public class GUIdraft extends Application {
         projectForm.getChildren().add(nextButton);
 
         //Part 2:
-      /*  //Choosing the end date
+        //Choosing the end date
         TextField endDateText = new TextField();
         Label datelabel1 = new Label("Please choose an end date:");
         GridPane.setHalignment(datelabel1, HPos.LEFT);
@@ -176,7 +175,6 @@ public class GUIdraft extends Application {
             public void handle(Event event) {
                 if(endDateText.getText() != null) {
                     stringDate  = endDateText.getText();
-                    System.out.println("1" + stringDate);
                     thestage.setScene(scene9);
                     thestage.setTitle("Please fill out the form.");
                 } else {
@@ -189,23 +187,24 @@ public class GUIdraft extends Application {
 
         System.out.println("2 " + stringDate);
 
-      String[] splitDate = stringDate.split("-");
+        /*String[] splitDate = stringDate.split("-");
         int day = Integer.parseInt(splitDate[0]);
         int month = Integer.parseInt(splitDate[1]);
         int year = Integer.parseInt(splitDate[2]);
         Date endDate = new Date(day, month, year);
-
+*/
         //Part 3:
         //EstimatedTimeUse
         timeEstimateButton = new Button("Click to confirm.");
         TextField estimateText = new TextField();
         Label label3 = new Label("Number of hours estimated for project.");
-        double estimate = Double.parseDouble(estimateText.getText());
+//        double estimate = Double.parseDouble(estimateText.getText());
         timeEstimateButton.setOnAction(e->ButtonClicked(e));
 
         timeEstimateButton.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
+                double estimate = Double.parseDouble(estimateText.getText());
                 if(estimate > 0) {
                     thestage.setScene(scene10);
                     thestage.setTitle("Thank you. Your project has been created.");
@@ -223,7 +222,7 @@ public class GUIdraft extends Application {
 
 
         //Creating a new client
-        if(employeName != null){
+       /* if(employeName != null){
             Employee employee = CompanyMain.SoftwareHuset.getEmployee(employeName);
             Client client1 = new Client(clientName, endDate, estimate, projectName, employee , CompanyMain.SoftwareHuset);
             //SoftwareHuset.addClient(client1);
