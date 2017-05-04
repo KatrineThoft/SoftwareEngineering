@@ -19,7 +19,7 @@ public class BlackBoxTest {
         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
         Project project01 = new Project(client01, firm01);
 
-        //Test of Project is made
+        //Test of ApplicationLayer.Project is made
         assertTrue(project01.active);
         assertEquals(project01.projectName,projectName);
         String projectID = "23011801";

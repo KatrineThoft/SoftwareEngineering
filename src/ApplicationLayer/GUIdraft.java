@@ -1,4 +1,4 @@
-/**
+package ApplicationLayer; /**
  * Created by katrinethoft on 24/04/17.
  */
 import javafx.application.Application;
@@ -14,8 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import java.util.*;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.GridPane;
@@ -59,8 +58,8 @@ public class GUIdraft extends Application {
         VBox menu = new VBox();
 
         // Creating buttons for box
-        cliButton = new Button("Client");
-        empButton = new Button("Employee");
+        cliButton = new Button("ApplicationLayer.Client");
+        empButton = new Button("ApplicationLayer.Employee");
         exitButton = new Button("Exit");
 
         // Assigning actions to buttons
@@ -123,7 +122,7 @@ public class GUIdraft extends Application {
         int numTextFields = 3 ;
         String[] text = new String[6];
         text[0] = "Your company name:";
-        text[1] = "Project Name:";
+        text[1] = "ApplicationLayer.Project Name:";
         text[2] = "For specific project manager please write the employees name here:";
         final String[] info = new String[6];
 
@@ -191,7 +190,7 @@ public class GUIdraft extends Application {
         int day = Integer.parseInt(splitDate[0]);
         int month = Integer.parseInt(splitDate[1]);
         int year = Integer.parseInt(splitDate[2]);
-        Date endDate = new Date(day, month, year);
+        ApplicationLayer.Date endDate = new ApplicationLayer.Date(day, month, year);
 */
         //Part 3:
         //EstimatedTimeUse
@@ -223,13 +222,13 @@ public class GUIdraft extends Application {
 
         //Creating a new client
        /* if(employeName != null){
-            Employee employee = CompanyMain.SoftwareHuset.getEmployee(employeName);
-            Client client1 = new Client(clientName, endDate, estimate, projectName, employee , CompanyMain.SoftwareHuset);
+            ApplicationLayer.Employee employee = ApplicationLayer.CompanyMain.SoftwareHuset.getEmployee(employeName);
+            ApplicationLayer.Client client1 = new ApplicationLayer.Client(clientName, endDate, estimate, projectName, employee , ApplicationLayer.CompanyMain.SoftwareHuset);
             //SoftwareHuset.addClient(client1);
         }
         else {
-            Client client1 = new Client(clientName, endDate, estimate, projectName, CompanyMain.SoftwareHuset);
-            CompanyMain.SoftwareHuset.addClient(client1);
+            ApplicationLayer.Client client1 = new ApplicationLayer.Client(clientName, endDate, estimate, projectName, ApplicationLayer.CompanyMain.SoftwareHuset);
+            ApplicationLayer.CompanyMain.SoftwareHuset.addClient(client1);
 
 
         }*/
@@ -310,12 +309,12 @@ public class GUIdraft extends Application {
                     Employee emp = new Employee(newEmpName, CompanyMain.SoftwareHuset);
                     emp.setOngoingActivities(); // for testing
                     CompanyMain.SoftwareHuset.addEmployee(emp);
-                    //lblMessage.setText("Employee" + newEmpName + " succesfully added");
+                    //lblMessage.setText("ApplicationLayer.Employee" + newEmpName + " succesfully added");
                     //lblMessage.setTextFill(Color.GREEN);
                     thestage.setScene(employeeScene01);
                     thestage.setTitle(empName + " was succesfully added");
                 } else {
-                    lblMessage.setText("Employee" + newEmpName + " already in system, try again or login.");
+                    lblMessage.setText("ApplicationLayer.Employee" + newEmpName + " already in system, try again or login.");
                     lblMessage.setTextFill(Color.RED);
                 }
             }
@@ -365,7 +364,7 @@ public class GUIdraft extends Application {
                 if (CompanyMain.SoftwareHuset.getEmployeeNames().contains(empName)) {
                     CompanyMain.currentEmpl = CompanyMain.SoftwareHuset.getEmployee(empName);
                     thestage.setScene(employeeScene02);
-                    thestage.setTitle("Employee " + CompanyMain.currentEmpl.getName() + " logged in");
+                    thestage.setTitle("ApplicationLayer.Employee " + CompanyMain.currentEmpl.getName() + " logged in");
                 } else {
                     lblMessage.setText("Incorrect user, try again or add new employee.");
                     lblMessage.setTextFill(Color.RED);
@@ -405,7 +404,7 @@ public class GUIdraft extends Application {
         timeRegButton = new Button("Time registering");
         editTimeRegButton = new Button("Edit registered time");
         actButton = new Button("See your ongoing activities");
-        pmButton = new Button("Project manager profile");
+        pmButton = new Button("ApplicationLayer.Project manager profile");
         hourButton = new Button("See your registered hours");
         backButton = new Button("Go back");
 
@@ -488,7 +487,7 @@ public class GUIdraft extends Application {
 
         // Assigning actions for buttons
         String dateStr = dateTxt.toString();
-        //Date date = new Date(Integer.parseInt(dateStr.substring(0,1)), Integer.parseInt(dateStr.substring(2,3)), Integer.parseInt(dateStr.substring(4,7)));
+        //ApplicationLayer.Date date = new ApplicationLayer.Date(Integer.parseInt(dateStr.substring(0,1)), Integer.parseInt(dateStr.substring(2,3)), Integer.parseInt(dateStr.substring(4,7)));
         //Handler metode til datebutton
         dateButton.setOnAction(new EventHandler() {
             @Override
@@ -534,7 +533,7 @@ public class GUIdraft extends Application {
         TextField[] textFields2 = new TextField[n];
         for (int i = 1; i <= n; i++) {
             TextField tf = new TextField();
-            Label lbl = new Label("Activity" + i);
+            Label lbl = new Label("ApplicationLayer.Activity" + i);
             //Label lbl = new Label(currentEmpl.getActivities().get(i-1).getActivityName());
             regHActBox.getChildren().addAll(lbl, tf);
             textFields2[i-1] = tf ;

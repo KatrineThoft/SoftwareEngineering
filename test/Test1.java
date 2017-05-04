@@ -10,11 +10,11 @@ import java.util.List;
 
 public class Test1 {
 
-    // Test af Date klassen
+    // Test af ApplicationLayer.Date klassen
 
     @Test
     public void TimeManagerTest01(){
-        // creating a TimeManager
+        // creating a ApplicationLayer.TimeManager
         TimeManager firm01 = new TimeManager();
 
         // test of constructor and get clients/projects/employees/freeEmployees
@@ -99,7 +99,7 @@ public class Test1 {
 
    @Test
     public void ActivityTest(){
-        // Creating an Activity
+        // Creating an ApplicationLayer.Activity
         String activityName = "name";
         double estimatedTimeUse = 100;
         Activity activity1 = new Activity(activityName,estimatedTimeUse);
@@ -186,14 +186,14 @@ public class Test1 {
         assertEquals(project01.getRemainingTime(),remainingTime);
 
        // updateEstimatedTimeUse is the same function as
-        //delayProject in ProjectManager
+        //delayProject in ApplicationLayer.ProjectManager
         // Test of updateEstimatedTimeUse
         estimatedTimeUse = estimatedTimeUse + 50;
         project01.updateEstimatedTimeUse(50);
         assertEquals(project01.getEstimatedTimeUse(),estimatedTimeUse);
 
 
-        // Test of set/get ProjectManager
+        // Test of set/get ApplicationLayer.ProjectManager
         assertEquals(project01.projectManager,null);
         Employee man = new Employee("Helga", firm01);
         project01.setProjectManager(man);

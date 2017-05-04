@@ -1,4 +1,4 @@
-import java.sql.Time;
+package ApplicationLayer;
 
 
 /**
@@ -57,7 +57,7 @@ public class Client {
     }
 
 
-    public Date getEndDate() {
+    public ApplicationLayer.Date getEndDate() {
         return endDate;
     }
 
