@@ -2,6 +2,7 @@ package GUI;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
@@ -50,6 +51,11 @@ public class EmplOptStage extends Stage {
 
         Button backButton = new Button("Sign out. Back to menu");
         backButton.setOnAction(e-> back());
+
+        VBox empOptBox = new VBox();
+        empOptBox.getChildren().addAll(timeRegButton, hourButton, editTimeButton, actButton , pMButton, backButton);
+
+        emplOptPane.add(empOptBox, 2, 1);
 
         return emplOptPane;
     }
