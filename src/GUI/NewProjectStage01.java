@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -25,7 +26,7 @@ public class NewProjectStage01 extends Stage {
     private TextField comNameInput;
     private TextField proNameInput;
     private TextField empNameInput;
-    private TextField endDateInput;
+    private DatePicker endDateInput;
     private TextField estimateInput;
     private Label lblMessage;
     public Employee emp;
@@ -57,7 +58,7 @@ public class NewProjectStage01 extends Stage {
         comNameInput = new TextField();
         proNameInput= new TextField();
         empNameInput = new TextField();
-        endDateInput = new TextField();
+        endDateInput = new DatePicker();
         estimateInput = new TextField();
 
         Label comNamelabel = new Label("Company Name:");
@@ -101,12 +102,12 @@ public class NewProjectStage01 extends Stage {
 
 
     private void confirm(){
-        if(!(comNameInput.getText().isEmpty()) && !(proNameInput.getText().isEmpty())  && !(endDateInput.getText().isEmpty()) && !(estimateInput.getText().isEmpty()))  {
+        if(!(comNameInput.getText().isEmpty()) && !(proNameInput.getText().isEmpty())  && !(endDateInput.getValue() == null) && !(estimateInput.getText().isEmpty()))  {
 
             String conName = comNameInput.getText();
             String proName = proNameInput.getText();
 
-            String[] endDateSplit = endDateInput.getText().split("-");
+            String[] endDateSplit = endDateInput.getValue().toString().split("-");
             day = Integer.parseInt(endDateSplit[0]);
             month = Integer.parseInt(endDateSplit[1]);
             year = Integer.parseInt(endDateSplit[2]);
