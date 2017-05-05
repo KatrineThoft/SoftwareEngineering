@@ -1,6 +1,7 @@
 package ApplicationLayer;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Daniel Hildebrand on 27-03-2017.
@@ -12,32 +13,33 @@ public class Project {
     public Date endDate;
     private double estimatedTimeUse;
     private double timeUsed;
-    private String projectID;
     public ProjectManager projectManager;
+    private String projectID;
     private List<Employee> workingEmployees;
     private List<Activity> activities;
+    private Map<Activity, Employee> delegatedActivities;
     public TimeManager firm;
 
     public Project(Client client, TimeManager firm) {
-        if (client.getTempProject() != null)
-            this.projectManager = client.getTempProject().projectManager;
         this.active = true;
         this.client = client;
         this.projectName = client.projectName;
         this.endDate = client.endDate;
         this.estimatedTimeUse = client.estimatedTimeUse;
         this.timeUsed = 0;
+        if (client.getTempProject() != null)
+            this.projectManager = client.getTempProject().projectManager;
         this.firm = firm;
         addToFirm(firm);
-    }
-
-    public void setProjectID(String newProjectID) {
-        projectID = newProjectID;
     }
 
     public void setProjectManager(Employee projectManager) {
         ProjectManager manager = new ProjectManager(projectManager,this);
         this.projectManager = manager;
+    }
+
+    public void setProjectID(String newProjectID) {
+        projectID = newProjectID;
     }
 
     public void setWorkingEmployees(List<Employee> workingEmployees) {
@@ -46,6 +48,10 @@ public class Project {
 
     public void setActivities(List<Activity> activities) {
         this.activities = activities;
+    }
+
+    public void setDelegatedActivities(Map<Activity,Employee> delegatedActivities) {
+        this.delegatedActivities = delegatedActivities;
     }
 
     public void updateEstimatedTimeUse(double h) {
@@ -84,6 +90,10 @@ public class Project {
 
     public List<Activity> getActivities() {
         return activities;
+    }
+
+    public Map<Activity, Employee> getDelegatedActivities() {
+        return delegatedActivities;
     }
 
     public void addToFirm(TimeManager firm){

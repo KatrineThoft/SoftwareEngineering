@@ -8,22 +8,31 @@ import java.util.*;
 public class ProjectManager{
     public Employee employee;
     public Project project;
-    private Map<Activity, Employee> delegatedActivities;
 
     public ProjectManager(Employee employee01, Project project){
         this.employee = employee01;
         this.project = project;
     }
 
-    public void createActivities(List<Activity> actList){
-        project.setActivities(actList);
-    }
-
     public void setEstTimeUse(Activity act, double estimatedTimeUse) {
         act.setEstimatedTimeUse(estimatedTimeUse);
     }
 
-    public void createEmployees() {
+    public void createActivities(){ // called from delegateActivities
+        int i = 0;
+        List<Activity> activities = new ArrayList<Activity>();
+        while (i <= project.getEstimatedTimeUse()) {
+            activities.add(new Activity("activity" + (i/10+1)));
+            activities.get(i/10).setEstimatedTimeUse(10);
+            i+=10;
+        }
+        if (i-10 < project.getEstimatedTimeUse()){
+            activities.add(new Activity("activity" + (i/10+1)));
+            activities.get(i/10).setEstimatedTimeUse(project.getEstimatedTimeUse()-(i-10));
+        }
+    }
+
+    public void getEmplForProj() { // called from delegateActivities
         for (int i = 0; i < project.getActivities().size(); i++){
             if (project.firm.getFreeEmployees().get(i) != null) {
                 project.getWorkingEmployees().add(project.firm.getFreeEmployees().get(i));
@@ -34,32 +43,24 @@ public class ProjectManager{
         int i = 1;
     }
 
-    public void delegateActivities(List<Activity> activities, List<Employee> employees){
+    public void delegateActivities(){
         Map<Activity, Employee> delegatedActivities = new HashMap<Activity, Employee>();
-        for (int i = 0; i < employees.size(); i++) {
-            delegatedActivities.put(activities.get(i), employees.get(i));
-            employees.get(i).getActivities().add(activities.get(i));
-            if (employees.get(i).getActivities().size() >= 10) {
-                project.firm.getFreeEmployees().remove(employees.get(i));
+        createActivities();
+        getEmplForProj();
+        for (int i = 0; i < project.getWorkingEmployees().size(); i++) {
+            delegatedActivities.put(project.getActivities().get(i), project.getWorkingEmployees().get(i));
+            project.getWorkingEmployees().get(i).getActivities().add(project.getActivities().get(i));
+            if (project.getWorkingEmployees().get(i).getActivities().size() >= 10) {
+                project.firm.getFreeEmployees().remove(project.getWorkingEmployees().get(i));
             }
         }
-        this.delegatedActivities = delegatedActivities;
+        project.setDelegatedActivities(delegatedActivities);
     }
 
-    public Map<Activity, Employee> getDelegatedActivities() {
-        return delegatedActivities;
-    }
 
-    public Employee findSubstitute(Activity act, Employee empl){
-        if (project.firm.getFreeEmployees() != null) {
-            Employee newEmpl = project.firm.getFreeEmployees().get(0);
-            delegatedActivities.replace(act, empl, newEmpl);
-            System.out.println("There is found a employee");
-            return newEmpl;
-        } else {
-            System.out.println("not enough available employees");
-            return null;
-        }
+    public void findSubstitute(Activity act, Employee empl){ // only called from updateAbsence (Employee class)
+        Employee newEmpl = project.firm.getFreeEmployees().get(0);
+        project.getDelegatedActivities().replace(act, empl, newEmpl);
     }
 
     public void delayProject(double hours){
