@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 /**
  * Created by katrinethoft on 04/05/17.
  */
+
+//Stage entered when clicking "client" in MenuStage
 public class ClientStage extends Stage {
 
     final int HEIGHT = 475;

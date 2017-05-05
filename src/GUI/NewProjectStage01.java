@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 /**
  * Created by katrinethoft on 04/05/17.
  */
+
+//Stage entered when a client wants to create a new project
 public class NewProjectStage01 extends Stage {
     final int HEIGHT = 475;
     final int WIDTH = 500;

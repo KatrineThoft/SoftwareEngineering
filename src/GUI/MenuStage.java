@@ -12,8 +12,11 @@ import javafx.stage.Stage;
 /**
  * Created by katrinethoft on 04/05/17.
  */
+
+//First stage of GUI
+    //Shows the menu when running the GUI
 public class MenuStage extends Stage{
-    private GUI.CompanyDriver CompanyDriver;
+    private GUI.CompanyDriver companyDriver;
 
 
     public MenuStage(CompanyDriver driver) {
@@ -21,7 +24,7 @@ public class MenuStage extends Stage{
         final int HEIGHT = 475;
         final int WIDTH = 500;
 
-        this.CompanyDriver = driver;
+        this.companyDriver = driver;
 
         Scene scene = new Scene(menuPane(), WIDTH, HEIGHT);
 
@@ -67,12 +70,12 @@ public class MenuStage extends Stage{
     }
 
     private void client() {
-        CompanyDriver.startClientStage();
+        companyDriver.startClientStage();
         this.close();
     }
 
     private void employee() {
-        CompanyDriver.startEmployeeStage();
+        companyDriver.startEmployeeStage();
         this.close();
     }
 

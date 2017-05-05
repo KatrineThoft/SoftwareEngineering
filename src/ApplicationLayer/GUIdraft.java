@@ -46,7 +46,7 @@ public class GUIdraft extends Application {
 
         //Setting the stage
         thestage = primaryStage;
-        final Label lblMessage = new Label();
+       /* final Label lblMessage = new Label();
 
 
 
@@ -198,9 +198,9 @@ public class GUIdraft extends Application {
         TextField estimateText = new TextField();
         Label label3 = new Label("Number of hours estimated for project.");
 //        double estimate = Double.parseDouble(estimateText.getText());
-        timeEstimateButton.setOnAction(e->ButtonClicked(e));
+      // timeEstimateButton.setOnAction(e->ButtonClicked(e));
 
-        timeEstimateButton.setOnAction(new EventHandler() {
+    /*    timeEstimateButton.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
                 double estimate = Double.parseDouble(estimateText.getText());
@@ -236,8 +236,7 @@ public class GUIdraft extends Application {
 
         //Last scene for client
         cliEndButton = new Button("Back to menu.");
-        cliEndButton.setOnAction(e->ButtonClicked(e));
-
+      //  cliEndButton.setOnAction(e->ButtonClicked(e));
 
 
 
@@ -291,7 +290,7 @@ public class GUIdraft extends Application {
 
         // Assigning actions for buttons
 
-        if ((txtNewEmpl.getText() != null && !txtNewEmpl.getText().isEmpty())) {
+  /*      if ((txtNewEmpl.getText() != null && !txtNewEmpl.getText().isEmpty())) {
             newEmpName = txtNewEmpl.getText();
             if (!(CompanyMain.SoftwareHuset.getEmployees().contains(newEmpName))) {
                 Employee emp = new Employee(newEmpName, CompanyMain.SoftwareHuset);
@@ -309,7 +308,7 @@ public class GUIdraft extends Application {
                     Employee emp = new Employee(newEmpName, CompanyMain.SoftwareHuset);
                     emp.setOngoingActivities(); // for testing
                     CompanyMain.SoftwareHuset.addEmployee(emp);
-                    //lblMessage.setText("ApplicationLayer.Employee" + newEmpName + " succesfully added");
+                    //lblMessage.setText("Employee" + newEmpName + " succesfully added");
                     //lblMessage.setTextFill(Color.GREEN);
                     thestage.setScene(employeeScene01);
                     thestage.setTitle(empName + " was succesfully added");
@@ -364,7 +363,7 @@ public class GUIdraft extends Application {
                 if (CompanyMain.SoftwareHuset.getEmployeeNames().contains(empName)) {
                     CompanyMain.currentEmpl = CompanyMain.SoftwareHuset.getEmployee(empName);
                     thestage.setScene(employeeScene02);
-                    thestage.setTitle("ApplicationLayer.Employee " + CompanyMain.currentEmpl.getName() + " logged in");
+                    thestage.setTitle("Employee " + CompanyMain.currentEmpl.getName() + " logged in");
                 } else {
                     lblMessage.setText("Incorrect user, try again or add new employee.");
                     lblMessage.setTextFill(Color.RED);
@@ -564,7 +563,7 @@ public class GUIdraft extends Application {
         regHoursPane02.add(regHActBox,8,2);
         regHoursScene02 = new Scene(regHoursPane02, 400,375);
 
-
+/*
 
 
 
@@ -595,7 +594,7 @@ public class GUIdraft extends Application {
        // pane 7
 
 
-
+/*
       // pane 7
         pane7 = new GridPane();
         pane7.setVgap(20);
@@ -612,7 +611,7 @@ public class GUIdraft extends Application {
         scene8 = new Scene(pane8, 400,375);*/
 
         // pane 9
-        pane9 = new GridPane();
+      /*  pane9 = new GridPane();
         pane9.setVgap(20);
         pane9.setStyle("-fx-background-color: mud;-fx-padding: 10px;");
         pane9.add(cliBox2, 8,2);
@@ -664,6 +663,8 @@ public class GUIdraft extends Application {
         } else {
             thestage.setScene(menuScene);
             thestage.setTitle("Welcome to Softwarehuset A/S!");
-        }
+        }*/
+
     }
+
 }

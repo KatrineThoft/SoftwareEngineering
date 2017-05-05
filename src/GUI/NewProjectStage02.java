@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 public class NewProjectStage02 extends Stage {
     private CompanyDriver companyDriver;
 
+    //Stage entered when client has created a new project
     public NewProjectStage02 (CompanyDriver companyDriver){
 
         this.companyDriver = companyDriver;
@@ -38,7 +39,7 @@ public class NewProjectStage02 extends Stage {
         backButton.setOnAction(e -> back());
         Button exitButton = new Button("Exit");
         exitButton.setOnAction(actionEvent -> Platform.exit());
-        NPS02Pane.setStyle("-fx-background-color: red;-fx-padding: 10px;");
+        NPS02Pane.setStyle("-fx-background-color: purple;-fx-padding: 10px;");
         NPS02Pane.setVgap(20);
 
         NPS02Pane.add(backButton, 4,1 );
