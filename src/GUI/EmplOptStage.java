@@ -1,5 +1,6 @@
 package GUI;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -14,13 +15,11 @@ import javafx.scene.control.Button;
 //Stage entered when an employee has logged in.
 // Shows the different options for actions an employee can make
 public class EmplOptStage extends Stage {
-    final int HEIGHT = 475;
-    final int WIDTH = 500;
     private CompanyDriver companyDriver;
 
     public EmplOptStage(CompanyDriver companyDriver) {
         this.companyDriver = companyDriver;
-        Scene scene = new Scene(emplOptPane(), WIDTH, HEIGHT);
+        Scene scene = new Scene(emplOptPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
 
         this.setScene(scene);
         this.setResizable(false);
@@ -54,6 +53,9 @@ public class EmplOptStage extends Stage {
 
         VBox empOptBox = new VBox();
         empOptBox.getChildren().addAll(timeRegButton, hourButton, editTimeButton, actButton , pMButton, backButton);
+
+        empOptBox.setAlignment(Pos.CENTER);
+
 
         emplOptPane.add(empOptBox, 2, 1);
 

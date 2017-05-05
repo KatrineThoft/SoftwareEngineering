@@ -1,5 +1,6 @@
 package GUI;
 
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -9,6 +10,6 @@ public class HourStage extends Stage {
     private  CompanyDriver companyDriver;
 
     public HourStage(CompanyDriver companyDriver){
-
+      Scene scene = new Scene(hourPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
     }
 }

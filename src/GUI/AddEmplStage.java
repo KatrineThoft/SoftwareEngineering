@@ -6,6 +6,7 @@ import ApplicationLayer.Date;
 import ApplicationLayer.Employee;
 import GUI.CompanyDriver;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,13 +26,12 @@ import javafx.stage.Stage;
 //Stage entered when a new employee needs to be added to the company.
 public class AddEmplStage extends Stage {
     private CompanyDriver companyDriver;
-    final int HEIGHT = 475;
-    final int WIDTH = 500;
     private TextField newEmplName;
     public Employee newEmployee;
 
     public AddEmplStage(CompanyDriver companyDriver){
-        Scene scene = new Scene(addEmplPane(), WIDTH, HEIGHT);
+        Scene scene = new Scene(addEmplPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
+
         this.companyDriver = companyDriver;
 
         //Set the stage.
@@ -53,6 +53,7 @@ public class AddEmplStage extends Stage {
 
         VBox addEmplBox = new VBox();
         addEmplBox.getChildren().addAll(newEmplName, conButton);
+        addEmplBox.setAlignment(Pos.CENTER);
 
 
         addEmplPane.setStyle("-fx-background-color: pink;-fx-padding: 10px;");

@@ -2,6 +2,7 @@ package GUI;
 
 import GUI.CompanyDriver;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -16,15 +17,15 @@ import javafx.stage.Stage;
 //Stage entered when clicking "client" in MenuStage
 public class ClientStage extends Stage {
 
-    final int HEIGHT = 475;
-    final int WIDTH = 500;
+
     private CompanyDriver companyDriver;
 
     public ClientStage(CompanyDriver companyDriver) {
 
         this.companyDriver = companyDriver;
 
-        Scene scene = new Scene(clientPane(), WIDTH, HEIGHT);
+        Scene scene = new Scene(clientPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
+
 
         //Set the stage.
         this.setTitle("What would you like to do?");
@@ -55,6 +56,9 @@ public class ClientStage extends Stage {
 
         VBox cliBox = new VBox();
         cliBox.getChildren().addAll(newProjectButton, backButton);
+        cliBox.setAlignment(Pos.CENTER);
+
+
         clientPane.setStyle("-fx-background-color: red;-fx-padding: 10px;");
         clientPane.setVgap(20);
         clientPane.add(cliBox, 4, 1);

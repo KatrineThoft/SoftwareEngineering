@@ -2,6 +2,7 @@ package GUI;
 
 import GUI.CompanyDriver;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -17,11 +18,7 @@ public class NewProjectStage02 extends Stage {
     public NewProjectStage02 (CompanyDriver companyDriver){
 
         this.companyDriver = companyDriver;
-        final int HEIGHT = 475;
-        final int WIDTH = 500;
-
-
-        Scene scene = new Scene(NPS02Pane(), WIDTH, HEIGHT);
+        Scene scene = new Scene(NPS02Pane(), companyDriver.WIDTH, companyDriver.HEIGHT);
 
         //Set the stage.
         this.setTitle("Thank you! Your project has been created.");
@@ -41,6 +38,8 @@ public class NewProjectStage02 extends Stage {
         exitButton.setOnAction(actionEvent -> Platform.exit());
         NPS02Pane.setStyle("-fx-background-color: purple;-fx-padding: 10px;");
         NPS02Pane.setVgap(20);
+
+        NPS02Pane.setAlignment(Pos.CENTER);
 
         NPS02Pane.add(backButton, 4,1 );
         NPS02Pane.add(exitButton,4 ,2);

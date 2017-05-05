@@ -14,12 +14,10 @@ import javafx.stage.Stage;
 
 //Stage entered when "employee" is clicked in MenuStage
 public class EmployeeStage extends Stage {
-    final int HEIGHT = 475;
-    final int WIDTH = 500;
     CompanyDriver companyDriver;
 
     public EmployeeStage(CompanyDriver companyDriver){
-        Scene scene = new Scene(employeePane(), WIDTH, HEIGHT);
+        Scene scene = new Scene(employeePane(), companyDriver.WIDTH, companyDriver.HEIGHT);
         this.companyDriver = companyDriver;
 
         //Set the stage.

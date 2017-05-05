@@ -9,10 +9,14 @@ import javafx.stage.Stage;
  * Created by katrinethoft on 05/05/17.
  */
 public class ActivityStage extends Stage{
-    final int HEIGHT = 475;
-    final int WIDTH = 500;
+
     private CompanyDriver companyDriver;
 
     public ActivityStage(CompanyDriver companyDriver) {
+        Scene scene = new Scene(activityPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
+
+    }
+
+    private GridPane activityPane() {
     }
 }

@@ -1,6 +1,7 @@
 package GUI;
 
 import ApplicationLayer.Employee;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,13 +17,12 @@ import javafx.stage.Stage;
 
 //Stage entered when an employee wants to sign in
 public class LoginStage extends Stage {
-    final int HEIGHT = 475;
-    final int WIDTH = 500;
+
     private CompanyDriver companyDriver;
     private TextField emplNameText;
 
     public LoginStage(CompanyDriver companyDriver){
-        Scene scene = new Scene(loginPane(), WIDTH, HEIGHT);
+        Scene scene = new Scene(loginPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
         this.companyDriver = companyDriver;
 
         //Set the stage.
@@ -46,11 +46,13 @@ public class LoginStage extends Stage {
         backButton.setOnAction(e -> back());
 
 
-        VBox addEmplBox = new VBox();
-        addEmplBox.getChildren().addAll(emplNameText, conButton, backButton);
+        VBox loginBox = new VBox();
+        loginBox.getChildren().addAll(emplNameText, conButton, backButton);
+        loginBox.setAlignment(Pos.CENTER);
+
 
         loginPane.setStyle("-fx-background-color: turquoise;-fx-padding: 10px;");
-        loginPane.add(addEmplBox, 2, 1);
+        loginPane.add(loginBox, 2, 1);
 
         return loginPane;
     }

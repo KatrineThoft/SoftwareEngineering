@@ -5,6 +5,7 @@ import ApplicationLayer.Date;
 import ApplicationLayer.Employee;
 import GUI.CompanyDriver;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,8 +21,6 @@ import javafx.stage.Stage;
 
 //Stage entered when a client wants to create a new project
 public class NewProjectStage01 extends Stage {
-    final int HEIGHT = 475;
-    final int WIDTH = 500;
     private CompanyDriver companyDriver;
     private TextField comNameInput;
     private TextField proNameInput;
@@ -40,7 +39,7 @@ public class NewProjectStage01 extends Stage {
     public NewProjectStage01(CompanyDriver companyDriver){
         this.companyDriver = companyDriver;
 
-        Scene scene = new Scene(NPS01Pane(), WIDTH, HEIGHT);
+        Scene scene = new Scene(NPS01Pane(), companyDriver.WIDTH, companyDriver.HEIGHT);
 
         this.setScene(scene);
         this.setResizable(false);
@@ -73,7 +72,11 @@ public class NewProjectStage01 extends Stage {
         backButton.setOnAction(e -> back());
 
         VBox NPS01Box = new VBox();
-        NPS01Box.getChildren().addAll( comNamelabel,comNameInput, proNameLabel,proNameInput,endDateLabel, endDateInput,estimateLabel,estimateInput, empNameLabel,empNameInput);
+        NPS01Box.getChildren().addAll( comNamelabel,comNameInput, proNameLabel,proNameInput,endDateLabel,
+                endDateInput,estimateLabel,estimateInput, empNameLabel,empNameInput);
+
+        NPS01Box.setAlignment(Pos.CENTER);
+
 
         NPS01Pane.setStyle("-fx-background-color: yellow;-fx-padding: 10px;");
         NPS01Pane.setVgap(20);

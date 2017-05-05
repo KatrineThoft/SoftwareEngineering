@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 //Driver class for the GUI, runs the stages
 public class CompanyDriver extends Application {
+    public final  int HEIGHT = 475;
+    public final int WIDTH = 500;
 
     public Employee currentEmpl;
     public static TimeManager SoftwareHuset;
@@ -25,7 +27,7 @@ public class CompanyDriver extends Application {
     private HourStage hourStage;
     private ActivityStage activityStage;
     private ProjectManagerStage projectManagerStage;
-
+    private CreateActivityStage createActivityStage;
 
     public static void main(String[] args) {
         SoftwareHuset = new TimeManager();
@@ -114,4 +116,40 @@ public class CompanyDriver extends Application {
         projectManagerStage = new ProjectManagerStage(this);
         projectManagerStage.show();
     }
+
+    public void startCreateActivityStage(){
+        createActivityStage = new CreateActivityStage(this);
+        createActivityStage.show();
+    }
+
+    public void startSetEstTimeStage(){
+
+    }
+
+    public void startCreateEmployeeStage(){
+
+    }
+
+    public void startDelegateActivityeStage(){
+
+    }
+
+    public void startFindSubStage(){
+
+    }
+
+    public void startDelayStage(){
+
+    }
+
+    public void startEndProjectStage(){
+
+    }
+
+    public void startgetDelegatedActStage(){
+
+    }
 }
+
+
+

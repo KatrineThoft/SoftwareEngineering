@@ -2,6 +2,7 @@ package GUI;
 
 import GUI.CompanyDriver;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -21,12 +22,9 @@ public class MenuStage extends Stage{
 
     public MenuStage(CompanyDriver driver) {
 
-        final int HEIGHT = 475;
-        final int WIDTH = 500;
-
         this.companyDriver = driver;
 
-        Scene scene = new Scene(menuPane(), WIDTH, HEIGHT);
+        Scene scene = new Scene(menuPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
 
         //Set the stage.
         this.setTitle("Welcome to SoftwareHuset A/S");
@@ -62,6 +60,9 @@ public class MenuStage extends Stage{
 
         VBox menuBox = new VBox();
         menuBox.getChildren().addAll(cliButton, empButton, exitButton);
+        menuBox.setAlignment(Pos.CENTER);
+
+
         menuPane.setStyle("-fx-background-color: blue;-fx-padding: 10px;");
         menuPane.setVgap(20);
         menuPane.add(menuBox, 4, 1);
