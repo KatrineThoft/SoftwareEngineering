@@ -48,11 +48,15 @@ public class EmplOptStage extends Stage {
         Button pMButton = new Button("Project manager profile");
         pMButton.setOnAction(e-> pManager());
 
+        Button absenceButton = new Button("Register absence");
+        absenceButton.setOnAction(e->absence());
+
         Button backButton = new Button("Sign out. Back to menu");
         backButton.setOnAction(e-> back());
 
         VBox empOptBox = new VBox();
-        empOptBox.getChildren().addAll(timeRegButton, hourButton, editTimeButton, actButton , pMButton, backButton);
+        empOptBox.getChildren().addAll(timeRegButton, hourButton, editTimeButton,
+                actButton , pMButton, absenceButton,backButton);
 
         empOptBox.setAlignment(Pos.CENTER);
 
@@ -87,6 +91,11 @@ public class EmplOptStage extends Stage {
 
     private void pManager(){
         companyDriver.startProjectManagerStage();
+        this.close();
+    }
+
+    private void absence(){
+        companyDriver.startAbsence();
         this.close();
     }
 

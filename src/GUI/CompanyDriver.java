@@ -26,6 +26,7 @@ public class CompanyDriver extends Application {
     private EditTimeStage editTimeRegStage;
     private HourStage hourStage;
     private ActivityStage activityStage;
+    private AbsenceState absenceState;
     private ProjectManagerStage projectManagerStage;
     private CreateActivityStage createActivityStage;
 
@@ -111,6 +112,10 @@ public class CompanyDriver extends Application {
         activityStage.show();
     }
 
+    public void startAbsence(){
+        absenceState = new AbsenceState(this);
+        absenceState.show();
+    }
 
     public void startProjectManagerStage(){
         projectManagerStage = new ProjectManagerStage(this);
