@@ -1,6 +1,8 @@
 package GUI;
 
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
@@ -13,5 +15,9 @@ public class EditTimeStage extends Stage {
 
         Scene scene = new Scene(editTimerPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
 
+    }
+
+    private GridPane editTimerPane() {
+        return null;
     }
 }

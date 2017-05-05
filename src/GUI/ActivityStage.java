@@ -18,5 +18,7 @@ public class ActivityStage extends Stage{
     }
 
     private GridPane activityPane() {
+
+        return null;
     }
 }

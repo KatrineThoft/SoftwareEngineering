@@ -82,7 +82,7 @@ public class WhiteBoxTest {
          }
 
          manager.creatEmployee()
-         assertEquals(manager.creatEmployee()==2);
+         assertEquals(manager.creatEmployee() == 2);
 
          //tjekker if statmentene virker måske 
 

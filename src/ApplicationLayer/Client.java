@@ -56,7 +56,7 @@ public class Client {
     }
 
 
-    public ApplicationLayer.Date getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 

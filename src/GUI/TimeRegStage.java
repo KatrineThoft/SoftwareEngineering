@@ -1,6 +1,8 @@
 package GUI;
 
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
@@ -12,5 +14,10 @@ public class TimeRegStage extends Stage {
     public TimeRegStage(CompanyDriver companyDriver){
        Scene scene = new Scene(timeRegPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
 
+    }
+
+    private GridPane timeRegPane() {
+
+        return null;
     }
 }

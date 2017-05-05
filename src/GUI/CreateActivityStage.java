@@ -20,7 +20,7 @@ public class CreateActivityStage extends Stage {
         Scene scene = new Scene(createActPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
 
         //Set the stage.
-        this.setTitle("What would you like to do?");
+        this.setTitle("How many activities do you want to create?");
         this.setScene(scene);
         this.setResizable(false);
         this.centerOnScreen();

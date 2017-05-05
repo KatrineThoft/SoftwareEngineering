@@ -118,7 +118,7 @@ public class ProjectManagerStage extends Stage{
     }
 
     private void back(){
-        companyDriver.startEmployeeStage();
+        companyDriver.startEmpOptStage();
         this.close();
     }
 
