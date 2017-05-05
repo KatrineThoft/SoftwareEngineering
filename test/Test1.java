@@ -1,11 +1,7 @@
 import org.junit.jupiter.api.Test;
-
-//import org.junit.assert.*;
+import ApplicationLayer.*;
 import static org.junit.jupiter.api.Assertions.*;
-
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class Test1 {
@@ -141,10 +137,7 @@ public class Test1 {
         employee01.setActivities(ongoingactivities);
         assertEquals(employee01.getActivities(), ongoingactivities);
 
-        // Test of absence / updateAbsence
-        assertTrue(employee01.absence == false);
-        employee01.updateAbsence(true);
-        assertTrue(employee01.absence == true);
+        // Test of absence / updateAbsence in Project manager Test
 
         // Test of registeredHours / updateRegisteredHours
         assertTrue(employee01.registeredHours == 0.0);
@@ -285,10 +278,10 @@ public class Test1 {
         }
         assertTrue(manager.project.getActivities().get(0).getEstimatedTimeUse() == 10);
 
-        // Test of createEmployees
+        // Test of getEmplForProj
         assertTrue(manager.project.getWorkingEmployees() == null);
         assertFalse(manager.project.firm.getFreeEmployees() == null);
-        manager.createEmployees();
+        manager.getEmplForProj();
         assertFalse(manager.project.getWorkingEmployees() == null);
 
         // Test of delegateActivities and getDelegatedActivities
@@ -298,10 +291,11 @@ public class Test1 {
 
         // Test findSubstitute
         Employee employee02 = manager.project.getWorkingEmployees().get(0);
-        Activity activity02 = manager.project.getActivities().get(0);
-        employee02.updateAbsence(true);                             //employee02 is now absent
+        assertTrue(employee02.getActivities().size() == 1);
+        Activity activity02 = employee02.getActivities().get(0);
+        assertFalse(manager.project.firm.getFreeEmployees() == null);
+        employee02.updateAbsence();              // FindSubstitute is called from updateAbsent
         assertTrue(employee02.absence == true);
-        manager.findSubstitute(activity02,employee02);
         assertTrue(manager.project.getWorkingEmployees().size() == manager.project.getActivities().size());
 
         // Test of delayProject

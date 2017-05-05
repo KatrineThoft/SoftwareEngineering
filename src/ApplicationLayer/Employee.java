@@ -18,7 +18,7 @@ public class Employee {
         this.absence = false;
         this.registeredHours = 0.0;
         this.firm = firm;
-        //addToFirm(firm);
+        addToFirm(firm);
     }
 
     public void setActivities(List<Activity> activities) {
@@ -33,10 +33,23 @@ public class Employee {
         return employeeName;
     }
 
-    public void updateAbsence(boolean b) {
-        this.absence = b;
-        if (this.absence) {
-            firm.getFreeEmployees().remove(this);
+    public void updateAbsence() {
+        if (!this.absence) {
+            int count = 0;
+            for (Activity a : ongoingActivities) {
+                if (firm.getFreeEmployees() != null) {
+                    a.getProject().projectManager.findSubstitute(a, this);
+                    ongoingActivities.remove(a);
+                    count++;
+                }
+                if (count == ongoingActivities.size()){
+                    this.absence = true;
+                    firm.getFreeEmployees().remove(this);
+                }
+            }
+        } else {
+            this.absence = false;
+            firm.getFreeEmployees().add(this);
         }
     }
 
@@ -58,15 +71,13 @@ public class Employee {
         firm.getFreeEmployees().add(this);
     }
 
-    /*public void setOngoingActivities() {
+    /* For testing purposes only
+
+    public void setOngoingActivities() {
         List<Activity> acts = new ArrayList<Activity>();
         for (int i = 0; i <= 5; i++) {
             acts.add(new Activity("activity" + (i+1)));
         }
         this.ongoingActivities = acts;
     }*/
-
-
-
-
 }

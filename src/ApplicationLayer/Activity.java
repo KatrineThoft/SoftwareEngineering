@@ -5,12 +5,21 @@ package ApplicationLayer;
  */
 public class Activity {
     private String activityName;
+    private Project project;
     private double estimatedTimeUse;
     private double timeUsed;
 
     public Activity(String activityName){
         this.activityName = activityName;
         this.timeUsed = 0;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public Project getProject() {
+        return this.project;
     }
 
     public void setEstimatedTimeUse(double estimatedTimeUse) {
