@@ -79,7 +79,7 @@ public class ProjectManager{
 
     public void delayProject(double hours){
         project.updateEstimatedTimeUse(hours);
-        project.endDate.date = 23 + (int)(hours/8) + 1;    // amount of hours/8 (8 hrs. on a regular work day)
+        project.endDate.date = project.endDate.date + (int)(Math.ceil(hours/8));    // amount of hours/8 (8 hrs. on a regular work day)
         while (project.endDate.date > 30) {
             project.endDate.date = project.endDate.date - 30;
             project.endDate.month += 1;
