@@ -1,5 +1,7 @@
 package ApplicationLayer;
 
+import GUI.TimeRegStage;
+
 import java.util.List;
 import java.util.Map;
 
@@ -30,11 +32,17 @@ public class Project {
         if (client.getTempProject() != null)
             this.projectManager = client.getTempProject().projectManager;
         this.firm = firm;
-        addToFirm(firm);
+
     }
 
-    public void setProjectManager(Employee projectManager) {
-        ProjectManager manager = new ProjectManager(projectManager,this);
+    public void setProjectManager() {
+        Employee empl= firm.getFreeEmployees().get(0);
+        ProjectManager manager = new ProjectManager(empl,this, firm);
+        this.projectManager = manager;
+    }
+
+    public void setSpecficProjectManager(Employee empl){
+        ProjectManager manager = new ProjectManager(empl,this, firm);
         this.projectManager = manager;
     }
 

@@ -8,10 +8,18 @@ import java.util.*;
 public class ProjectManager{
     public Employee employee;
     public Project project;
+    public TimeManager firm;
 
-    public ProjectManager(Employee employee01, Project project){
+
+    public ProjectManager(Employee employee01, Project project, TimeManager firm){
         this.employee = employee01;
         this.project = project;
+        this.firm = firm;
+        addToFirm(firm);
+    }
+
+    public void addToFirm(TimeManager firm){
+        firm.getProjectManagers().add(this);
     }
 
     public void setEstTimeUse(Activity act, double estimatedTimeUse) {

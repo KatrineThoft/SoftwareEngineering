@@ -30,12 +30,13 @@ public class Client {
         this.firm = firm;
         addToFirm(firm);
         designateProjectManager(projectManager);
+
     }
 
     public void designateProjectManager(Employee empl){
         if (this.firm.getFreeEmployees().contains(empl)) {
             this.tempProject = new Project(this, this.firm);
-            this.tempProject.setProjectManager(empl);
+            this.tempProject.setProjectManager();
         } else {
             this.tempProject = null;
         }
@@ -48,6 +49,7 @@ public class Client {
     public void addToFirm(TimeManager firm){
         firm.getClients().add(this);
     }
+
 
     // getter functions are not needed when fields are public
     /*

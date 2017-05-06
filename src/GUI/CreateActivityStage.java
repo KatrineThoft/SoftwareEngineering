@@ -1,5 +1,7 @@
 package GUI;
 
+import ApplicationLayer.Employee;
+import ApplicationLayer.ProjectManager;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -33,7 +35,6 @@ public class CreateActivityStage extends Stage {
 
         VBox createActBox = new VBox();
 
-        // Mangler create activity funktion?
 
         Button confButton = new Button();
         createActBox.setAlignment(Pos.CENTER);

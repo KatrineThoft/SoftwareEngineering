@@ -1,5 +1,6 @@
 package GUI;
 
+import ApplicationLayer.Employee;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -89,8 +90,14 @@ public class EmplOptStage extends Stage {
     }
 
     private void pManager(){
-        companyDriver.startProjectManagerStage();
-        this.close();
+
+        Employee projectManager = companyDriver.currentEmpl;
+        if(companyDriver.SoftwareHuset.getProjectManagers().contains(projectManager)) {
+            companyDriver.startProjectManagerStage();
+            this.close();
+        } else{
+            this.setTitle("Error. You are not a project manager.");
+        }
     }
 
     private void absence(){

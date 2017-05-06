@@ -12,6 +12,7 @@ public class TimeManager {
     private List<Project> allProjects;
     private List<Employee> allEmployees;
     private List<Employee> freeEmployees;
+    private  List<ProjectManager> allProjectManagers;
 
     public TimeManager() {
         this.allClients = new ArrayList<Client>();
@@ -35,6 +36,8 @@ public class TimeManager {
         this.freeEmployees.add(employee);
     }
 
+    public void addProjectManager(ProjectManager projectManager){ this.allProjectManagers.add(projectManager); }
+
     public void addFreeEmployee(Employee employee) {
         if (employee.absence == false && employee.getActivities().size() < 10) {
             this.freeEmployees.add(employee);
@@ -52,6 +55,8 @@ public class TimeManager {
     public List<Employee> getEmployees() {
         return allEmployees;
     }
+
+    public List<ProjectManager> getProjectManagers(){ return allProjectManagers; }
 
     public List<String> getEmployeeNames() {
         List<String> emplNames = new ArrayList<String>();

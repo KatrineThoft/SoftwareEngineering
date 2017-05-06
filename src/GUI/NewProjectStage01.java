@@ -112,20 +112,16 @@ public class NewProjectStage01 extends Stage {
             endDate = new Date(day, month, year);
 
             estimate = Double.parseDouble(estimateInput.getText());
+             String  empName = empNameInput.getText();
 
-            if(!(empNameInput.getText().isEmpty())) {
-              this.emp = CompanyDriver.SoftwareHuset.getEmployee(empNameInput.getText());
-                this.client = new Client(conName, endDate, estimate, proName, emp,CompanyDriver.SoftwareHuset);
-
-                companyDriver.startNewProjectStage02();
-                this.close();
+            if(!(empName.isEmpty()) &&
+                    CompanyDriver.SoftwareHuset.getEmployeeNames().contains(empName)) {
+                    this.emp = CompanyDriver.SoftwareHuset.getEmployee(empNameInput.getText());
+                    this.client = new Client(conName, endDate, estimate, proName, emp,CompanyDriver.SoftwareHuset);
+                    companyDriver.startNewProjectStage02();
+                    this.close();
             }
-            else{
-                this.client = new Client(conName, endDate, estimate, proName, CompanyDriver.SoftwareHuset);
 
-                companyDriver.startNewProjectStage02();
-                this.close();
-            }
 
         } else {
             this.setTitle("Error. Please fill out the form.");
