@@ -55,9 +55,7 @@ public class AddEmplStage extends Stage {
         addEmplBox.getChildren().addAll(newEmplName, conButton);
         addEmplBox.setAlignment(Pos.CENTER);
 
-
-        addEmplPane.setStyle("-fx-background-color: pink;-fx-padding: 10px;");
-        addEmplPane.add(addEmplBox, 2, 1);
+ addEmplPane.add(addEmplBox, 2, 1);
         return addEmplPane;
     }
 

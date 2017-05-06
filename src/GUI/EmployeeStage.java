@@ -45,7 +45,7 @@ public class EmployeeStage extends Stage {
         empBox.getChildren().addAll( loginButton,addEmplButton , backButton);
 
         employeePane.setVgap(20);
-        employeePane.setStyle("-fx-background-color: green;-fx-padding: 10px;");
+
         employeePane.add(empBox, 2, 1);
 
         return employeePane;

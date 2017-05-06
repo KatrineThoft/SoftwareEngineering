@@ -62,8 +62,6 @@ public class MenuStage extends Stage{
         menuBox.getChildren().addAll(cliButton, empButton, exitButton);
         menuBox.setAlignment(Pos.CENTER);
 
-
-        menuPane.setStyle("-fx-background-color: blue;-fx-padding: 10px;");
         menuPane.setVgap(20);
         menuPane.add(menuBox, 4, 1);
 

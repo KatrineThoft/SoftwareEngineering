@@ -31,7 +31,6 @@ public class EmplOptStage extends Stage {
 
     private GridPane emplOptPane(){
         GridPane emplOptPane = new GridPane();
-        emplOptPane.setStyle("-fx-background-color: orange;-fx-padding: 10px;");
 
         Button timeRegButton = new Button("Time registering");
         timeRegButton.setOnAction(e->timeReg());

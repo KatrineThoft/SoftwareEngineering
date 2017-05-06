@@ -36,11 +36,9 @@ public class NewProjectStage02 extends Stage {
         backButton.setOnAction(e -> back());
         Button exitButton = new Button("Exit");
         exitButton.setOnAction(actionEvent -> Platform.exit());
-        NPS02Pane.setStyle("-fx-background-color: purple;-fx-padding: 10px;");
+
         NPS02Pane.setVgap(20);
-
         NPS02Pane.setAlignment(Pos.CENTER);
-
         NPS02Pane.add(backButton, 4,1 );
         NPS02Pane.add(exitButton,4 ,2);
 

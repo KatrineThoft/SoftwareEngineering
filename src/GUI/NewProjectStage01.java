@@ -78,8 +78,6 @@ public class NewProjectStage01 extends Stage {
 
         NPS01Box.setAlignment(Pos.CENTER);
 
-
-        NPS01Pane.setStyle("-fx-background-color: yellow;-fx-padding: 10px;");
         NPS01Pane.setVgap(20);
         NPS01Pane.add(NPS01Box, 0, 1);
         NPS01Pane.add(conButton, 2, 2);

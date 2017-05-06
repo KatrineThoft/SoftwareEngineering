@@ -58,8 +58,6 @@ public class ClientStage extends Stage {
         cliBox.getChildren().addAll(newProjectButton, backButton);
         cliBox.setAlignment(Pos.CENTER);
 
-
-        clientPane.setStyle("-fx-background-color: red;-fx-padding: 10px;");
         clientPane.setVgap(20);
         clientPane.add(cliBox, 4, 1);
 

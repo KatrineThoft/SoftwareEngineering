@@ -51,7 +51,6 @@ public class LoginStage extends Stage {
         loginBox.setAlignment(Pos.CENTER);
 
 
-        loginPane.setStyle("-fx-background-color: turquoise;-fx-padding: 10px;");
         loginPane.add(loginBox, 2, 1);
 
         return loginPane;
