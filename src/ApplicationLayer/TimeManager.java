@@ -19,6 +19,7 @@ public class TimeManager {
         this.allProjects = new ArrayList<Project>();
         this.allEmployees = new ArrayList<Employee>();
         this.freeEmployees = new ArrayList<Employee>();
+        this.allProjectManagers = new ArrayList<ProjectManager>();
     }
 
     // adders are only used when creating new clients, projects and employees
@@ -71,6 +72,16 @@ public class TimeManager {
                 return e;
             }
         }
+        return null;
+    }
+
+    public Employee getProjectManagerAsEmployee(Employee emp){
+        for (ProjectManager e : allProjectManagers){
+            if(e.getEmployee().equals(emp)){
+                return e.getEmployee();
+            }
+        }
+
         return null;
     }
 

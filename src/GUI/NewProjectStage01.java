@@ -1,8 +1,6 @@
 package GUI;
 
-import ApplicationLayer.Client;
-import ApplicationLayer.Date;
-import ApplicationLayer.Employee;
+import ApplicationLayer.*;
 import GUI.CompanyDriver;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -29,12 +27,11 @@ public class NewProjectStage01 extends Stage {
     private DatePicker endDateInput;
     private TextField estimateInput;
     private Label lblMessage;
-    public Employee emp;
+    public Employee empl;
     private int day;
     private int month;
     private int year;
     public Date endDate;
-    public Client client;
     public double estimate;
 
     public NewProjectStage01(CompanyDriver companyDriver){
@@ -112,16 +109,26 @@ public class NewProjectStage01 extends Stage {
             endDate = new Date(day, month, year);
 
             estimate = Double.parseDouble(estimateInput.getText());
-             String  empName = empNameInput.getText();
+
+            String  empName = empNameInput.getText();
 
             if(!(empName.isEmpty()) &&
                     CompanyDriver.SoftwareHuset.getEmployeeNames().contains(empName)) {
-                    this.emp = CompanyDriver.SoftwareHuset.getEmployee(empNameInput.getText());
-                    this.client = new Client(conName, endDate, estimate, proName, emp,CompanyDriver.SoftwareHuset);
-                    companyDriver.startNewProjectStage02();
-                    this.close();
-            }
 
+                this.empl = companyDriver.SoftwareHuset.getEmployee(empNameInput.getText());
+                companyDriver.currentClient = new Client(conName, endDate, estimate, proName, empl, CompanyDriver.SoftwareHuset);
+                companyDriver.currentProject = new Project(companyDriver.currentClient, companyDriver.SoftwareHuset);
+                companyDriver.currentProjectManager = companyDriver.currentClient.projectManager;
+
+
+
+            }  else{
+                companyDriver.currentClient = new Client(conName, endDate, estimate, proName, CompanyDriver.SoftwareHuset);
+                companyDriver.currentProject = new Project(companyDriver.currentClient, companyDriver.SoftwareHuset);
+                companyDriver.currentProjectManager = companyDriver.currentProject.projectManager;
+            }
+                companyDriver.startNewProjectStage02();
+                this.close();
 
         } else {
             this.setTitle("Error. Please fill out the form.");

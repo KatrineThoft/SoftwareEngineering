@@ -2,8 +2,7 @@ package GUI; /**
  * Created by katrinethoft on 04/05/17.
  */
 
-import ApplicationLayer.Employee;
-import ApplicationLayer.TimeManager;
+import ApplicationLayer.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -12,8 +11,12 @@ public class CompanyDriver extends Application {
     public final  int HEIGHT = 475;
     public final int WIDTH = 500;
 
-    public Employee currentEmpl;
     public static TimeManager SoftwareHuset;
+    private Employee currentEmpl;
+    public ProjectManager currentProjectManager;
+    public Project currentProject;
+    public Client currentClient;
+
     private MenuStage menuStage;
     private ClientStage clientStage;
     private EmployeeStage employeeStage;
@@ -28,7 +31,8 @@ public class CompanyDriver extends Application {
     private ActivityStage activityStage;
     private AbsenceState absenceState;
     private ProjectManagerStage projectManagerStage;
-    private CreateActivityStage createActivityStage;
+    private DelegateSuccesStage delegateSuccesStage;
+    private DelegateFailStage delegateFailStage;
 
     public static void main(String[] args) {
         SoftwareHuset = new TimeManager();
@@ -49,6 +53,14 @@ public class CompanyDriver extends Application {
     }*/
 
 //All the different stages in GUI:
+    public Employee getCurrentEmpl(){
+     return currentEmpl;
+    }
+
+    public void setCurrentEmpl(Employee emp){
+        this.currentEmpl = emp;
+
+    }
 
     public void startMenuStage(){
         menuStage = new MenuStage(this);
@@ -122,26 +134,17 @@ public class CompanyDriver extends Application {
         projectManagerStage.show();
     }
 
-    public void startCreateActivityStage(){
-        createActivityStage = new CreateActivityStage(this);
-        createActivityStage.show();
+
+    public void startDelegateSucces(){
+        delegateSuccesStage = new DelegateSuccesStage(this);
+        delegateSuccesStage.show();
     }
 
-    public void startSetEstTimeStage(){
-
+    public void startDelegateFailStage(){
+        delegateFailStage = new DelegateFailStage(this);
+        delegateFailStage.show();
     }
 
-    public void startCreateEmployeeStage(){
-
-    }
-
-    public void startDelegateActivityeStage(){
-
-    }
-
-    public void startFindSubStage(){
-
-    }
 
     public void startDelayStage(){
 
@@ -151,9 +154,6 @@ public class CompanyDriver extends Application {
 
     }
 
-    public void startgetDelegatedActStage(){
-
-    }
 }
 
 

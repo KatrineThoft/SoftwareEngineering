@@ -12,6 +12,7 @@ public class Client {
     public String projectName;
     private Project tempProject;
     public TimeManager firm;
+    public ProjectManager projectManager;
 
     public Client (String clientName, Date endDate, double estimatedTimeUse, String projectName, TimeManager firm){
         this.clientName = clientName;
@@ -22,21 +23,20 @@ public class Client {
         addToFirm(firm);
     }
 
-    public Client (String clientName, Date endDate, double estimatedTimeUse, String projectName, Employee projectManager, TimeManager firm){
+    public Client (String clientName, Date endDate, double estimatedTimeUse, String projectName, Employee employee, TimeManager firm){
         this.clientName = clientName;
         this.endDate = endDate;
         this.estimatedTimeUse = estimatedTimeUse;
         this.projectName = projectName;
         this.firm = firm;
+        designateProjectManager(employee);
         addToFirm(firm);
-        designateProjectManager(projectManager);
-
     }
 
     public void designateProjectManager(Employee empl){
         if (this.firm.getFreeEmployees().contains(empl)) {
             this.tempProject = new Project(this, this.firm);
-            this.tempProject.setSpecificProjectManager(empl);
+            this.tempProject.setSpecficProjectManager(empl);
         } else {
             this.tempProject = null;
         }

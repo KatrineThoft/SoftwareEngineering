@@ -26,7 +26,7 @@ public class EmplOptStage extends Stage {
         this.setResizable(false);
         this.centerOnScreen();
         this.sizeToScene();
-        this.setTitle("Employee " + companyDriver.currentEmpl.getName() + " logged in");
+        this.setTitle("Employee " + companyDriver.getCurrentEmpl().getName() + " logged in");
     }
 
 
@@ -90,10 +90,10 @@ public class EmplOptStage extends Stage {
     }
 
     private void pManager(){
-
-        Employee projectManager = companyDriver.currentEmpl;
-        if(companyDriver.SoftwareHuset.getProjectManagers().contains(projectManager)) {
+        if(companyDriver.SoftwareHuset.getProjectManagerAsEmployee(companyDriver.getCurrentEmpl()) != null) {
+            
             companyDriver.startProjectManagerStage();
+
             this.close();
         } else{
             this.setTitle("Error. You are not a project manager.");

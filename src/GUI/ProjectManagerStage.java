@@ -30,26 +30,13 @@ public class ProjectManagerStage extends Stage{
     }
 
     private GridPane pManagerPane() {
+
         GridPane pManagerPane = new GridPane();
-
-
-       Button createActButton = new Button("Create activities");
-       createActButton.setOnAction(e-> createAct());
-
-       Button setEstTimeButton = new Button("Set time use for an activity");
-       setEstTimeButton.setOnAction(e-> setEstTime());
-
-       Button createEmplButton = new Button("Assign employees to project");
-       createEmplButton.setOnAction(e->createEmpl());
 
        Button delegateActButton = new Button("Delegate activities");
        delegateActButton.setOnAction(e->delegateAct());
 
-       Button getDelegatedActButton = new Button("See delegated activities");
-       getDelegatedActButton.setOnAction(e-> getDelegatedAct());
 
-       Button findSubButton = new Button("Find substitute for abscent employee");
-       findSubButton.setOnAction(e->findSub());
 
        Button delayProjectButton = new Button("Delay project");
        delayProjectButton.setOnAction(e->delay());
@@ -67,8 +54,7 @@ public class ProjectManagerStage extends Stage{
         });
 
         VBox pManagerBox = new VBox();
-        pManagerBox.getChildren().addAll(createActButton,setEstTimeButton,  createEmplButton, delegateActButton,
-                getDelegatedActButton, findSubButton, delayProjectButton, backButton);
+        pManagerBox.getChildren().addAll(delegateActButton, delayProjectButton, backButton);
 
         pManagerBox.setAlignment(Pos.CENTER);
 
@@ -76,30 +62,16 @@ public class ProjectManagerStage extends Stage{
         return pManagerPane;
     }
 
-    private void createAct() {
-        companyDriver.startCreateActivityStage();
-        this.close();
-    }
 
-    private void setEstTime(){
-        companyDriver.startSetEstTimeStage();
-        this.close();
-    }
-
-    private void createEmpl(){
-        companyDriver.startCreateEmployeeStage();
-        this.close();
-
-    }
-
-    private void delegateAct() {
-        companyDriver.startDelegateActivityeStage();
-        this.close();
-    }
-
-    private void findSub() {
-        companyDriver.startFindSubStage();
-        this.close();
+    private void delegateAct(){
+        if(companyDriver.currentProjectManager.getEmplForProj()) {
+            companyDriver.currentProjectManager.delegateActivities();
+            companyDriver.startDelegateSucces();
+            this.close();
+        } else {
+            companyDriver.startDelegateFailStage();
+            this.close();
+        }
     }
 
     private void delay() {
@@ -109,11 +81,6 @@ public class ProjectManagerStage extends Stage{
 
     private void endProject() {
         companyDriver.startEndProjectStage();
-        this.close();
-    }
-
-    public void getDelegatedAct() {
-        companyDriver.startgetDelegatedActStage();
         this.close();
     }
 

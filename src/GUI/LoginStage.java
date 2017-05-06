@@ -59,12 +59,13 @@ public class LoginStage extends Stage {
     private void confirm() {
         String emplName = emplNameText.getText();
         if(!(emplName.isEmpty()) &&  companyDriver.SoftwareHuset.getEmployeeNames().contains(emplName)){
-          companyDriver.currentEmpl= companyDriver.SoftwareHuset.getEmployee(emplName);
 
-          companyDriver.startEmpOptStage();
-          this.close();
+            companyDriver.setCurrentEmpl(companyDriver.SoftwareHuset.getEmployee(emplName));
+            companyDriver.startEmpOptStage();
+            this.close();
+
         } else{
-            this.setTitle("No name entered. Please try again.");
+            this.setTitle("Employee not found. Please try again.");
         }
 
     }

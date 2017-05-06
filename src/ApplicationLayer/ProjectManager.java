@@ -68,6 +68,9 @@ public class ProjectManager{
         }
     }
 
+    public Employee getEmployee(){
+        return employee;
+    }
 
     public void findSubstitute(Activity act, Employee empl){ // only called from updateAbsence (Employee class)
         Employee newEmpl = project.firm.getFreeEmployees().get(0);

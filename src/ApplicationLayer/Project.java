@@ -29,9 +29,13 @@ public class Project {
         this.endDate = client.endDate;
         this.estimatedTimeUse = client.estimatedTimeUse;
         this.timeUsed = 0;
-        if (client.getTempProject() != null)
-            this.projectManager = client.getTempProject().projectManager;
         this.firm = firm;
+
+
+       if (client.getTempProject() != null){
+           this.projectManager = client.getTempProject().projectManager;
+       }
+
 
     }
 
