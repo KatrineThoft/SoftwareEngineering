@@ -19,7 +19,6 @@ public class TimeManager {
         this.allProjects = new ArrayList<Project>();
         this.allEmployees = new ArrayList<Employee>();
         this.freeEmployees = new ArrayList<Employee>();
-
     }
 
     // adders are only used when creating new clients, projects and employees
