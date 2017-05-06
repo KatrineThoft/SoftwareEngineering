@@ -1,7 +1,10 @@
 package ApplicationLayer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 /**
  * Created by katrinethoft on 27/03/17.
@@ -10,13 +13,13 @@ public class Employee {
     private String employeeName;
     private List<Activity> ongoingActivities;
     public boolean absence;
-    public double registeredHours;
+    public Map<Date,Double> registeredHours;
     public TimeManager firm;
 
     public Employee(String employeeName, TimeManager firm){
         this.employeeName = employeeName;
         this.absence = false;
-        this.registeredHours = 0.0;
+        this.registeredHours = new HashMap<Date,Double>();
         this.firm = firm;
         addToFirm(firm);
     }
@@ -53,14 +56,17 @@ public class Employee {
         }
     }
 
-    public void updateRegisteredHours(double h) {
-        this.registeredHours = this.registeredHours + h;
+    public void updateRegisteredHours(Date date, double h) {
+        if (this.registeredHours.containsKey(date)) {
+            this.registeredHours.replace(date, h);
+        } else {
+            this.registeredHours.put(date, h);
+        }
     }
 
     public void regHoursOnAct(double h, Activity act) {
-        if (ongoingActivities.contains(act)) {
+        if (this.ongoingActivities.contains(act)) {
             act.updateTimeUsed(h);
-            updateRegisteredHours(h);
         } else {
             System.out.println("activity is not in your ongoing activities");
         }
