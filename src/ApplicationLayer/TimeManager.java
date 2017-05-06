@@ -12,7 +12,7 @@ public class TimeManager {
     private List<Project> allProjects;
     private List<Employee> allEmployees;
     private List<Employee> freeEmployees;
-    private  List<ProjectManager> allProjectManagers;
+    private List<ProjectManager> allProjectManagers;
 
     public TimeManager() {
         this.allClients = new ArrayList<Client>();

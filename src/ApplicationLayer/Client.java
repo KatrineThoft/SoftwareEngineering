@@ -36,7 +36,7 @@ public class Client {
     public void designateProjectManager(Employee empl){
         if (this.firm.getFreeEmployees().contains(empl)) {
             this.tempProject = new Project(this, this.firm);
-            this.tempProject.setProjectManager();
+            this.tempProject.setSpecificProjectManager(empl);
         } else {
             this.tempProject = null;
         }

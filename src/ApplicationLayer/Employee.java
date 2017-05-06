@@ -1,9 +1,6 @@
 package ApplicationLayer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -57,9 +54,10 @@ public class Employee {
     }
 
     public void updateRegisteredHours(Date date, double h) {
+        java.util.Date date1 = new java.util.Date(date.date, date.month, date.year);
         if (this.registeredHours.containsKey(date)) {
             this.registeredHours.replace(date, h);
-        } else {
+        } else if (Calendar.getInstance().getTime().after(date1)){
             this.registeredHours.put(date, h);
         }
     }

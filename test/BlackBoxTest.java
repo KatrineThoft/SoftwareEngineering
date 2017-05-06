@@ -12,7 +12,7 @@ public class BlackBoxTest {
     public void NewProjectTest(){
         TimeManager firm01 = new TimeManager();
         Date endDate = new Date(23,1,2018);
-        double estimatedTimeUse = 100;
+        double estimatedTimeUse = 50;
         String projectName = "novoProject";
         String clientName = "NovoZyme";
         Employee employee01 = new Employee("Alice", firm01);
@@ -33,42 +33,33 @@ public class BlackBoxTest {
         assertTrue(project01.active);
 
         // B
-        Project project03 = new Project(client02, firm01);
-        assertEquals(project03.client,client01);
-        assertEquals(project03.projectName,projectName);
-        assertEquals(project03.endDate,endDate);
-        assertEquals(project03.getEstimatedTimeUse(),estimatedTimeUse);
-        assertEquals(project03.getTimeUsed(),0);
-        assertTrue(project03.active);
-        assertEquals(project03.projectManager.employee.getName(),"Hanne");
+        Project project02 = new Project(client02, firm01);
+        assertEquals(project02.client,client01);
+        assertEquals(project02.projectName,projectName);
+        assertEquals(project02.endDate,endDate);
+        assertEquals(project02.getEstimatedTimeUse(),estimatedTimeUse);
+        assertEquals(project02.getTimeUsed(),0);
+        assertTrue(project02.active);
+        assertEquals(project02.projectManager.employee.getName(),"Hanne");
 
         // C
-        Project project02 = new Project(null, null);
-        assertEquals(project02, null);
+        Project project03 = new Project(null, null);
+        assertEquals(project03, null);
 
         // D
-        ProjectManager projMan01 = project03.projectManager;
-        List<Activity> activities = new ArrayList<Activity>();
-        for (int i = 1; i <= 5; i++){
-            activities.add(new Activity("activity"+i));
-        }
-        projMan01.createActivities(activities);
-        assertEquals(projMan01.project.getActivities(), activities);
+        ProjectManager projMan01 = project02.projectManager;
+        projMan01.createActivities(); // creates 5 activities bcs. estimatedTimeUse = 50
+        assertTrue(projMan01.project.getActivities().size() == 5);
 
         // E
-        projMan01.createActivities(null);
-        assertEquals(projMan01.project.getActivities(), null);
-
-        // F
-        projMan01.createActivities(activities);
         projMan01.setEstTimeUse(projMan01.project.getActivities().get(0),10);
         assertTrue(projMan01.project.getActivities().get(0).getEstimatedTimeUse() == 10);
 
-        // G
+        // F
         projMan01.setEstTimeUse(null, 0);
         assertEquals(projMan01.project.getActivities().get(0).getEstimatedTimeUse(), null);
 
-        // H
+        // G
         List<Employee> employees = new ArrayList<Employee>();
         for (int i = 1; i <= 5; i++){
             employees.add(new Employee("employee"+i, firm01));
@@ -77,13 +68,9 @@ public class BlackBoxTest {
         projMan01.getEmplForProj();
         assertEquals(projMan01.project.getWorkingEmployees(), employees);
 
-        // I
-        projMan01.delegateActivities(projMan01.project.getActivities(),projMan01.project.getWorkingEmployees());
-        assertEquals(projMan01.getDelegatedActivities().get(projMan01.project.getActivities().get(0)), projMan01.project.getWorkingEmployees().get(0));
-
-        // J
-        projMan01.delegateActivities(null,null);
-        assertEquals(projMan01.getDelegatedActivities().get(projMan01.project.getActivities().get(0)), null);
+        // H
+        projMan01.delegateActivities();
+        assertEquals(projMan01.project.getDelegatedActivities().get(projMan01.project.getActivities().get(0)), projMan01.project.getWorkingEmployees().get(0));
     }
 
     @Test
@@ -91,22 +78,19 @@ public class BlackBoxTest {
         TimeManager firm01 = new TimeManager();
         String employeename = "Helga";
         Employee employee01 = new Employee(employeename, firm01);
-        Date endDate = new Date(23,1,2018);
-        double estimatedTimeUse = 100;
+
+
+
+        /*Date endDate = new Date(23,1,2018);
+        double estimatedTimeUse = 50;
         String projectName = "novoProject";
         String clientName = "NovoZyme";
 
         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
         Project project01 = new Project(client01, firm01);
 
+        */
 
-
-        //check the hours is registertet.
-        double timeUsed = 17.5;
-        employee01.updateRegisteredHours(timeUsed);
-        assertTrue(employee01.registeredHours == 17.5);
-
-        project01.updateTimeUsed(timeUsed);
 
     }
 
@@ -118,17 +102,21 @@ public class BlackBoxTest {
         String employeename02 = "Margot";
         Employee employee02 = new Employee(employeename02, firm01);
         Date endDate = new Date(23,1,2018);
-        double estimatedTimeUse = 100;
+        double estimatedTimeUse = 50;
         String projectName = "novoProject";
         String clientName = "NovoZyme";
 
+        // adding employees to free employees in firm01
+        List<Employee> employees = new ArrayList<Employee>();
+        for (int i = 1; i <= 5; i++){
+            firm01.addFreeEmployee(new Employee("employee"+i, firm01));
+        }
+
         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
         Project project01 = new Project(client01, firm01);
-        project01.setProjectManager(employee01);
-        List<Activity> acts = new ArrayList<Activity>();
-        acts.add(new Activity("act01"));
-        project01.projectManager.createActivities(acts);
         project01.firm.addFreeEmployee(employee02);
+        project01.setProjectManager(); // is going to be set to employee02
+        project01.projectManager.createActivities();  // creates 10 activities bcs. estimatedTimeUse = 100
         project01.projectManager.getEmplForProj();
         assertTrue(project01.getWorkingEmployees().get(0) == employee02);
         project01.firm.getFreeEmployees().remove(employee02);

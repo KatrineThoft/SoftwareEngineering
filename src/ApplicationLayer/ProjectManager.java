@@ -40,29 +40,32 @@ public class ProjectManager{
         }
     }
 
-    public void getEmplForProj() { // called from delegateActivities
+    public boolean getEmplForProj() { // called from delegateActivities
         for (int i = 0; i < project.getActivities().size(); i++){
             if (project.firm.getFreeEmployees().get(i) != null) {
                 project.getWorkingEmployees().add(project.firm.getFreeEmployees().get(i));
             } else {
-                System.out.println("not enough available employees");
+                return false;
             }
         }
-        int i = 1;
+        return true;
     }
 
     public void delegateActivities(){
         Map<Activity, Employee> delegatedActivities = new HashMap<Activity, Employee>();
         createActivities();
-        getEmplForProj();
-        for (int i = 0; i < project.getWorkingEmployees().size(); i++) {
-            delegatedActivities.put(project.getActivities().get(i), project.getWorkingEmployees().get(i));
-            project.getWorkingEmployees().get(i).getActivities().add(project.getActivities().get(i));
-            if (project.getWorkingEmployees().get(i).getActivities().size() >= 10) {
-                project.firm.getFreeEmployees().remove(project.getWorkingEmployees().get(i));
+        if (getEmplForProj()) {
+            for (int i = 0; i < project.getWorkingEmployees().size(); i++) {
+                delegatedActivities.put(project.getActivities().get(i), project.getWorkingEmployees().get(i));
+                project.getWorkingEmployees().get(i).getActivities().add(project.getActivities().get(i));
+                if (project.getWorkingEmployees().get(i).getActivities().size() >= 10) {
+                    project.firm.getFreeEmployees().remove(project.getWorkingEmployees().get(i));
+                }
             }
+            project.setDelegatedActivities(delegatedActivities);
+        } else {
+            project.setDelegatedActivities(null);
         }
-        project.setDelegatedActivities(delegatedActivities);
     }
 
 
