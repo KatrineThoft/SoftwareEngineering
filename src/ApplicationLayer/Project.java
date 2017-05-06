@@ -2,6 +2,8 @@ package ApplicationLayer;
 
 import GUI.TimeRegStage;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,8 +33,11 @@ public class Project {
         this.timeUsed = 0;
         this.firm = firm;
 
+        this.workingEmployees = new ArrayList<Employee>();
+        this.activities = new ArrayList<Activity>();
+        this.delegatedActivities = new HashMap<Activity,Employee>();
 
-       if (client.getTempProject() != null){
+        if (client.getTempProject() != null){
            this.projectManager = client.getTempProject().projectManager;
        }
 
@@ -58,10 +63,10 @@ public class Project {
         this.workingEmployees = workingEmployees;
     }
 
-    public void setActivities(List<Activity> activities) {
+   /* public void setActivities(List<Activity> activities) {
         this.activities = activities;
     }
-
+*/
     public void setDelegatedActivities(Map<Activity,Employee> delegatedActivities) {
         this.delegatedActivities = delegatedActivities;
     }
@@ -104,6 +109,7 @@ public class Project {
         return activities;
     }
 
+
     public Map<Activity, Employee> getDelegatedActivities() {
         return delegatedActivities;
     }
@@ -111,5 +117,7 @@ public class Project {
     public void addToFirm(TimeManager firm){
         firm.getProjects().add(this);
     }
+
+
 
 }

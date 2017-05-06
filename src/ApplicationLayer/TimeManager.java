@@ -76,9 +76,19 @@ public class TimeManager {
     }
 
     public Employee getProjectManagerAsEmployee(Employee emp){
-        for (ProjectManager e : allProjectManagers){
-            if(e.getEmployee().equals(emp)){
-                return e.getEmployee();
+        for (ProjectManager p : allProjectManagers){
+            if(p.getEmployee().equals(emp)){
+                return p.getEmployee();
+            }
+        }
+
+        return null;
+    }
+
+    public ProjectManager getEmployeeAsProjectManager(Employee emp){
+        for(ProjectManager p: allProjectManagers){
+            if(p.getEmployee().equals(emp)){
+                return p;
             }
         }
 

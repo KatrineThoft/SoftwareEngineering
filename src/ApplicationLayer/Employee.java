@@ -17,8 +17,11 @@ public class Employee {
         this.employeeName = employeeName;
         this.absence = false;
         this.registeredHours = new HashMap<Date,Double>();
+       this.ongoingActivities = new ArrayList<Activity>();
         this.firm = firm;
         addToFirm(firm);
+
+
     }
 
     public void setActivities(List<Activity> activities) {

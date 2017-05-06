@@ -1,5 +1,6 @@
 package GUI;
 
+import ApplicationLayer.Employee;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -37,7 +38,6 @@ public class ProjectManagerStage extends Stage{
        delegateActButton.setOnAction(e->delegateAct());
 
 
-
        Button delayProjectButton = new Button("Delay project");
        delayProjectButton.setOnAction(e->delay());
 
@@ -64,13 +64,20 @@ public class ProjectManagerStage extends Stage{
 
 
     private void delegateAct(){
-        if(companyDriver.currentProjectManager.getEmplForProj()) {
-            companyDriver.currentProjectManager.delegateActivities();
-            companyDriver.startDelegateSucces();
-            this.close();
-        } else {
+        for(Employee e: companyDriver.SoftwareHuset.getFreeEmployees()) {
+            System.out.println(e.getName());
+            System.out.println("Size: " + companyDriver.currentProject.getActivities().size());
+        }
+        if(!(companyDriver.currentProjectManager.getEmplForProj())){
             companyDriver.startDelegateFailStage();
             this.close();
+        } else if(companyDriver.currentProjectManager.getEmplForProj()) {
+            {
+                companyDriver.currentProjectManager.delegateActivities();
+                companyDriver.startDelegateSucces();
+
+                this.close();
+            }
         }
     }
 

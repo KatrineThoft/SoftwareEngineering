@@ -31,16 +31,18 @@ public class DelegateSuccesStage extends Stage {
     }
 
     private GridPane delegateActPane() {
-       GridPane createActPane = new GridPane();
+       GridPane delegateActPane = new GridPane();
 
-        VBox createActBox = new VBox();
+
 
 
         Button backButton = new Button("Back to project manager menu");
         backButton.setOnAction(e-> back());
-        createActBox.setAlignment(Pos.CENTER);
 
-        return createActPane;
+        delegateActPane.add(backButton, 2,1);
+        delegateActPane.setAlignment(Pos.CENTER);
+
+        return delegateActPane;
     }
 
     private void back() {

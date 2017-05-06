@@ -28,32 +28,33 @@ public class ProjectManager{
 
     public void createActivities(){ // called from delegateActivities
         int i = 0;
-        List<Activity> activities = new ArrayList<Activity>();
+
         while (i <= project.getEstimatedTimeUse()) {
-            activities.add(new Activity("activity" + (i/10+1)));
-            activities.get(i/10).setEstimatedTimeUse(10);
+            project.getActivities().add(new Activity("activity" + (i/10+1)));
+            project.getActivities().get(i/10).setEstimatedTimeUse(10);
             i+=10;
         }
         if (i-10 < project.getEstimatedTimeUse()){
-            activities.add(new Activity("activity" + (i/10+1)));
-            activities.get(i/10).setEstimatedTimeUse(project.getEstimatedTimeUse()-(i-10));
+            project.getActivities().add(new Activity("activity" + (i/10+1)));
+            project.getActivities().get(i/10).setEstimatedTimeUse(project.getEstimatedTimeUse()-(i-10));
         }
     }
 
     public boolean getEmplForProj() { // called from delegateActivities
-        for (int i = 0; i < project.getActivities().size(); i++){
-            if (project.firm.getFreeEmployees().get(i) != null) {
+        if (firm.getFreeEmployees().size() < project.getActivities().size()) {
+            return false;
+        } else {
+            for (int i = 0; i < project.getActivities().size(); i++) {
                 project.getWorkingEmployees().add(project.firm.getFreeEmployees().get(i));
-            } else {
-                return false;
             }
+            return true;
         }
-        return true;
     }
 
     public void delegateActivities(){
         Map<Activity, Employee> delegatedActivities = new HashMap<Activity, Employee>();
         createActivities();
+        getEmplForProj();
         if (getEmplForProj()) {
             for (int i = 0; i < project.getWorkingEmployees().size(); i++) {
                 delegatedActivities.put(project.getActivities().get(i), project.getWorkingEmployees().get(i));

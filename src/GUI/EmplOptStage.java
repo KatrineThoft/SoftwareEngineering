@@ -91,7 +91,7 @@ public class EmplOptStage extends Stage {
 
     private void pManager(){
         if(companyDriver.SoftwareHuset.getProjectManagerAsEmployee(companyDriver.getCurrentEmpl()) != null) {
-            
+            companyDriver.currentProjectManager = companyDriver.SoftwareHuset.getEmployeeAsProjectManager(companyDriver.getCurrentEmpl());
             companyDriver.startProjectManagerStage();
 
             this.close();

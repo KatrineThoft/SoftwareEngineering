@@ -59,7 +59,7 @@ public class NewProjectStage01 extends Stage {
         estimateInput = new TextField();
 
         Label comNamelabel = new Label("Company Name:");
-        Label proNameLabel = new Label("ApplicationLayer.Project Name:");
+        Label proNameLabel = new Label("Project Name:");
         Label empNameLabel = new Label("Name of project manager (optional):");
         Label endDateLabel= new Label("End date (dd-MM-yyyy):");
         Label estimateLabel = new Label("Estimated hours to be used on project:");
