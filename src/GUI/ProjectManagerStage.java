@@ -4,6 +4,7 @@ import ApplicationLayer.Employee;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -12,10 +13,11 @@ import javafx.scene.control.Button;
 /**
  * Created by katrinethoft on 05/05/17.
  */
+
 public class ProjectManagerStage extends Stage{
     private CompanyDriver companyDriver;
 
-    
+
     public ProjectManagerStage(CompanyDriver companyDriver){
         this.companyDriver = companyDriver;
 
@@ -34,6 +36,8 @@ public class ProjectManagerStage extends Stage{
     private GridPane pManagerPane() {
 
         GridPane pManagerPane = new GridPane();
+
+        Label hourLabel = new Label("You have : " + companyDriver.currentProject.getRemainingTime() + " hours left on the project.");
 
        Button delegateActButton = new Button("Delegate activities");
        delegateActButton.setOnAction(e->delegateAct());
@@ -55,7 +59,7 @@ public class ProjectManagerStage extends Stage{
         });
 
         VBox pManagerBox = new VBox();
-        pManagerBox.getChildren().addAll(delegateActButton, delayProjectButton, backButton);
+        pManagerBox.getChildren().addAll(hourLabel,delegateActButton, delayProjectButton, endProjectButton ,backButton);
 
         pManagerBox.setAlignment(Pos.CENTER);
 
@@ -64,23 +68,24 @@ public class ProjectManagerStage extends Stage{
     }
 
 
-    private void delegateAct(){
-        for(Employee e: companyDriver.SoftwareHuset.getFreeEmployees()) {
+    private void delegateAct() {
+        for (Employee e : companyDriver.SoftwareHuset.getFreeEmployees()) {
             System.out.println(e.getName());
-            System.out.println("Size: " + companyDriver.currentProject.getActivities().size());
+            System.out.println("Size: " + companyDriver.currentProjectManager.project.getActivities().size());
         }
-        if(!(companyDriver.currentProjectManager.getEmplForProj())){
+        if (!(companyDriver.currentProjectManager.getEmplForProj())) {
             companyDriver.startDelegateFailStage();
             this.close();
-        } else if(companyDriver.currentProjectManager.getEmplForProj()) {
-            {
-                companyDriver.currentProjectManager.delegateActivities();
-                companyDriver.startDelegateSucces();
+        } else if (companyDriver.currentProjectManager.getEmplForProj()) {
 
-                this.close();
-            }
+            companyDriver.currentProjectManager.delegateActivities();
+            companyDriver.startDelegateSucces();
+
+            this.close();
         }
-    }
+         }
+
+
 
     private void delay() {
         companyDriver.startDelayStage();

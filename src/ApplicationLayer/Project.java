@@ -37,7 +37,9 @@ public class Project {
         this.delegatedActivities = new HashMap<Activity,Employee>();
         if (client.getTempProject() != null){
            this.projectManager = client.getTempProject().projectManager;
-       }
+       } else{
+            setProjectManager();
+        }
     }
 
     public void setProjectManager() {
@@ -104,7 +106,6 @@ public class Project {
     public List<Activity> getActivities() {
         return activities;
     }
-
 
     public Map<Activity, Employee> getDelegatedActivities() {
         return delegatedActivities;

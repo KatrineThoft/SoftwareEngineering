@@ -1,5 +1,6 @@
 package GUI;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -33,6 +34,7 @@ public class DelegateFailStage extends Stage {
         Button backButton = new Button("Back to project manager menu");
         backButton.setOnAction(e->back());
 
+       delegateFailPane.setAlignment(Pos.CENTER);
         delegateFailPane.add(backButton, 2,1);
         return delegateFailPane;
     }

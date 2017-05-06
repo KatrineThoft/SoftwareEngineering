@@ -1,7 +1,6 @@
 package GUI;
 
 import ApplicationLayer.*;
-import GUI.CompanyDriver;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +12,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by katrinethoft on 04/05/17.
@@ -119,8 +121,11 @@ public class NewProjectStage01 extends Stage {
                 companyDriver.currentClient = new Client(conName, endDate, estimate, proName, empl, CompanyDriver.SoftwareHuset);
                 companyDriver.currentProject = new Project(companyDriver.currentClient, companyDriver.SoftwareHuset);
                 companyDriver.currentProjectManager = companyDriver.currentClient.projectManager;
+                companyDriver.currentProject.projectManager.createActivities();
 
 
+                companyDriver.startNewProjectStage02();
+                this.close();
 
             }  else{
                 companyDriver.currentClient = new Client(conName, endDate, estimate, proName, CompanyDriver.SoftwareHuset);

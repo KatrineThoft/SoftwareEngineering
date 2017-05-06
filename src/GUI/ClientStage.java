@@ -29,7 +29,6 @@ public class ClientStage extends Stage {
 
         //Set the stage.
         this.setTitle("What would you like to do?");
-
         this.setScene(scene);
         this.setResizable(false);
         this.centerOnScreen();

@@ -6,6 +6,8 @@ import ApplicationLayer.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 //Driver class for the GUI, runs the stages
 public class CompanyDriver extends Application {
     public final  int HEIGHT = 475;
@@ -16,6 +18,7 @@ public class CompanyDriver extends Application {
     public ProjectManager currentProjectManager;
     public Project currentProject;
     public Client currentClient;
+    public List<Activity> currentActivities;
 
     private MenuStage menuStage;
     private ClientStage clientStage;
@@ -33,9 +36,13 @@ public class CompanyDriver extends Application {
     private ProjectManagerStage projectManagerStage;
     private DelegateSuccesStage delegateSuccesStage;
     private DelegateFailStage delegateFailStage;
+    private EndProjectStage endProjectStage;
+    private DelayProjectStage delayProjectStage;
+    private DelayProjectEndStage delayProjectEndStage;
 
     public static void main(String[] args) {
         SoftwareHuset = new TimeManager();
+
         Application.launch(args);
     }
 
@@ -147,11 +154,18 @@ public class CompanyDriver extends Application {
 
 
     public void startDelayStage(){
+        delayProjectStage = new DelayProjectStage(this);
+        delayProjectStage.show();
+    }
 
+    public void startNewDelayEndStage(){
+        delayProjectEndStage = new DelayProjectEndStage(this);
+        delayProjectEndStage.show();
     }
 
     public void startEndProjectStage(){
-
+        endProjectStage = new EndProjectStage(this);
+        endProjectStage.show();
     }
 
 }
