@@ -32,16 +32,12 @@ public class Project {
         this.estimatedTimeUse = client.estimatedTimeUse;
         this.timeUsed = 0;
         this.firm = firm;
-
         this.workingEmployees = new ArrayList<Employee>();
         this.activities = new ArrayList<Activity>();
         this.delegatedActivities = new HashMap<Activity,Employee>();
-
         if (client.getTempProject() != null){
            this.projectManager = client.getTempProject().projectManager;
        }
-
-
     }
 
     public void setProjectManager() {

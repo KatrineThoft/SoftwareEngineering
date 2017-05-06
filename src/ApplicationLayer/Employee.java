@@ -19,6 +19,7 @@ public class Employee {
         this.registeredHours = new HashMap<Date,Double>();
        this.ongoingActivities = new ArrayList<Activity>();
         this.firm = firm;
+        this.ongoingActivities = new ArrayList<Activity>();
         addToFirm(firm);
 
 
@@ -56,12 +57,28 @@ public class Employee {
         }
     }
 
-    public void updateRegisteredHours(Date date, double h) {
+    public boolean updateRegisteredHours(Date date, double h) {
         java.util.Date date1 = new java.util.Date(date.date, date.month, date.year);
-        if (this.registeredHours.containsKey(date)) {
-            this.registeredHours.replace(date, h);
-        } else if (Calendar.getInstance().getTime().after(date1)){
-            this.registeredHours.put(date, h);
+        if (h <= 8) {
+            if (this.registeredHours.containsKey(date)) {
+                this.registeredHours.replace(date, h);
+                return true;
+            } else if (Calendar.getInstance().getTime().after(date1)) {
+                this.registeredHours.put(date, h);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (this.registeredHours.containsKey(date)) {
+                this.registeredHours.replace(date, 8.0);
+                return true;
+            } else if (Calendar.getInstance().getTime().after(date1)) {
+                this.registeredHours.put(date, 8.0);
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

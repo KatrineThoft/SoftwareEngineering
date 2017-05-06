@@ -140,9 +140,10 @@ public class Test1 {
         // Test of absence / updateAbsence in Project manager Test
 
         // Test of registeredHours / updateRegisteredHours
-        assertTrue(employee01.registeredHours == 0.0);
-        employee01.updateRegisteredHours(17.5);
-        assertTrue(employee01.registeredHours == 17.5);
+        Date date = new Date(1,5,2017);
+        assertTrue(employee01.registeredHours.isEmpty());
+        employee01.updateRegisteredHours(date, 7.5);
+        assertEquals(employee01.registeredHours.get(date), (Double) 7.5);
     }
 
     @Test
@@ -192,8 +193,8 @@ public class Test1 {
         // Test of set/get ApplicationLayer.ProjectManager
         assertEquals(project01.projectManager,null);
         Employee man = new Employee("Helga", firm01);
-        project01.setProjectManager(man);
-        ProjectManager projMan = new ProjectManager(man, project01);
+        project01.setSpecficProjectManager(man);
+        ProjectManager projMan = new ProjectManager(man, project01, firm01);
         assertEquals(project01.projectManager,projMan);
 
         // Test of set WorkingEmployees
@@ -257,7 +258,7 @@ public class Test1 {
         project01.setProjectID(projectID);
 
         // Creating a projectManager
-        ProjectManager manager = new ProjectManager(employee01, project01);
+        ProjectManager manager = new ProjectManager(employee01, project01, firm01);
 
         // Test of constructor
         assertTrue(manager.employee == employee01);
@@ -265,19 +266,15 @@ public class Test1 {
 
         // Test of createActivities
         assertTrue(manager.project.getActivities() == null);
-        List<Activity> newActivities = new ArrayList<Activity>();
-        for (int i = 1; i <= 5; i++){
-            newActivities.add(new Activity("activity"+i));
-        }
-        manager.createActivities(newActivities);
+        manager.createActivities();
         assertFalse(manager.project.getActivities() == null);
 
-        // Test of setEstTimeUse
+        /*// Test of setEstTimeUse
         for (Activity a : manager.project.getActivities()) {
             manager.setEstTimeUse(a, 10);
         }
         assertTrue(manager.project.getActivities().get(0).getEstimatedTimeUse() == 10);
-
+*/
         // Test of getEmplForProj
         assertTrue(manager.project.getWorkingEmployees() == null);
         assertFalse(manager.project.firm.getFreeEmployees() == null);
@@ -286,8 +283,8 @@ public class Test1 {
 
         // Test of delegateActivities and getDelegatedActivities
         assertTrue(manager.project.getActivities().size() == manager.project.getWorkingEmployees().size());
-        manager.delegateActivities(manager.project.getActivities(), manager.project.getWorkingEmployees());
-        assertFalse(manager.getDelegatedActivities() == null);
+        manager.delegateActivities();
+        assertFalse(manager.project.getDelegatedActivities() == null);
 
         // Test findSubstitute
         Employee employee02 = manager.project.getWorkingEmployees().get(0);

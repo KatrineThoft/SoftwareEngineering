@@ -22,21 +22,20 @@ public class ProjectManager{
         firm.getProjectManagers().add(this);
     }
 
-    public void setEstTimeUse(Activity act, double estimatedTimeUse) {
+   /* public void setEstTimeUse(Activity act, double estimatedTimeUse) {
         act.setEstimatedTimeUse(estimatedTimeUse);
-    }
+    }*/
 
     public void createActivities(){ // called from delegateActivities
         int i = 0;
-
-        while (i <= project.getEstimatedTimeUse()) {
-            project.getActivities().add(new Activity("activity" + (i/10+1)));
-            project.getActivities().get(i/10).setEstimatedTimeUse(10);
-            i+=10;
+        while (i < project.getEstimatedTimeUse()/10) {
+            project.getActivities().add(new Activity("activity" + (i+1)));
+            project.getActivities().get(i).setEstimatedTimeUse(10);
+            i++;
         }
-        if (i-10 < project.getEstimatedTimeUse()){
-            project.getActivities().add(new Activity("activity" + (i/10+1)));
-            project.getActivities().get(i/10).setEstimatedTimeUse(project.getEstimatedTimeUse()-(i-10));
+        if (project.getEstimatedTimeUse() % 10 != 0){
+            project.getActivities().add(new Activity("activity" + (i+1)));
+            project.getActivities().get(i).setEstimatedTimeUse(project.getEstimatedTimeUse() % 10);
         }
     }
 
@@ -50,6 +49,17 @@ public class ProjectManager{
             return true;
         }
     }
+
+    /*public boolean getEmplForProj() { // called from delegateActivities
+        for (int i = 0; i < project.getActivities().size(); i++){
+            if (project.firm.getFreeEmployees().get(i) != null) {
+                project.getWorkingEmployees().add(project.firm.getFreeEmployees().get(i));
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }*/
 
     public void delegateActivities(){
         Map<Activity, Employee> delegatedActivities = new HashMap<Activity, Employee>();
