@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 public class ProjectManagerStage extends Stage{
     private CompanyDriver companyDriver;
 
+    
     public ProjectManagerStage(CompanyDriver companyDriver){
         this.companyDriver = companyDriver;
 
