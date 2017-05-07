@@ -26,7 +26,7 @@ public class TimeRegStage extends Stage {
     private int month;
     private int year;
     private TextField regHours;
-    private String[] actHours;
+    private double totalHours;
 
     public TimeRegStage(CompanyDriver companyDriver){
 
@@ -36,7 +36,7 @@ public class TimeRegStage extends Stage {
         this.setResizable(false);
         this.centerOnScreen();
         this.sizeToScene();
-        this.setTitle("Please enter the number of hours worked on each activity");
+        this.setTitle("Please enter the number of hours worked on each activity (max 8 hours)");
 
     }
 
@@ -44,38 +44,38 @@ public class TimeRegStage extends Stage {
         GridPane timeRegPane = new GridPane();
 
         VBox timeRegBox = new VBox();
-        Label[] hourLabels = new Label[companyDriver.getCurrentEmpl().getActivities().size()];
-        actHours = new String[companyDriver.getCurrentEmpl().getActivities().size()];
+        Label hourLabels = new Label();
+        double hours = 0;
 
-        for (int i = 0; i < companyDriver.getCurrentEmpl().getActivities().size(); i++) {
-            hourLabels[i].setText("Activity" + i);
+        //Registering time for each activity using textfields
+        for(Activity a: companyDriver.getCurrentEmpl().getActivities() ){
+            hourLabels.setText(a.getActivityName());
 
             regHours = new TextField();
 
-            actHours[i] = regHours.getText();
-            timeRegBox.getChildren().addAll(hourLabels[i],regHours);
-
+            if(!(regHours.getText().isEmpty())) {
+                hours = Double.parseDouble(regHours.getText());
+            }
+            companyDriver.getCurrentEmpl().regHoursOnAct(hours,a);
+            totalHours += hours;
+            timeRegBox.getChildren().addAll(hourLabels,regHours);
         }
+
 
         Button confButton = new Button("Confirm and back to employee menu");
         confButton.setOnAction(e->confirm());
 
+        timeRegBox.getChildren().add(confButton);
 
-        companyDriver.regTimeDate = new Date(day, month, year);
-
-
+        timeRegPane.add(timeRegBox,2,1);
 
         return  timeRegPane;
     }
 
     private void confirm(){
-        if(Arrays.asList(actHours).contains(null)){
-            this.setTitle("Please fill out all text fields. Enter 0 if no hours worked on project.");
-        } else{
-            //Registrer timer
             companyDriver.startEmpOptStage();
             this.close();
         }
 
-    }
+
 }

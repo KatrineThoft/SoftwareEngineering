@@ -1,5 +1,6 @@
 package GUI;
 
+import ApplicationLayer.Activity;
 import ApplicationLayer.Date;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -51,7 +52,6 @@ public class HourStage extends Stage {
     }
 
     private void timeReg() {
-
         //If chosen date is today, register hours on date
         if(timeRegDate.getValue().isEqual(LocalDate.now())) {
             String[] regDateSplit = timeRegDate.getValue().toString().split("-");

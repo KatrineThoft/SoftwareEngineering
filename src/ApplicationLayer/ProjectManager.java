@@ -29,12 +29,12 @@ public class ProjectManager{
     public void createActivities(){ // called from delegateActivities
         int i = 0;
         while (i < project.getEstimatedTimeUse()/10) {
-            project.getActivities().add(new Activity("activity" + (i+1), this.project));
+            project.getActivities().add(new Activity("activity " + (i+1), this.project));
             project.getActivities().get(i).setEstimatedTimeUse(10);
             i++;
         }
         if (project.getEstimatedTimeUse() % 10 != 0){
-            project.getActivities().add(new Activity("activity" + (i+1), this.project));
+            project.getActivities().add(new Activity("activity " + (i+1), this.project));
             project.getActivities().get(i).setEstimatedTimeUse(project.getEstimatedTimeUse() % 10);
         }
     }
@@ -74,9 +74,9 @@ public class ProjectManager{
         Map<Activity, Employee> delegatedActivities = new HashMap<Activity, Employee>();
         createActivities();
         if (getEmplForProj()) {
-            for (int i = 0; i < project.getWorkingEmployees().size(); i++) {
+            for (int i = 0; i < project.getActivities().size(); i++) {
                 delegatedActivities.put(project.getActivities().get(i), project.getWorkingEmployees().get(i));
-                project.getWorkingEmployees().get(i).getActivities().add(project.getActivities().get(i));
+                project.getWorkingEmployees().get(i).addActivities(project.getActivities().get(i));
                 if (project.getWorkingEmployees().get(i).getActivities().size() >= 10) {
                     project.firm.getFreeEmployees().remove(project.getWorkingEmployees().get(i));
                 }

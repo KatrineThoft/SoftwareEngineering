@@ -5,11 +5,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import java.awt.TextField;
+import org.omg.CORBA.portable.ValueBase;
+
+import javafx.scene.control.TextField;
 
 /**
  * Created by katrinethoft on 05/05/17.
@@ -18,6 +21,7 @@ import java.awt.TextField;
 public class EditTimeStage extends Stage {
     private CompanyDriver companyDriver;
     private TextField newHoursText;
+    private Label labelHour;
 
     public EditTimeStage(CompanyDriver companyDriver){
 
@@ -33,10 +37,10 @@ public class EditTimeStage extends Stage {
     private GridPane editTimePane() {
         GridPane editTimePane = new GridPane();
 
-        if(  companyDriver.getCurrentEmpl().registeredHours.get(companyDriver.regTimeDate) == null){
-            Label labelHour = new Label("You have worked 0.0 hours on " + companyDriver.regTimeDate);
+        if(companyDriver.getCurrentEmpl().registeredHours.get(companyDriver.regTimeDate) == null){
+            labelHour = new Label("You have worked 0.0 hours on " + companyDriver.regTimeDate);
         } else {
-            Label labelHour = new Label("You have worked" +
+            labelHour = new Label("You have worked" +
                     companyDriver.getCurrentEmpl().registeredHours.get(companyDriver.regTimeDate)
                     + "on " + companyDriver.regTimeDate);
         }
@@ -45,6 +49,10 @@ public class EditTimeStage extends Stage {
         Button confButton = new Button("Confirm and back to employee menu");
         confButton.setOnAction(e-> confirm());
 
+        VBox editTimeBox = new VBox();
+        editTimeBox.getChildren().addAll(labelHour, newHoursText, confButton);
+
+        editTimePane.add(editTimeBox,2,1);
 
         return editTimePane;
     }

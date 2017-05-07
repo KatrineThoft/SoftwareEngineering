@@ -19,14 +19,14 @@ public class Employee {
         this.employeeName = employeeName;
         this.absence = false;
         this.registeredHours = new HashMap<Date,Double>();
+
         this.ongoingActivities = new ArrayList<Activity>();
         this.firm = firm;
-        this.ongoingActivities = new ArrayList<Activity>();
         addToFirm(firm);
     }
 
-    public void setActivities(List<Activity> activities) {
-        this.ongoingActivities = activities;
+    public void addActivities(Activity activity) {
+        this.ongoingActivities.add(activity);
     }
 
     public List<Activity> getActivities() {
