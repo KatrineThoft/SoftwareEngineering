@@ -1,7 +1,13 @@
 /**
  * Created by Daniel Hildebrand on 03-05-2017.
  */
+/*
 import org.junit.jupiter.api.Test;
+import ApplicationLayer.*;
+import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class WhiteBoxTest {
 
     @Test
@@ -172,10 +178,10 @@ public class WhiteBoxTest {
          Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
          Project project01 = new Project(client01, firm01);
          ProjectManager manager = new ProjectManager(employee01, project01);
-/*
+
          //when there is no employees the EO is none caus for loop is not running
          assertEquals(manager.delegateActivities() == null);
-*/
+
          //pre
          String employeename = "Helga02";
          Employee employee02 = new Employee(employeename, firm01);
@@ -216,3 +222,4 @@ public class WhiteBoxTest {
          asserEquals(manager.delegateActivities(ongoingactivities,Employees)==null);
      }
 }
+*/

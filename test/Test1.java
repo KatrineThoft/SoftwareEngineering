@@ -1,6 +1,7 @@
 
 import ApplicationLayer.*;
-
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -193,7 +194,7 @@ public class Test1 {
 
         // Test of set ProjectID
         String projectID = "23011801";
-        project01.setProjectID(projectID);
+        project01.setProjectID();
         assertEquals(project01.getProjectID(), projectID);
 
         // Test of update TimeUsed
@@ -273,7 +274,7 @@ public class Test1 {
         // Creating a project
         Project project01 = new Project(client01, firm01);
         String projectID = "23011801";
-        project01.setProjectID(projectID);
+        project01.setProjectID();
 
         // setting ongoing activities
         List<Activity> ongoingactivities = new ArrayList<Activity>();

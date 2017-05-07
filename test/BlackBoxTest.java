@@ -123,14 +123,15 @@ public class BlackBoxTest {
         String employeename = "Helga";
         Employee employee01 = new Employee(employeename, firm01);
         Date date01 = new Date(1,5,2017); // in the past
-        java.util.Date date02H = Calendar.getInstance().getTime();
-        int day = date02H.getDay();
-        int month = date02H.getMonth();
-        int year = date02H.getYear();
+        Calendar date02H = Calendar.getInstance();
+        int day = date02H.get(Calendar.DATE);
+        int month = date02H.get(Calendar.MONTH)+1;
+        int year = date02H.get(Calendar.YEAR);
         Date date02 = new Date(day, month, year); // current
         Date date03 = new Date(1,5,2020); // in the future
 
         // A
+        System.out.println("d: " + day + " m: " + month + " y: " + year);
         assertTrue(employee01.updateRegisteredHours(date01, 7.5));
 
         // B

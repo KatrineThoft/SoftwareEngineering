@@ -3,6 +3,8 @@ package ApplicationLayer;
 import java.util.*;
 
 
+
+
 /**
  * Created by katrinethoft on 27/03/17.
  */
@@ -37,7 +39,7 @@ public class Employee {
 
     public void updateAbsence() {
         if (!this.absence) {
-            int count = 0;
+            //int count = 0;
             if (firm.getFreeEmployees().size() >= ongoingActivities.size()) {
                 for (Activity a : ongoingActivities) {
                     //if (firm.getFreeEmployees() != null) {
@@ -58,36 +60,35 @@ public class Employee {
     }
 
     public boolean updateRegisteredHours(Date date, double h) {
-        java.util.Date date1 = new java.util.Date(date.date, date.month, date.year);
-       // if (date1.equals(Calendar.getInstance().getTime()))
+        Calendar date1 = Calendar.getInstance();
+        int thisDay = date1.get(Calendar.DATE);
+        int thisMonth = date1.get(Calendar.MONTH)+1;
+        int thisYear = date1.get(Calendar.YEAR);
+        System.out.println("in employee: d: " + thisDay + " m: " + thisMonth + " y: " + thisYear);
+        if (date.year > thisYear || (date.month > thisMonth && date.year == thisYear) || (date.date > thisDay && date.month == thisMonth && date.year == thisYear))
+            return false;
         if (h <= 8) {
             if (this.registeredHours.containsKey(date)) {
                 this.registeredHours.replace(date, h);
                 return true;
-            } else if (Calendar.getInstance().getTime().after(date1)) {
+            } else {
                 this.registeredHours.put(date, h);
                 return true;
-            } else {
-                return false;
             }
         } else {
             if (this.registeredHours.containsKey(date)) {
                 this.registeredHours.replace(date, 8.0);
                 return true;
-            } else if (Calendar.getInstance().getTime().after(date1)) {
+            } else {
                 this.registeredHours.put(date, 8.0);
                 return true;
-            } else {
-                return false;
             }
         }
     }
 
     public void regHoursOnAct(double h, Activity act) {
-        if (this.ongoingActivities.contains(act)) {
+        if (this.ongoingActivities.contains(act) && h+act.getTimeUsed() <= act.getEstimatedTimeUse()) {
             act.updateTimeUsed(h);
-        } else {
-            System.out.println("activity is not in your ongoing activities");
         }
     }
 
