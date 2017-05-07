@@ -1,13 +1,7 @@
 /**
  * Created by Daniel Hildebrand on 03-05-2017.
  */
-/*
 import org.junit.jupiter.api.Test;
-import ApplicationLayer.*;
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.ArrayList;
-import java.util.List;
-
 public class WhiteBoxTest {
 
     @Test
@@ -24,6 +18,8 @@ public class WhiteBoxTest {
         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
         Project project01 = new Project(client01, firm01);
         ProjectManager manager = new ProjectManager(employee01, project01);
+
+        assertFalse
 
         //No input
         assertEquals(manager.delayProject()==null);
@@ -179,47 +175,52 @@ public class WhiteBoxTest {
          Project project01 = new Project(client01, firm01);
          ProjectManager manager = new ProjectManager(employee01, project01);
 
+
+
+
          //when there is no employees the EO is none caus for loop is not running
-         assertEquals(manager.delegateActivities() == null);
+         assertEquals(manager.delegateActivities(), null);
 
          //pre
          String employeename = "Helga02";
          Employee employee02 = new Employee(employeename, firm01);
 
-         //there is one employee but no activities EO is none.
-         assertEquals(manager.delegateActivities(activities, employee02) == null);
+         //check that there is create activities and that delegate activities is returning null.
+         assertEquals(getActivities().size,((estimatedTimeUse-(estimatedTimeUse %10))/10);
+         assertFalse(getEmpForProj() == false);
+         assertEquals(manager.delegateActivities(),null);
 
-         //pre making activities.
-         List<Activity> ongoingactivities = new ArrayList<Activity>();
-         for (int i = 1; i <= 1; i++){
-             ongoingactivities.add(new Activity("activity"+i));
+         //pre
+         estimatedTimeUse = 10;
+         List<Employee> Employees1 = new ArrayList<Employee>)();
+         for (int i = 1; i<13;i++){
+             Employees1.add(new Employee("employee"+i, firm01));
          }
 
+
          //There is one Employee and activities EO 1
-         assertEquals(manager.delegateActivities(ongoingactivities,employee02) == 1);
+         assertTrue(getEmpForProj() == true);
+         assertEquals(manager.delegateActivities(),1);
 
          //pre
          List<Employee> Employees = new ArrayList<Employee>)();
          for (int i = 1; i<3;i++){
              Employees.add(new Employee("employee"+i, firm01));
          }
-         List<Activity> ongoingactivities = new ArrayList<Activity>();
-         for (int i = 1; i <= 3; i++){
-             ongoingactivities.add(new Activity("activity"+i));
-         }
+         estimatedTimeUse=30;
 
          //two or more Employee and activites EO assiged activities
-         assertEquals(manager.delegateActivities(ongoingactivities,Employees)==3);
+         assertEquals(manager.delegateActivities(),3);
 
-         //pre
+         //pre mangler en pre
                  List<Employee> Employees = new ArrayList<Employee>)();
-         for (int i = 1; i<3;i++){
+         for (int i = 1; i<13;i++){
              Employees.add(new Employee("employee"+i, firm01));
              Employee.setActivities(ongoingactivities2);
          }
 
-         //two or more employees and activities but stil fail EO non caus of the if statment.
-         asserEquals(manager.delegateActivities(ongoingactivities,Employees)==null);
+
+         //check that a person is removed if the have 10 or more activities.
+         asserEquals(project.getWorkingEmployees().size,getEmployees.size-1);
      }
 }
-*/
