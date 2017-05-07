@@ -63,7 +63,7 @@ public class AddEmplStage extends Stage {
         String emplName = newEmplName.getText();
         if(!(emplName.isEmpty())) {
             newEmployee = new Employee(emplName, companyDriver.SoftwareHuset);
-            companyDriver.SoftwareHuset.addEmployee(newEmployee);
+            //companyDriver.SoftwareHuset.addEmployee(newEmployee);
             companyDriver.startEmployeeStage();
            // Label lbl = new Label(String.format("Employee " + this.newEmployee.getName()) + "was added to SoftwareHuset A/S." );
             this.close();

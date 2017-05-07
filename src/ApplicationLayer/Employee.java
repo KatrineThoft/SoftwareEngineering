@@ -17,12 +17,10 @@ public class Employee {
         this.employeeName = employeeName;
         this.absence = false;
         this.registeredHours = new HashMap<Date,Double>();
-       this.ongoingActivities = new ArrayList<Activity>();
+        this.ongoingActivities = new ArrayList<Activity>();
         this.firm = firm;
         this.ongoingActivities = new ArrayList<Activity>();
         addToFirm(firm);
-
-
     }
 
     public void setActivities(List<Activity> activities) {
@@ -40,16 +38,18 @@ public class Employee {
     public void updateAbsence() {
         if (!this.absence) {
             int count = 0;
-            for (Activity a : ongoingActivities) {
-                if (firm.getFreeEmployees() != null) {
+            if (firm.getFreeEmployees().size() >= ongoingActivities.size()) {
+                for (Activity a : ongoingActivities) {
+                    //if (firm.getFreeEmployees() != null) {
                     a.getProject().projectManager.findSubstitute(a, this);
-                    ongoingActivities.remove(a);
-                    count++;
+                    //ongoingActivities.remove(a);
+                    //count++;
                 }
-                if (count == ongoingActivities.size()){
-                    this.absence = true;
-                    firm.getFreeEmployees().remove(this);
-                }
+                //if (count == ongoingActivities.size()){
+                ongoingActivities.removeAll(ongoingActivities);
+                this.absence = true;
+                firm.getFreeEmployees().remove(this);
+                //}
             }
         } else {
             this.absence = false;
@@ -59,6 +59,7 @@ public class Employee {
 
     public boolean updateRegisteredHours(Date date, double h) {
         java.util.Date date1 = new java.util.Date(date.date, date.month, date.year);
+       // if (date1.equals(Calendar.getInstance().getTime()))
         if (h <= 8) {
             if (this.registeredHours.containsKey(date)) {
                 this.registeredHours.replace(date, h);

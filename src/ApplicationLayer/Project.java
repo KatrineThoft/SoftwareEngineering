@@ -35,25 +35,27 @@ public class Project {
         this.workingEmployees = new ArrayList<Employee>();
         this.activities = new ArrayList<Activity>();
         this.delegatedActivities = new HashMap<Activity,Employee>();
-        if (client.getTempProject() != null){
-           this.projectManager = client.getTempProject().projectManager;
-       } else{
+        if (client.wantedPM != null && firm.getFreeEmployees().contains(client.wantedPM)){
+            this.projectManager = new ProjectManager(client.wantedPM, this, this.firm);
+        } else if (!firm.getFreeEmployees().isEmpty()) {
             setProjectManager();
+        } else {
+            this.projectManager = null;
         }
-
         setProjectID();
+        addToFirm(firm);
     }
 
     public void setProjectManager() {
-        Employee empl= firm.getFreeEmployees().get(0);
-        ProjectManager manager = new ProjectManager(empl,this, firm);
+        Employee empl = this.firm.getFreeEmployees().get(0);
+        ProjectManager manager = new ProjectManager(empl,this, this.firm);
         this.projectManager = manager;
     }
 
-    public void setSpecficProjectManager(Employee empl){
+    /*public void setSpecficProjectManager(Employee empl){
         ProjectManager manager = new ProjectManager(empl,this, firm);
         this.projectManager = manager;
-    }
+    }*/
 
     public void setProjectID() {
         String val = ""+((int)(Math.random()*9000)+1000);
@@ -117,7 +119,5 @@ public class Project {
     public void addToFirm(TimeManager firm){
         firm.getProjects().add(this);
     }
-
-
 
 }

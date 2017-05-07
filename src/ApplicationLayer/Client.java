@@ -10,7 +10,7 @@ public class Client {
     public Date endDate;
     public double estimatedTimeUse;
     public String projectName;
-    private Project tempProject;
+    public Employee wantedPM;
     public TimeManager firm;
     public ProjectManager projectManager;
 
@@ -29,22 +29,23 @@ public class Client {
         this.estimatedTimeUse = estimatedTimeUse;
         this.projectName = projectName;
         this.firm = firm;
-        designateProjectManager(employee);
+        this.wantedPM = employee;
+        //designateProjectManager(employee);
         addToFirm(firm);
     }
 
-    public void designateProjectManager(Employee empl){
+   /* public void designateProjectManager(Employee empl){
         if (this.firm.getFreeEmployees().contains(empl)) {
             this.tempProject = new Project(this, this.firm);
             this.tempProject.setSpecficProjectManager(empl);
         } else {
             this.tempProject = null;
         }
-    }
+    }*/
 
-    public Project getTempProject() {
+    /*public Project getTempProject() {
         return tempProject;
-    }
+    }*/
 
     public void addToFirm(TimeManager firm){
         firm.getClients().add(this);

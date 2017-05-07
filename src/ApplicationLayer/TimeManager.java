@@ -22,7 +22,7 @@ public class TimeManager {
         this.allProjectManagers = new ArrayList<ProjectManager>();
     }
 
-    // adders are only used when creating new clients, projects and employees
+  /*  // adders are only used when creating new clients, projects and employees
     public void addClient(Client client) {
         this.allClients.add(client);
     }
@@ -37,7 +37,7 @@ public class TimeManager {
     }
 
     public void addProjectManager(ProjectManager projectManager){ this.allProjectManagers.add(projectManager); }
-
+*/
     public void addFreeEmployee(Employee employee) {
         if (employee.absence == false && employee.getActivities().size() < 10) {
             this.freeEmployees.add(employee);

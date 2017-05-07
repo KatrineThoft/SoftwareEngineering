@@ -29,12 +29,12 @@ public class ProjectManager{
     public void createActivities(){ // called from delegateActivities
         int i = 0;
         while (i < project.getEstimatedTimeUse()/10) {
-            project.getActivities().add(new Activity("activity" + (i+1)));
+            project.getActivities().add(new Activity("activity" + (i+1), this.project));
             project.getActivities().get(i).setEstimatedTimeUse(10);
             i++;
         }
         if (project.getEstimatedTimeUse() % 10 != 0){
-            project.getActivities().add(new Activity("activity" + (i+1)));
+            project.getActivities().add(new Activity("activity" + (i+1), this.project));
             project.getActivities().get(i).setEstimatedTimeUse(project.getEstimatedTimeUse() % 10);
         }
     }
@@ -44,21 +44,30 @@ public class ProjectManager{
             return false;
         } else {
             for (int i = 0; i < project.getActivities().size(); i++) {
-                project.getWorkingEmployees().add(project.firm.getFreeEmployees().get(i));
+                project.getWorkingEmployees().add(firm.getFreeEmployees().get(i));
             }
             return true;
         }
     }
 
-    /*public boolean getEmplForProj() { // called from delegateActivities
+
+    /*public void getEmplForProj() { // called from delegateActivities
         for (int i = 0; i < project.getActivities().size(); i++){
             if (project.firm.getFreeEmployees().get(i) != null) {
                 project.getWorkingEmployees().add(project.firm.getFreeEmployees().get(i));
-            } else {
-                return false;
-            }
+            }// else {
+               // return false;
+            //}
         }
-        return true;
+        //return true;
+    }
+
+    public boolean enoughEmpl() {
+        if (project.getActivities().size() <= project.firm.getFreeEmployees().size()) {
+            return true;
+        } else {
+            return false;
+        }
     }*/
 
     public void delegateActivities(){

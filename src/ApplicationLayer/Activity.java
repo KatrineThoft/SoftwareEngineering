@@ -9,13 +9,10 @@ public class Activity {
     private double estimatedTimeUse;
     private double timeUsed;
 
-    public Activity(String activityName){
+    public Activity(String activityName, Project p){
         this.activityName = activityName;
         this.timeUsed = 0;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
+        this.project = p;
     }
 
     public Project getProject() {

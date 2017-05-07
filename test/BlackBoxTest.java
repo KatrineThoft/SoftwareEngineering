@@ -1,29 +1,37 @@
 /**
  * Created by Daniel Hildebrand on 03-05-2017.
  */
+import ApplicationLayer.Date;
 import org.junit.jupiter.api.Test;
 import ApplicationLayer.*;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 public class BlackBoxTest {
     @Test
     public void NewProjectTest(){
         TimeManager firm01 = new TimeManager();
         Date endDate = new Date(23,1,2018);
-        double estimatedTimeUse = 50;
+        double estimatedTimeUse = 30;
         String projectName = "novoProject";
         String clientName = "NovoZyme";
         Employee employee01 = new Employee("Alice", firm01);
 
+        // 3 activities will be created for project bcs. estimatedTimeUse = 30
+        // so 2 more free employees are created
+        Employee employee02 = new Employee("Bob", firm01);
+        Employee employee03 = new Employee("Cori", firm01);
+
         // Client without wanted project manager
         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
         // Client with wanted project manager
-        Client client02 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee01, firm01);
+        Client client02 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee03, firm01);
 
         // A
+        // creating a project
         Project project01 = new Project(client01, firm01);
+        // test that all is correct
         assertTrue(project01.active);
         assertEquals(project01.client,client01);
         assertEquals(project01.projectName,projectName);
@@ -31,46 +39,82 @@ public class BlackBoxTest {
         assertEquals(project01.getEstimatedTimeUse(),estimatedTimeUse);
         assertEquals(project01.getTimeUsed(),0);
         assertTrue(project01.active);
+        assertFalse(project01.projectManager == null); // pm has been chosen at random
+        // delegating activities
+        project01.projectManager.delegateActivities();
+        // test that activities have been delegated
+        assertEquals(project01.getDelegatedActivities().get(project01.getActivities().get(0)), project01.getWorkingEmployees().get(0));
 
         // B
+        // creating a project
         Project project02 = new Project(client02, firm01);
+        // test that all is correct
         assertEquals(project02.client,client02);
         assertEquals(project02.projectName,projectName);
         assertEquals(project02.endDate,endDate);
         assertEquals(project02.getEstimatedTimeUse(),estimatedTimeUse);
         assertEquals(project02.getTimeUsed(),0);
         assertTrue(project02.active);
-        assertEquals(project02.projectManager.employee.getName(),"Alice");
+        assertEquals(project02.projectManager.employee.getName(),"Cori"); // employee01 has been chosen by the firm to be pm
+        // delegate activities
+        project02.projectManager.delegateActivities();
+        // test that activities have been delegated
+        //assertTrue(project02.getDelegatedActivities() == null);
+        assertEquals(project02.getDelegatedActivities().get(project02.getActivities().get(0)), project02.getWorkingEmployees().get(0));
 
-        /*// C
-        Project project03 = new Project(null, null);
-        assertEquals(project03, null);
-        */
+        // removing all freeEmployees
+        firm01.getFreeEmployees().removeAll(firm01.getFreeEmployees());
+        // adding one employee to be pm
+        Employee employee04 = new Employee("Deana", firm01);
+        // new client that wants employee04 as pm
+        Client client03 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee04, firm01);
+
+        // C
+        // creating a project
+        Project project03 = new Project(client01, firm01);
+        // test that all is correct
+        assertEquals(project03.client,client01);
+        assertEquals(project03.projectName,projectName);
+        assertEquals(project03.endDate,endDate);
+        assertEquals(project03.getEstimatedTimeUse(),estimatedTimeUse);
+        assertEquals(project03.getTimeUsed(),0);
+        assertTrue(project03.active);
+        assertFalse(project03.projectManager == null); // pm has been chosen at random
+        // delegate activities
+        project03.projectManager.delegateActivities();
+        // test that activities have not been delegated
+        assertTrue(project03.getDelegatedActivities() == null);
+
         // D
-        ProjectManager projMan01 = project02.projectManager;
-        projMan01.createActivities(); // creates 5 activities bcs. estimatedTimeUse = 50
-        assertTrue(projMan01.project.getActivities().size() == 5);
+        // creating a project
+        Project project04 = new Project(client03, firm01);
+        // test that all is correct
+        assertEquals(project04.client,client03);
+        assertEquals(project04.projectName,projectName);
+        assertEquals(project04.endDate,endDate);
+        assertEquals(project04.getEstimatedTimeUse(),estimatedTimeUse);
+        assertEquals(project04.getTimeUsed(),0);
+        assertTrue(project04.active);
+        assertEquals(project04.projectManager.employee.getName(), "Deana"); // employee04 has been chosen by the firm to be pm
+        // delegate activities
+        project04.projectManager.delegateActivities();
+        // test that activities have not been delegated
+        assertTrue(project04.getDelegatedActivities() == null);
 
-        /*// E
-        projMan01.setEstTimeUse(projMan01.project.getActivities().get(0),10);
-        assertTrue(projMan01.project.getActivities().get(0).getEstimatedTimeUse() == 10);
+        // removing all freeEmployees
+        firm01.getFreeEmployees().removeAll(firm01.getFreeEmployees());
 
-        // F
-        projMan01.setEstTimeUse(null, 0);
-        assertEquals(projMan01.project.getActivities().get(0).getEstimatedTimeUse(), null);
-*/
-        // G
-        List<Employee> employees = new ArrayList<Employee>();
-        for (int i = 1; i <= 5; i++){
-            employees.add(new Employee("employee"+i, firm01));
-            projMan01.project.firm.addFreeEmployee(new Employee("employee"+i, firm01));
-        }
-        projMan01.getEmplForProj();
-        assertEquals(projMan01.project.getWorkingEmployees(), employees);
-
-        // H
-        projMan01.delegateActivities();
-        assertEquals(projMan01.project.getDelegatedActivities().get(projMan01.project.getActivities().get(0)), projMan01.project.getWorkingEmployees().get(0));
+        // E
+        // creating a project
+        Project project05 = new Project(client03, firm01);
+        // test that pm was not created
+        assertEquals(project05.client,client03);
+        assertEquals(project05.projectName,projectName);
+        assertEquals(project05.endDate,endDate);
+        assertEquals(project05.getEstimatedTimeUse(),estimatedTimeUse);
+        assertEquals(project05.getTimeUsed(),0);
+        assertTrue(project05.active);
+        assertTrue(project05.projectManager == null); // pm not created
     }
 
     @Test
@@ -78,59 +122,66 @@ public class BlackBoxTest {
         TimeManager firm01 = new TimeManager();
         String employeename = "Helga";
         Employee employee01 = new Employee(employeename, firm01);
-        Date date01 = new Date(1,5,2017);
-        Date date02 = new Date(1,5,2020);
+        Date date01 = new Date(1,5,2017); // in the past
+        java.util.Date date02H = Calendar.getInstance().getTime();
+        int day = date02H.getDay();
+        int month = date02H.getMonth();
+        int year = date02H.getYear();
+        Date date02 = new Date(day, month, year); // current
+        Date date03 = new Date(1,5,2020); // in the future
 
         // A
         assertTrue(employee01.updateRegisteredHours(date01, 7.5));
 
         // B
-        assertFalse(employee01.updateRegisteredHours(date02, 7.5));
-
-        // C
-        assertEquals(employee01.updateRegisteredHours(null,0), null);
-
-        // D
         assertTrue(employee01.updateRegisteredHours(date01, 10));
         assertEquals(employee01.registeredHours.get(date01), (Double) 8.0);
+
+        // C
+        assertTrue(employee01.updateRegisteredHours(date02, 7.5));
+
+        // D
+        assertTrue(employee01.updateRegisteredHours(date02, 10));
+        assertEquals(employee01.registeredHours.get(date02), (Double) 8.0);
+
+        // E
+        assertFalse(employee01.updateRegisteredHours(date03, 7.5));
     }
 
     @Test
     public void RegisteringAbsenceTest(){
         TimeManager firm01 = new TimeManager();
+
         String employeename01 = "Helga";
         Employee employee01 = new Employee(employeename01, firm01);
         String employeename02 = "Margot";
         Employee employee02 = new Employee(employeename02, firm01);
+        String employeename03 = "Helle";
+        Employee employee03 = new Employee(employeename03, firm01);
+
         Date endDate = new Date(23,1,2018);
-        double estimatedTimeUse = 10;
+        double estimatedTimeUse = 30;
         String projectName = "novoProject";
         String clientName = "NovoZyme";
 
-        // adding employees to free employees in firm01
-        Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
-        Project project01 = new Project(client01, firm01);
-        project01.firm.addFreeEmployee(employee02);
-        project01.setProjectManager(); // is going to be set to employee02
-        project01.projectManager.createActivities();  // creates 1 activity bcs. estimatedTimeUse = 100
-        project01.projectManager.getEmplForProj(); // employee02 gets the activity
-        assertTrue(project01.getWorkingEmployees().get(0) == employee02);
-        project01.firm.getFreeEmployees().removeAll(project01.firm.getFreeEmployees()); // no free employees in firm
+        Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee01, firm01);
+        Project project01 = new Project(client01, firm01); // project with Helga as pm
+        project01.projectManager.delegateActivities();
 
         // A
         employee02.updateAbsence();
-        assertTrue(employee02.absence == false);
+        assertTrue(employee02.absence);
 
         // B
-        String employeename03 = "Alice";
-        Employee employee03 = new Employee(employeename03, firm01);
-        project01.firm.addFreeEmployee(employee03); // one free employee in firm
+        // removing all free employees
+        project01.firm.getFreeEmployees().removeAll(project01.firm.getFreeEmployees());
 
+        employee03.updateAbsence();
+        assertFalse(employee03.absence);
+
+        // C
         employee02.updateAbsence();
-        assertTrue(employee02.absence == true);
-
+        assertFalse(employee02.absence);
     }
-
-
 
 }
