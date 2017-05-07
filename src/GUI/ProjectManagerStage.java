@@ -69,18 +69,13 @@ public class ProjectManagerStage extends Stage{
 
 
     private void delegateAct() {
-        for (Employee e : companyDriver.SoftwareHuset.getFreeEmployees()) {
-            System.out.println(e.getName());
-            System.out.println("Size: " + companyDriver.currentProjectManager.project.getActivities().size());
-        }
         if (!(companyDriver.currentProjectManager.getEmplForProj())) {
             companyDriver.startDelegateFailStage();
             this.close();
-        } else if (companyDriver.currentProjectManager.getEmplForProj()) {
 
+        } else if (companyDriver.currentProjectManager.getEmplForProj()) {
             companyDriver.currentProjectManager.delegateActivities();
             companyDriver.startDelegateSucces();
-
             this.close();
         }
          }

@@ -40,6 +40,8 @@ public class Project {
        } else{
             setProjectManager();
         }
+
+        setProjectID();
     }
 
     public void setProjectManager() {
@@ -53,8 +55,9 @@ public class Project {
         this.projectManager = manager;
     }
 
-    public void setProjectID(String newProjectID) {
-        projectID = newProjectID;
+    public void setProjectID() {
+        String val = ""+((int)(Math.random()*9000)+1000);
+        this.projectID = endDate.year + val;
     }
 
     public void setWorkingEmployees(List<Employee> workingEmployees) {

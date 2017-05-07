@@ -19,6 +19,7 @@ public class CompanyDriver extends Application {
     public Project currentProject;
     public Client currentClient;
     public List<Activity> currentActivities;
+    public Date regTimeDate;
 
     private MenuStage menuStage;
     private ClientStage clientStage;

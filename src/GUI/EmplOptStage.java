@@ -33,14 +33,8 @@ public class EmplOptStage extends Stage {
     private GridPane emplOptPane(){
         GridPane emplOptPane = new GridPane();
 
-        Button timeRegButton = new Button("Time registering");
-        timeRegButton.setOnAction(e->timeReg());
-
-        Button hourButton = new Button("See registered hours");
+        Button hourButton = new Button("Time registering");
         hourButton.setOnAction(e-> hours());
-
-        Button editTimeButton = new Button("Edit registered time");
-        editTimeButton.setOnAction(e->editTime());
 
         Button actButton = new Button("See ongoing activities");
         actButton.setOnAction(e-> activity());
@@ -55,8 +49,7 @@ public class EmplOptStage extends Stage {
         backButton.setOnAction(e-> back());
 
         VBox empOptBox = new VBox();
-        empOptBox.getChildren().addAll(timeRegButton, hourButton, editTimeButton,
-                actButton , pMButton, absenceButton,backButton);
+        empOptBox.getChildren().addAll(hourButton, actButton , pMButton, absenceButton,backButton);
 
         empOptBox.setAlignment(Pos.CENTER);
 
@@ -67,17 +60,6 @@ public class EmplOptStage extends Stage {
     }
 
 
-
-    private void timeReg() {
-        companyDriver.startTimeRegStage();
-        this.close();
-
-    }
-
-    private void editTime() {
-        companyDriver.startEditTimeStage();
-        this.close();
-    }
 
     private void hours(){
         companyDriver.startHourStage();

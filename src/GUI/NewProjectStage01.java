@@ -28,7 +28,6 @@ public class NewProjectStage01 extends Stage {
     private TextField empNameInput;
     private DatePicker endDateInput;
     private TextField estimateInput;
-    private Label lblMessage;
     public Employee empl;
     private int day;
     private int month;
@@ -54,6 +53,7 @@ public class NewProjectStage01 extends Stage {
 
         GridPane NPS01Pane = new GridPane();
 
+        //Textfields for the different information needed to create a project
         comNameInput = new TextField();
         proNameInput= new TextField();
         empNameInput = new TextField();
@@ -122,7 +122,6 @@ public class NewProjectStage01 extends Stage {
                 companyDriver.currentProject = new Project(companyDriver.currentClient, companyDriver.SoftwareHuset);
                 companyDriver.currentProjectManager = companyDriver.currentClient.projectManager;
                 companyDriver.currentProject.projectManager.createActivities();
-
 
                 companyDriver.startNewProjectStage02();
                 this.close();

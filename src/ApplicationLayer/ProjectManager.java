@@ -64,7 +64,6 @@ public class ProjectManager{
     public void delegateActivities(){
         Map<Activity, Employee> delegatedActivities = new HashMap<Activity, Employee>();
         createActivities();
-        getEmplForProj();
         if (getEmplForProj()) {
             for (int i = 0; i < project.getWorkingEmployees().size(); i++) {
                 delegatedActivities.put(project.getActivities().get(i), project.getWorkingEmployees().get(i));
