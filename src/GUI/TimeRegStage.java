@@ -2,6 +2,7 @@ package GUI;
 
 import ApplicationLayer.Activity;
 import ApplicationLayer.Date;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -68,6 +69,7 @@ public class TimeRegStage extends Stage {
         timeRegBox.getChildren().add(confButton);
 
         timeRegPane.add(timeRegBox,2,1);
+        timeRegPane.setAlignment(Pos.CENTER);
 
         return  timeRegPane;
     }

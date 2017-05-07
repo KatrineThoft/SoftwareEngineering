@@ -1,6 +1,7 @@
 package GUI;
 
 import ApplicationLayer.Date;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -53,6 +54,7 @@ public class EditTimeStage extends Stage {
         editTimeBox.getChildren().addAll(labelHour, newHoursText, confButton);
 
         editTimePane.add(editTimeBox,2,1);
+        editTimePane.setAlignment(Pos.CENTER);
 
         return editTimePane;
     }

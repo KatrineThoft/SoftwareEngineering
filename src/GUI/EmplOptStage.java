@@ -36,13 +36,13 @@ public class EmplOptStage extends Stage {
         Button hourButton = new Button("Time registering");
         hourButton.setOnAction(e-> hours());
 
-        Button actButton = new Button("See ongoing activities");
+        Button actButton = new Button("See your activities");
         actButton.setOnAction(e-> activity());
 
         Button pMButton = new Button("Project manager profile");
         pMButton.setOnAction(e-> pManager());
 
-        Button absenceButton = new Button("Register absence");
+        Button absenceButton = new Button("Register as absent");
         absenceButton.setOnAction(e->absence());
 
         Button backButton = new Button("Sign out. Back to menu");
@@ -83,6 +83,7 @@ public class EmplOptStage extends Stage {
     }
 
     private void absence(){
+        companyDriver.getCurrentEmpl().updateAbsence();
         companyDriver.startAbsence();
         this.close();
     }
