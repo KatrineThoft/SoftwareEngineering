@@ -59,7 +59,7 @@ public class NewProjectStage01 extends Stage {
         comNameInput = new TextField();
         proNameInput= new TextField();
         empNameInput = new TextField();
-        estimateInput = new TextField();
+        estimateInput = new TextField(); 
         
         Locale.setDefault(Locale.UK);
         endDateInput = new DatePicker();
@@ -125,7 +125,7 @@ public class NewProjectStage01 extends Stage {
 
             //Creates a new client with or without a specific project manager
             if(!(empName.isEmpty()) &&
-                    CompanyDriver.SoftwareHuset.getEmployeeNames().contains(empName)) {
+                    CompanyDriver.SoftwareHuset.getEmployeeNames().contains(empName))  {
 
                 this.empl = CompanyDriver.SoftwareHuset.getEmployee(empNameInput.getText());
                 companyDriver.currentClient = new Client(conName, endDate, estimate, proName, empl, CompanyDriver.SoftwareHuset);

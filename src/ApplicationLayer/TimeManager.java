@@ -7,13 +7,16 @@ import java.util.List;
 /**
  * Created by katrinethoft on 03/04/17.
  */
+//Class representing the company or firm
 public class TimeManager {
+	//Creating the fields
     private List<Client> allClients;
     private List<Project> allProjects;
     private List<Employee> allEmployees;
     private List<Employee> freeEmployees;
     private List<ProjectManager> allProjectManagers;
 
+    //Constructor
     public TimeManager() {
         this.allClients = new ArrayList<Client>();
         this.allProjects = new ArrayList<Project>();
@@ -22,28 +25,7 @@ public class TimeManager {
         this.allProjectManagers = new ArrayList<ProjectManager>();
     }
 
-  /*  // adders are only used when creating new clients, projects and employees
-    public void addClient(Client client) {
-        this.allClients.add(client);
-    }
-
-    public void addProject(Project project) {
-        this.allProjects.add(project);
-    }
-
-    public void addEmployee(Employee employee) {
-        this.allEmployees.add(employee);
-        this.freeEmployees.add(employee);
-    }
-
-    public void addProjectManager(ProjectManager projectManager){ this.allProjectManagers.add(projectManager); }
-
-    public void addFreeEmployee(Employee employee) {
-        if (employee.absence == false && employee.getActivities().size() < 10) {
-            this.freeEmployees.add(employee);
-        }
-    }
-*/
+    //Getter and setter methods for the fields
     public List<Client> getClients() {
         return allClients;
     }
@@ -62,6 +44,7 @@ public class TimeManager {
 
     public List<ProjectManager> getProjectManagers(){ return allProjectManagers; }
 
+    //Method to get all employee names 
     public List<String> getEmployeeNames() {
         List<String> emplNames = new ArrayList<String>();
         for (Employee e : allEmployees) {
@@ -70,6 +53,7 @@ public class TimeManager {
         return emplNames;
     }
 
+    //Method to get an employee using their name
     public Employee getEmployee(String name) {
         for (Employee e : allEmployees) {
             if (e.getName().equals(name)) {
@@ -79,6 +63,7 @@ public class TimeManager {
         return null;
     }
 
+    //Method return the project manager as an employee object
     public Employee getProjectManagerAsEmployee(Employee emp){
         for (ProjectManager p : allProjectManagers){
             if(p.employee.equals(emp)){
@@ -88,6 +73,7 @@ public class TimeManager {
         return null;
     }
 
+    //Method return the employee as a project manager object
     public ProjectManager getEmployeeAsProjectManager(Employee emp){
         for(ProjectManager p: allProjectManagers){
             if(p.employee.equals(emp)){

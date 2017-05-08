@@ -112,11 +112,13 @@ public class CompanyDriver extends Application {
     }
 
     public void startTimeRegStage(){
+    	System.out.println("Empl name" + this.getCurrentEmpl().getName());
         timeRegStage = new TimeRegStage(this);
-        timeRegStage.show();
+        timeRegStage.show(); 
     }
 
     public  void startEditTimeStage(){
+    	System.out.println("Empl name" + this.getCurrentEmpl().getName());
         editTimeRegStage = new EditTimeStage(this);
         editTimeRegStage.show();
     }

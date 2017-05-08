@@ -1,6 +1,7 @@
 package GUI;
 
 import ApplicationLayer.Activity;
+import ApplicationLayer.Employee;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,12 +18,12 @@ import javafx.stage.Stage;
 //Stage for registering time for today's date.
 public class TimeRegStage extends Stage {
     private CompanyDriver companyDriver;
-    private TextField regHours;
+    private TextField[] regHours;
     private double totalHours;
 
     public TimeRegStage(CompanyDriver companyDriver){
     	//Setting the scene
-    	Scene scene = new Scene(timeRegPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
+    	Scene scene = new Scene(timeRegPane(companyDriver.getCurrentEmpl()), companyDriver.WIDTH, companyDriver.HEIGHT);
         this.companyDriver = companyDriver;
         
         this.setScene(scene);
@@ -33,28 +34,31 @@ public class TimeRegStage extends Stage {
 
     }
 
-    private GridPane timeRegPane() {
+    private GridPane timeRegPane(Employee currentEmployee) {
     	//Creating pane, textfield and button for scene
         GridPane timeRegPane = new GridPane();
 
         VBox timeRegBox = new VBox();
-        Label hourLabels = new Label();
-        double hours = 0;
+        double hours = 0; 
 
         //Registering time for each activity using textfields
-        for(Activity a: companyDriver.getCurrentEmpl().getActivities() ){
-            hourLabels.setText(a.getActivityName());
-
-            regHours = new TextField();
-
-            if(!(regHours.getText().isEmpty())) {
-                hours = Double.parseDouble(regHours.getText());
+        System.out.println(currentEmployee.getActivities().size());
+        regHours = new TextField[currentEmployee.getActivities().size()];
+        
+        timeRegBox.getChildren().addAll(regHours);
+       
+        
+       /* for(int i =0; i < currentEmployee.getActivities().size(); i++ ){
+            if(!(regHours[i].getText().isEmpty())) {
+                hours = Double.parseDouble(regHours[i].getText());
             }
-            companyDriver.getCurrentEmpl().regHoursOnAct(hours,a);
+            currentEmployee.regHoursOnAct(hours,currentEmployee.getActivities().get(i));
             this.totalHours += hours;
-            timeRegBox.getChildren().addAll(hourLabels,regHours);
         }
-
+        
+        timeRegBox.getChildren().addAll(regHours);*/
+    
+        
 
         Button confButton = new Button("Confirm and back to employee menu");
         confButton.setOnAction(e->confirm());

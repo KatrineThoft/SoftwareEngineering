@@ -24,7 +24,7 @@ public class HourStage extends Stage {
     private DatePicker timeRegDate;
     private int day;
     private int month;
-    private int year;
+    private int year; 
 
 
     public HourStage(CompanyDriver companyDriver){
@@ -52,7 +52,7 @@ public class HourStage extends Stage {
         backButton.setOnAction(e->back());
         
         VBox hourBox = new VBox();
-        hourBox.getChildren().addAll(timeRegDate ,timeRegButton);
+        hourBox.getChildren().addAll(timeRegDate ,timeRegButton, backButton);
         
         hourPane.setAlignment(Pos.CENTER);
         hourPane.add(hourBox, 2,1);
@@ -61,6 +61,7 @@ public class HourStage extends Stage {
 
     //Enters either the TimeRegStage or EditTimeStage depending on chosen date
     private void timeReg() {
+    	
         //If chosen date is today, register hours on date
         if(companyDriver.getCurrentEmpl().getActivities() != null) {
             if (timeRegDate.getValue().isEqual(LocalDate.now())) {
@@ -75,6 +76,7 @@ public class HourStage extends Stage {
 
                 //If the chosen date is in the past, edit time on the date
             } else if (timeRegDate.getValue().isBefore(LocalDate.now())) {
+            	
                 String[] regDateSplit = timeRegDate.getValue().toString().split("-");
                 day = Integer.parseInt(regDateSplit[0]);
                 month = Integer.parseInt(regDateSplit[1]);
@@ -84,9 +86,10 @@ public class HourStage extends Stage {
 
                 companyDriver.startEditTimeStage();
                 this.close();
-            }
+            } 
             //If date is invalid or in the future, give error message
             else {
+            	
                 this.setTitle("Error. You can't register time on this date");
             }
         } else{

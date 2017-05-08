@@ -24,7 +24,7 @@ public class AddEmplStage extends Stage {
     private TextField newEmplName;
     public Employee newEmployee;
 
-    public AddEmplStage(CompanyDriver companyDriver){
+    public AddEmplStage(CompanyDriver companyDriver){ 
     	   //Setting the scene.
         Scene scene = new Scene(addEmplPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
 

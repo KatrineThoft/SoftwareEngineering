@@ -28,7 +28,7 @@ public class ProjectManagerStage extends Stage{
         this.setScene(scene);
         this.setResizable(false);
         this.centerOnScreen();
-        this.sizeToScene();
+        this.sizeToScene(); 
 
     }
 
@@ -71,11 +71,11 @@ public class ProjectManagerStage extends Stage{
     //Tries to delegate the different activities in the project
     //If succes DelegateSuccesStage is entered, otherwise DelegateFailStage is entered
     private void delegateAct() {
-        if (!(companyDriver.currentProjectManager.getEmplForProj())) {
+        if (!(CompanyDriver.SoftwareHuset.getFreeEmployees().size() < companyDriver.currentProject.getActivities().size())) {
             companyDriver.startDelegateFailStage();
             this.close();
 
-        } else if (companyDriver.currentProjectManager.getEmplForProj()) {
+        } else{
             companyDriver.currentProjectManager.delegateActivities();
             companyDriver.startDelegateSucces();
             this.close();

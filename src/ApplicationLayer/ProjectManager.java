@@ -5,11 +5,15 @@ import java.util.*;
 /**
  * Created by katrinethoft on 27/03/17.
  */
+//Class representing the project manager object.
+//ProjectManager is a subclass of the Employee class
 public class ProjectManager{
+	//Creating the fields
     public Employee employee;
     public Project project;
     public TimeManager firm;
 
+    //Constructor
     public ProjectManager(Employee employee01, Project project, TimeManager firm){
         this.employee = employee01;
         this.project = project;
@@ -17,18 +21,13 @@ public class ProjectManager{
         addToFirm(firm);
     }
 
+    //Adding the project manager to the TimeManager
     public void addToFirm(TimeManager firm){
         firm.getProjectManagers().add(this);
     }
 
-    /*public Employee getEmployee(){
-        return employee;
-    }*/
-
-   /* public void setEstTimeUse(Activity act, double estimatedTimeUse) {
-        act.setEstimatedTimeUse(estimatedTimeUse);
-    }*/
-
+    //Creating activities for the project using the estimated time
+    //As a starting point all activities have an estimated time use of 10 hours
     public void createActivities(){ // called from delegateActivities
         int i = 0;
         while (i < project.getEstimatedTimeUse()/10) {
@@ -40,8 +39,9 @@ public class ProjectManager{
             project.getActivities().add(new Activity("activity " + (i+1), this.project));
             project.getActivities().get(i).setEstimatedTimeUse(project.getEstimatedTimeUse() % 10);
         }
-    }
+    } 
 
+    //Method that checks whether or not there is enough free employees to take all the activities in the project
     public boolean getEmplForProj() { // called from delegateActivities
         if (firm.getFreeEmployees().size() < project.getActivities().size()) {
             return false;
@@ -53,26 +53,7 @@ public class ProjectManager{
         }
     }
 
-
-    /*public void getEmplForProj() { // called from delegateActivities
-        for (int i = 0; i < project.getActivities().size(); i++){
-            if (project.firm.getFreeEmployees().get(i) != null) {
-                project.getWorkingEmployees().add(project.firm.getFreeEmployees().get(i));
-            }// else {
-               // return false;
-            //}
-        }
-        //return true;
-    }
-
-    public boolean enoughEmpl() {
-        if (project.getActivities().size() <= project.firm.getFreeEmployees().size()) {
-            return true;
-        } else {
-            return false;
-        }
-    }*/
-
+    //Method which delegates the activities from project to employees found in getEmplForProj()
     public void delegateActivities(){
         Map<Activity, Employee> delegatedActivities = new HashMap<Activity, Employee>();
         createActivities();
@@ -90,11 +71,13 @@ public class ProjectManager{
         }
     }
 
+    //Method for finding a substitute for an employee who is registering as absent
     public void findSubstitute(Activity act, Employee empl){ // only called from updateAbsence (Employee class)
         Employee newEmpl = project.firm.getFreeEmployees().get(0);
         project.getDelegatedActivities().replace(act, empl, newEmpl);
     }
 
+    //Method for delaying a project with a given number of hours
     public void delayProject(double hours){
         project.updateEstimatedTimeUse(hours);
         project.endDate.date = project.endDate.date + (int)(Math.ceil(hours/8));    // amount of hours/8 (8 hrs. on a regular work day)
@@ -108,6 +91,7 @@ public class ProjectManager{
         }
     }
 
+    //Method for creating a project repport
     public String makeProjectReport() {
         String emplAsStr = "";
         for (Employee e : project.getWorkingEmployees()) {
@@ -121,6 +105,7 @@ public class ProjectManager{
                 + "\nRemaining time = " + project.getRemainingTime() + "\nEmployees = " + emplAsStr + "\nActivities = " + actsAsStr;
     }
 
+    //Method for ending a project, makes it inactive.
     public void endProject(){
         project.active = false;
     }

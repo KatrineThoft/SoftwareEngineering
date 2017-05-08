@@ -4,8 +4,9 @@ package ApplicationLayer;
 /**
  * Created by EmilieKvist on 29-03-2017.
  */
-
+//Class representing the client object
 public class Client {
+	//Creating fields
     public String clientName;
     public Date endDate;
     public double estimatedTimeUse;
@@ -14,6 +15,7 @@ public class Client {
     public Employee wantedPM;
     public ProjectManager projectManager;
 
+    //Constructor for creating a client without a project manager
     public Client (String clientName, Date endDate, double estimatedTimeUse, String projectName, TimeManager firm){
         this.clientName = clientName;
         this.endDate = endDate;
@@ -23,6 +25,7 @@ public class Client {
         addToFirm(firm);
     }
 
+    //Constructor for creating a client with a project manager
     public Client (String clientName, Date endDate, double estimatedTimeUse, String projectName, Employee employee, TimeManager firm){
         this.clientName = clientName;
         this.endDate = endDate;
@@ -30,42 +33,22 @@ public class Client {
         this.projectName = projectName;
         this.firm = firm;
         this.wantedPM = employee;
-        //designateProjectManager(employee);
         addToFirm(firm);
     }
 
-   /* public void designateProjectManager(Employee empl){
-        if (this.firm.getFreeEmployees().contains(empl)) {
-            this.tempProject = new Project(this, this.firm);
-            this.tempProject.setSpecficProjectManager(empl);
-        } else {
-            this.tempProject = null;
-        }
-    }*/
 
-    /*public Project getTempProject() {
-        return tempProject;
-    }*/
-
+    //Adding the client to our TimeManager (representing the firm)
     public void addToFirm(TimeManager firm){
         firm.getClients().add(this);
     }
 
-
-    // getter functions are not needed when fields are public
-    /*
-    public String getName() {
-        return clientName;
-    }
-
-
+    //Getter methods for fields
     public Date getEndDate() {
         return endDate;
     }
 
-
     public double getEstimatedTimeUse() {
         return estimatedTimeUse;
     }
-    */
+    
 }

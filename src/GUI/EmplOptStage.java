@@ -33,7 +33,7 @@ public class EmplOptStage extends Stage {
 
     private GridPane emplOptPane(){
     	//Creating pane and buttons for each option
-        GridPane emplOptPane = new GridPane();
+        GridPane emplOptPane = new GridPane(); 
 
         Button hourButton = new Button("Time registering");
         hourButton.setOnAction(e-> hours());
@@ -61,6 +61,7 @@ public class EmplOptStage extends Stage {
 
     //Following methods enter a new stage when a button is clicked
     private void hours(){
+    
         companyDriver.startHourStage();
         this.close();
     }

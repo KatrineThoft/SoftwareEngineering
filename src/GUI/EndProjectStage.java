@@ -24,8 +24,8 @@ public class EndProjectStage extends Stage {
         this.setResizable(false);
         this.centerOnScreen();
         this.sizeToScene();
-
     }
+    
     private GridPane endProjectPane(){
     	//Creating a pane and button 
         GridPane endProjectPane = new GridPane();

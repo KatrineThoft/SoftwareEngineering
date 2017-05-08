@@ -9,7 +9,9 @@ import java.util.Map;
 /**
  * Created by Daniel Hildebrand on 27-03-2017.
  */
+//Class representing the project object
 public class Project {
+	//Creating the fields
     public boolean active;
     public Client client;
     public String projectName;
@@ -23,6 +25,7 @@ public class Project {
     private Map<Activity, Employee> delegatedActivities;
     public TimeManager firm;
 
+    //Constructor
     public Project(Client client, TimeManager firm) {
         this.active = true;
         this.client = client;
@@ -45,16 +48,12 @@ public class Project {
         addToFirm(firm);
     }
 
+    //Setter and getter methods for the fields
     public void setProjectManager() {
         Employee empl = this.firm.getFreeEmployees().get(0);
         ProjectManager manager = new ProjectManager(empl,this, this.firm);
         this.projectManager = manager;
     }
-
-    /*public void setSpecficProjectManager(Employee empl){
-        ProjectManager manager = new ProjectManager(empl,this, firm);
-        this.projectManager = manager;
-    }*/
 
     public void setProjectID() {
         String val = ""+((int)(Math.random()*9000)+1000);
@@ -88,16 +87,6 @@ public class Project {
     public Map<Activity, Employee> getDelegatedActivities() {
         return delegatedActivities;
     }
-
-
-    /*    public void setWorkingEmployees(List<Employee> workingEmployees) {
-        this.workingEmployees = workingEmployees;
-    }
-*/
-   /* public void setActivities(List<Activity> activities) {
-        this.activities = activities;
-    }
-*/
 
     public void updateTimeUsed(double timeUsed) {
         this.timeUsed = timeUsed;

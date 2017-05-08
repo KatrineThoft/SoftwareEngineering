@@ -5,13 +5,16 @@ import java.util.*;
 /**
  * Created by katrinethoft on 27/03/17.
  */
+//Class representing the employee object
 public class Employee {
+	//Creating the fields
     private String employeeName;
     public boolean absence;
     private List<Activity> ongoingActivities;
     public Map<Date,Double> registeredHours;
     public TimeManager firm;
-
+    
+    //Constructor
     public Employee(String employeeName, TimeManager firm){
         this.employeeName = employeeName;
         this.absence = false;
@@ -29,25 +32,23 @@ public class Employee {
         return ongoingActivities;
     }
 
+    //Method to add an activity to the employee's list if activities
     public void addActivities(Activity activity) {
         this.ongoingActivities.add(activity);
     }
 
+    //Method for registering as absent
     public void updateAbsence() {
         if (!this.absence) {
-            //int count = 0;
+           
             if (firm.getFreeEmployees().size() >= ongoingActivities.size()) {
                 for (Activity a : ongoingActivities) {
-                    //if (firm.getFreeEmployees() != null) {
-                    a.getProject().projectManager.findSubstitute(a, this);
-                    //ongoingActivities.remove(a);
-                    //count++;
-                }
-                //if (count == ongoingActivities.size()){
+                    
+                    a.getProject().projectManager.findSubstitute(a, this);    
+                }  
                 ongoingActivities.removeAll(ongoingActivities);
                 this.absence = true;
                 firm.getFreeEmployees().remove(this);
-                //}
             }
         } else {
             this.absence = false;
@@ -55,6 +56,7 @@ public class Employee {
         }
     }
 
+    //Method for edit registered hours
     public boolean updateRegisteredHours(Date date, double h) {
         Calendar date1 = Calendar.getInstance();
         int thisDay = date1.get(Calendar.DATE);
@@ -81,24 +83,17 @@ public class Employee {
         }
     }
 
+    //Method for registering hours on a specific activity
     public void regHoursOnAct(double h, Activity act) {
         if (this.ongoingActivities.contains(act) && h+act.getTimeUsed() <= act.getEstimatedTimeUse()) {
             act.updateTimeUsed(h);
         }
     }
 
+    //Adding the employee to our timemanager
     public void addToFirm(TimeManager firm){
         firm.getEmployees().add(this);
         firm.getFreeEmployees().add(this);
     }
 
-    /* For testing purposes only
-
-    public void setOngoingActivities() {
-        List<Activity> acts = new ArrayList<Activity>();
-        for (int i = 0; i <= 5; i++) {
-            acts.add(new Activity("activity" + (i+1)));
-        }
-        this.ongoingActivities = acts;
-    }*/
 }

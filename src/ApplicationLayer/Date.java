@@ -3,6 +3,8 @@ package ApplicationLayer;
 /**
  * Created by EmilieKvist on 26-04-2017.
  */
+
+//Date class used to save given dates
 public class Date {
     public int date;
     public int month;

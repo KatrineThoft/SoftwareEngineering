@@ -1,6 +1,7 @@
 package GUI;
 
 import ApplicationLayer.Activity;
+import ApplicationLayer.Employee;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -16,9 +17,9 @@ public class ActivityStage extends Stage{
 
     private CompanyDriver companyDriver;
 
-    public ActivityStage(CompanyDriver companyDriver) {
+    public ActivityStage(CompanyDriver companyDriver) { 
     	//Setting the scene
-        Scene scene = new Scene(activityPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
+        Scene scene = new Scene(activityPane(companyDriver.getCurrentEmpl()), companyDriver.WIDTH, companyDriver.HEIGHT);
         this.companyDriver = companyDriver;
 
         this.setScene(scene);
@@ -29,18 +30,18 @@ public class ActivityStage extends Stage{
 
     }
 
-    private GridPane activityPane() {
+    private GridPane activityPane(Employee empl) {
     	//Creating a pane, buttons and text for the scene
         GridPane activityPane = new GridPane();
         VBox viewActsBox = new VBox();
 
         // Creating text for box
         String txt = "no acts";
-        if (companyDriver.getCurrentEmpl() != null) {
-            txt = companyDriver.getCurrentEmpl().getName();
-            if (companyDriver.getCurrentEmpl().getActivities() != null) {
+        if (empl != null) {
+            txt = empl.getName();
+            if (empl.getActivities() != null) {
                 txt = "";
-                for (Activity a : companyDriver.getCurrentEmpl().getActivities()) {
+                for (Activity a : empl.getActivities()) {
                     txt += a.getActivityName() + ", remaining time: " + a.getRemainingTime() + "\n";
                 }
             }
@@ -50,7 +51,7 @@ public class ActivityStage extends Stage{
 
         Button backButton = new Button("Back to employee menu");
         backButton.setOnAction(e->back());
-        viewActsBox.getChildren().add(backButton);
+        viewActsBox.getChildren().addAll(t, backButton);
 
         activityPane.add(viewActsBox,2,1);
         return activityPane;

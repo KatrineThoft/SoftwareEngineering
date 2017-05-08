@@ -28,7 +28,7 @@ public class LoginStage extends Stage {
         this.setScene(scene);
         this.setResizable(false);
         this.centerOnScreen();
-        this.sizeToScene();
+        this.sizeToScene(); 
     }
 
     private GridPane loginPane() {
@@ -59,6 +59,7 @@ public class LoginStage extends Stage {
         if(!(emplName.isEmpty()) &&  CompanyDriver.SoftwareHuset.getEmployeeNames().contains(emplName)){
 
             companyDriver.setCurrentEmpl(CompanyDriver.SoftwareHuset.getEmployee(emplName));
+            
             companyDriver.startEmpOptStage();
             this.close();
 
