@@ -10,7 +10,6 @@ public class ProjectManager{
     public Project project;
     public TimeManager firm;
 
-
     public ProjectManager(Employee employee01, Project project, TimeManager firm){
         this.employee = employee01;
         this.project = project;
@@ -21,6 +20,10 @@ public class ProjectManager{
     public void addToFirm(TimeManager firm){
         firm.getProjectManagers().add(this);
     }
+
+    /*public Employee getEmployee(){
+        return employee;
+    }*/
 
    /* public void setEstTimeUse(Activity act, double estimatedTimeUse) {
         act.setEstimatedTimeUse(estimatedTimeUse);
@@ -87,26 +90,9 @@ public class ProjectManager{
         }
     }
 
-    public Employee getEmployee(){
-        return employee;
-    }
-
     public void findSubstitute(Activity act, Employee empl){ // only called from updateAbsence (Employee class)
         Employee newEmpl = project.firm.getFreeEmployees().get(0);
         project.getDelegatedActivities().replace(act, empl, newEmpl);
-    }
-
-    public String makeProjectReport() {
-        String emplAsStr = "";
-        for (Employee e : project.getWorkingEmployees()) {
-            emplAsStr += e.getName() + "\n";
-        }
-        String actsAsStr = "";
-        for (Activity a : project.getActivities()) {
-            actsAsStr += a.getActivityName() + "\n";
-        }
-        return  "Name = " + project.projectName + "\nID = " + project.getProjectID() + "\nTime used = " + project.getTimeUsed()
-                + "\nRemaining time = " + project.getRemainingTime() + "\nEmployees = " + emplAsStr + "\nActivities = " + actsAsStr;
     }
 
     public void delayProject(double hours){
@@ -120,6 +106,19 @@ public class ProjectManager{
             project.endDate.month = project.endDate.month - 12;
             project.endDate.year += 1;
         }
+    }
+
+    public String makeProjectReport() {
+        String emplAsStr = "";
+        for (Employee e : project.getWorkingEmployees()) {
+            emplAsStr += e.getName() + "\n";
+        }
+        String actsAsStr = "";
+        for (Activity a : project.getActivities()) {
+            actsAsStr += a.getActivityName() + "\n";
+        }
+        return  "Name = " + project.projectName + "\nID = " + project.getProjectID() + "\nTime used = " + project.getTimeUsed()
+                + "\nRemaining time = " + project.getRemainingTime() + "\nEmployees = " + emplAsStr + "\nActivities = " + actsAsStr;
     }
 
     public void endProject(){

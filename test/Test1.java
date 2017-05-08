@@ -308,7 +308,7 @@ public class Test1 {
         assertTrue(project01.getWorkingEmployees().isEmpty());
         assertTrue(project01.getActivities().isEmpty());
         assertTrue(project01.getDelegatedActivities().isEmpty());
-        assertEquals(project01.projectManager.getEmployee(), employee01); // chooses first freeEmployee
+        assertEquals(project01.projectManager.employee, employee01); // chooses first freeEmployee
                                                                           // bcs. no PM was set by client
         // Creating a client with a wanted PM: Helga
         Client client02 = new Client(clientName, endDate, estimatedTimeUse, projectName, employee02, firm01);
@@ -317,7 +317,7 @@ public class Test1 {
         Project project02 = new Project(client02, firm01);
 
         // Test of constructor with a wanted PM: Helga
-        assertEquals(project02.projectManager.getEmployee(), employee02); //employee02 was wanted PM
+        assertEquals(project02.projectManager.employee, employee02); //employee02 was wanted PM
 
         // Test of set/get ProjectID (method is called in constructor so projectID is set)
         assertFalse(project01.getProjectID() == null);
@@ -356,7 +356,7 @@ public class Test1 {
 
         // Creating a client (to create a project)
         Date endDate = new Date(23,1,2018);
-        double estimatedTimeUse = 100;
+        double estimatedTimeUse = 10;
         String projectName = "novoProject";
         String clientName = "NovoNordisk";
 
@@ -365,24 +365,28 @@ public class Test1 {
         // Creating a project
         Project project01 = new Project(client01, firm01);
 
-        // setting ongoing activities
+       /* // setting ongoing activities
         List<Activity> ongoingactivities = new ArrayList<Activity>();
         for (int i = 1; i <= 5; i++){
             ongoingactivities.add(new Activity("activity"+i, project01));
         }
         //employee01.setActivities(ongoingactivities);
-
+*/
         // Creating a projectManager
         ProjectManager manager = new ProjectManager(employee01, project01, firm01);
 
         // Test of constructor
-        assertTrue(manager.employee == employee01);
-        assertTrue(manager.project == project01);
+        assertEquals(manager.employee, employee01);
+        assertEquals(manager.project, project01);
+        assertEquals(manager.firm, firm01);
+
+        // Test of addToFirm (method is being called in constructor: manager are added
+        assertFalse(firm01.getProjectManagers().isEmpty());
 
         // Test of createActivities
-        assertTrue(manager.project.getActivities() == null);
+        assertTrue(manager.project.getActivities().isEmpty());
         manager.createActivities();
-        assertFalse(manager.project.getActivities() == null);
+        assertTrue(manager.project.getActivities().size() == 1); // 1 activity created bcs. estimatedTimeUse = 10
 
         /*// Test of setEstTimeUse
         for (Activity a : manager.project.getActivities()) {
@@ -391,27 +395,39 @@ public class Test1 {
         assertTrue(manager.project.getActivities().get(0).getEstimatedTimeUse() == 10);
 */
         // Test of getEmplForProj
-        assertTrue(manager.project.getWorkingEmployees() == null);
-        assertFalse(manager.project.firm.getFreeEmployees() == null);
+        assertTrue(manager.project.getWorkingEmployees().isEmpty());
+        assertFalse(manager.project.firm.getFreeEmployees().isEmpty());
         manager.getEmplForProj();
-        assertFalse(manager.project.getWorkingEmployees() == null);
+        assertTrue(manager.project.getWorkingEmployees().size() == 1); // 1 working employee created: Helga
+
+        // Resetting workingEmployees and activities (methods being recalled in delegateActivities)
+        manager.project.getActivities().removeAll(manager.project.getActivities());
+        manager.project.getWorkingEmployees().removeAll(manager.project.getWorkingEmployees());
 
         // Test of delegateActivities and getDelegatedActivities
-        assertTrue(manager.project.getActivities().size() == manager.project.getWorkingEmployees().size());
+        assertTrue(manager.project.getActivities().isEmpty());
+        assertTrue(manager.project.getWorkingEmployees().isEmpty());
+        assertTrue(manager.project.getDelegatedActivities().isEmpty());
+        assertFalse(manager.project.firm.getFreeEmployees().isEmpty());
         manager.delegateActivities();
-        assertFalse(manager.project.getDelegatedActivities() == null);
+        assertFalse(manager.project.getDelegatedActivities().isEmpty());
 
         // Test findSubstitute
-        Employee employee02 = manager.project.getWorkingEmployees().get(0);
-        assertTrue(employee02.getActivities().size() == 1);
-        Activity activity02 = employee02.getActivities().get(0);
-        assertFalse(manager.project.firm.getFreeEmployees() == null);
-        employee02.updateAbsence();              // FindSubstitute is called from updateAbsent
-        assertTrue(employee02.absence == true);
+        assertTrue(employee01.getActivities().size() == 1); // employee01 has one activity
+        manager.firm.getFreeEmployees().remove(employee01); // employee01 is no longer a freeEmployee (absent)
+
+        Employee employee02 = new Employee("Margot", firm01); //employee02 is now a freeEmpl
+        assertFalse(manager.project.firm.getFreeEmployees().isEmpty());
+
+        Activity activity01 = manager.project.getActivities().get(0);
+
+        manager.findSubstitute(activity01, employee01);
+
+        assertEquals(manager.project.getDelegatedActivities().get(activity01), employee02);
         assertTrue(manager.project.getWorkingEmployees().size() == manager.project.getActivities().size());
 
         // Test of delayProject
-        assertTrue(manager.project.getEstimatedTimeUse() == 100);
+        assertTrue(manager.project.getEstimatedTimeUse() == 10);
         assertTrue(manager.project.endDate == endDate);
         manager.delayProject(17.5);
         estimatedTimeUse = estimatedTimeUse + 17.5;
@@ -419,29 +435,26 @@ public class Test1 {
         assertTrue(manager.project.getEstimatedTimeUse() == estimatedTimeUse);
         assertTrue(manager.project.endDate == endDate);
 
+        // Test of makeProjectReport
+        // Make employees as String
+        String emplAsStr = "";
+        for (Employee e : manager.project.getWorkingEmployees()) {
+            emplAsStr += e.getName() + "\n";
+        }
+        // Make activities as String
+        String actsAsStr = "";
+        for (Activity a : manager.project.getActivities()) {
+            actsAsStr += a.getActivityName() + "\n";
+        }
+        // The test
+        String projectReport = "Name = " + manager.project.projectName + "\nID = " + manager.project.getProjectID() + "\nTime used = " + manager.project.getTimeUsed()
+                + "\nRemaining time = " + manager.project.getRemainingTime() + "\nEmployees = " + emplAsStr + "\nActivities = " + actsAsStr;
+        assertEquals(manager.makeProjectReport(),projectReport);
+
         // Test of endProject
         assertTrue(manager.project.active);
         manager.endProject();
         assertFalse(manager.project.active);
-
-        // Test of project meeting
- //       assertEquals(project01.getProjectID(),projectID);
-
-       /* // Test of makeProjectReport
-        // Make employees as String
-        String employees = "";
-        for (Employee e : workingEmployees){
-            employees = employees + e.getName();
-        }
-        // Make activities as String
-        String activitiesStr = "";
-        for (Activity a : activities){
-            activitiesStr = activitiesStr + a.getActivityName() + ", " + a.getRemainingTime() + "; ";
-        }
-        // The test
-        String projectReport = "Name = " + projectName + ", ID = " + projectID + ", Time used = " + timeUsed
-                + ", Remaining time = " + remainingTime + ", Employees = " + employees + ", Activities = " + activities;
-        assertEquals(project01.makeProjectReport(),projectReport);*/
     }
 
 }

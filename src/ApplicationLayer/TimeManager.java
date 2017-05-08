@@ -81,8 +81,8 @@ public class TimeManager {
 
     public Employee getProjectManagerAsEmployee(Employee emp){
         for (ProjectManager p : allProjectManagers){
-            if(p.getEmployee().equals(emp)){
-                return p.getEmployee();
+            if(p.employee.equals(emp)){
+                return p.employee;
             }
         }
         return null;
@@ -90,7 +90,7 @@ public class TimeManager {
 
     public ProjectManager getEmployeeAsProjectManager(Employee emp){
         for(ProjectManager p: allProjectManagers){
-            if(p.getEmployee().equals(emp)){
+            if(p.employee.equals(emp)){
                 return p;
             }
         }
