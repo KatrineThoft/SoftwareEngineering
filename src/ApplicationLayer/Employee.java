@@ -10,17 +10,16 @@ import java.util.*;
  */
 public class Employee {
     private String employeeName;
-    private List<Activity> ongoingActivities;
     public boolean absence;
+    private List<Activity> ongoingActivities;
     public Map<Date,Double> registeredHours;
     public TimeManager firm;
 
     public Employee(String employeeName, TimeManager firm){
         this.employeeName = employeeName;
         this.absence = false;
-        this.registeredHours = new HashMap<Date,Double>();
-
         this.ongoingActivities = new ArrayList<Activity>();
+        this.registeredHours = new HashMap<Date,Double>();
         this.firm = firm;
         addToFirm(firm);
     }
@@ -29,12 +28,12 @@ public class Employee {
         this.ongoingActivities.add(activity);
     }
 
-    public List<Activity> getActivities() {
-        return ongoingActivities;
-    }
-
     public String getName() {
         return employeeName;
+    }
+
+    public List<Activity> getActivities() {
+        return ongoingActivities;
     }
 
     public void updateAbsence() {
@@ -64,7 +63,6 @@ public class Employee {
         int thisDay = date1.get(Calendar.DATE);
         int thisMonth = date1.get(Calendar.MONTH)+1;
         int thisYear = date1.get(Calendar.YEAR);
-        System.out.println("in employee: d: " + thisDay + " m: " + thisMonth + " y: " + thisYear);
         if (date.year > thisYear || (date.month > thisMonth && date.year == thisYear) || (date.date > thisDay && date.month == thisMonth && date.year == thisYear))
             return false;
         if (h <= 8) {

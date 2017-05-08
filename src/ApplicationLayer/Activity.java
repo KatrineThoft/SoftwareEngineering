@@ -15,8 +15,20 @@ public class Activity {
         this.project = p;
     }
 
+    public String getActivityName() {
+        return activityName;
+    }
+
+    public double getTimeUsed() {
+        return timeUsed;
+    }
+
     public Project getProject() {
         return this.project;
+    }
+
+    public double getEstimatedTimeUse() {
+        return estimatedTimeUse;
     }
 
     public void setEstimatedTimeUse(double estimatedTimeUse) {
@@ -31,17 +43,6 @@ public class Activity {
         return estimatedTimeUse - timeUsed;
     }
 
-    public String getActivityName() {
-        return activityName;
-    }
-
-    public double getEstimatedTimeUse() {
-        return estimatedTimeUse;
-    }
-
-    public double getTimeUsed() {
-        return timeUsed;
-    }
 
 
 }

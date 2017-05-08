@@ -3,6 +3,7 @@ import ApplicationLayer.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Test1 {
@@ -19,6 +20,7 @@ public class Test1 {
         assertTrue(firm01.getProjects().isEmpty());
         assertTrue(firm01.getEmployees().isEmpty());
         assertTrue(firm01.getFreeEmployees().isEmpty());
+        assertTrue(firm01.getProjectManagers().isEmpty());
 
         // creating clients
         Date endDate = new Date(23,1,2018);
@@ -27,7 +29,7 @@ public class Test1 {
         for (int i = 0; i < 10; i++) {
             clients.add(new Client("client" + i, endDate, estimatedTimeUse, "project" + i, firm01));
         }
-        // test of add/get clients
+        // test of getClients
         /*for (Client c : clients) {
             firm01.addClient(c);
         }*/
@@ -38,7 +40,7 @@ public class Test1 {
         for (int i = 0; i < 10; i++) {
             projects.add(new Project(clients.get(i), firm01));
         }
-        // test of add/get project
+        // test of getProjects
         /*for (Project p : projects) {
             firm01.addProject(p);
         }*/
@@ -49,26 +51,53 @@ public class Test1 {
         for (int i = 0; i < 10; i++) {
             employees.add(new Employee("employee" + i, firm01));
         }
-        // test of add/get employee
+        // test of getEmployees
         /*for (Employee e : employees) {
             firm01.addEmployee(e);
         }*/
+        // Test of getEmployees
         assertEquals(firm01.getEmployees(),employees);
 
-        // creating some unavailable Employees
+        // Test of getFreeEmployees
+        assertTrue(firm01.getFreeEmployees().size() == 10);
+
+        /*// setting some of the Employees unavailable
         for (int i = 0; i < 5; i++) {
             employees.get(i).absence = true;
         }
         // test of add / get FreeEmployees
-        for (Employee e : employees) {
-            firm01.addFreeEmployee(e);
+        //for (Employee e : employees) {
+          //  firm01.addFreeEmployee(e);
+        //}
+        // Test of getFreeEmployees
+        assertTrue(firm01.getFreeEmployees().size() == 5);*/
+
+        // creating ProjectManagers
+        List<ProjectManager> projectMans = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            projectMans.add(new ProjectManager(employees.get(i),projects.get(i),firm01));
         }
-        assertTrue(firm01.getFreeEmployees().size() == 5);
+
+        // Test of getProjectManagers
+        assertEquals(firm01.getProjectManagers(),projectMans);
+
+        // Test of getEmployeeNames
+        for (int i = 0; i < 10; i++) {
+            assertEquals(firm01.getEmployeeNames().get(i), firm01.getEmployees().get(i).getName());
+        }
+
+        // Test of getEmployee
+        assertEquals(firm01.getEmployee("employee0"), firm01.getEmployees().get(0));
+
+        // Test of getProjectManagerAsEmployee
+        assertEquals(firm01.getProjectManagerAsEmployee(firm01.getEmployees().get(0)),firm01.getEmployees().get(0));
+
+        // Test of getEmployeeAsProjectManager
+        assertEquals(firm01.getEmployeeAsProjectManager(firm01.getEmployees().get(0)),firm01.getProjectManagers().get(0));
     }
 
     @Test
     public void ClientTest01(){
-        //Test that the client is correctly constructed
         //Data used to test the client class
         TimeManager firm01 = new TimeManager();
         Date endDate = new Date(23,1,2018);
@@ -76,22 +105,18 @@ public class Test1 {
         String projectName = "novoProject";
         String clientName = "NovoNordisk";
 
-        // test of first constructor
         //Create a new client
         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
 
-        //Step 1: Test that the client is non-empty
+        // Test of first constructor
         assertFalse(client01 == null);
-
-        //Step 2: Test that the client and project  name is correct
         assertEquals(client01.clientName,clientName);
-
-        assertEquals(client01.projectName, projectName);
-
-        //Step 3: Test that the end date and estimated time use is correct
         assertEquals(client01.endDate, endDate);
-
         assertEquals(client01.estimatedTimeUse,estimatedTimeUse);
+        assertEquals(client01.projectName, projectName);
+        assertEquals(client01.firm, firm01);
+        assertTrue(client01.wantedPM == null);
+        assertTrue(client01.projectManager == null);
     }
 
    @Test
@@ -102,26 +127,26 @@ public class Test1 {
        double estimatedTimeUse = 100;
        String projectName = "novoProject";
        String clientName = "NovoNordisk";
-
        Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
-
-       // Creating a project
+       // Creating a project (no testing)
        Project project01 = new Project(client01, firm01);
 
         // Creating an Activity
         String activityName = "name";
-        double estimatedTimeUseAct = 100;
+        double estimatedTimeUseAct = 10;
         Activity activity1 = new Activity(activityName, project01);
 
-        // Test of constructor
+        // Test of constructor, getActivityName, getTimeUsed, getProject and getEstimatedTimeUse
         assertEquals(activity1.getActivityName(),"name");
         assertEquals(activity1.getTimeUsed(), 0);
+        assertEquals(activity1.getProject(), project01);
+        assertEquals(activity1.getEstimatedTimeUse(), 0.0);
 
         // Test of set/get estimatedTimeUse
         activity1.setEstimatedTimeUse(estimatedTimeUseAct);
         assertEquals(activity1.getEstimatedTimeUse(),estimatedTimeUseAct);
 
-        // Test of set/get timeUsed
+        // Test of update/get timeUsed
         double timeUsed = 50.5;
         activity1.updateTimeUsed(timeUsed);
         assertEquals(activity1.getTimeUsed(),timeUsed);
@@ -139,35 +164,62 @@ public class Test1 {
         double estimatedTimeUse = 100;
         String projectName = "novoProject";
         String clientName = "NovoNordisk";
-
         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
-
-        // Creating a project
+        // Creating a project (no testing)
         Project project01 = new Project(client01, firm01);
 
         // Creating an employee
         String employeename = "Helga";
         Employee employee01 = new Employee(employeename, firm01);
 
-        // Test of constructor
+        // Test of constructor, getName and getActivities
         assertEquals(employee01.getName(),"Helga");
+        assertFalse(employee01.absence);
+        assertTrue(employee01.getActivities().isEmpty());
+        assertTrue(employee01.registeredHours.isEmpty());
+        assertEquals(employee01.firm, firm01);
 
-        // Test of set/ get Activities
+/*        // Test of set/ get Activities
         assertEquals(employee01.getActivities(),null);
         List<Activity> ongoingactivities = new ArrayList<Activity>();
         for (int i = 1; i <= 5; i++){
             ongoingactivities.add(new Activity("activity"+i, project01));
         }
-        employee01.setActivities(ongoingactivities);
+        //employee01.setActivities(ongoingactivities);
         assertEquals(employee01.getActivities(), ongoingactivities);
+*/
+        // creating activities for Helga
+        String activityName = "name";
+        Activity activity01 = new Activity(activityName, project01);
+        employee01.getActivities().add(activity01);
 
-        // Test of absence / updateAbsence in Project manager Test
+        // Test01 of updateAbsence
+        employee01.updateAbsence();
+        assertFalse(employee01.absence);
 
-        // Test of registeredHours / updateRegisteredHours
-        Date date = new Date(1,5,2017);
-        assertTrue(employee01.registeredHours.isEmpty());
-        employee01.updateRegisteredHours(date, 7.5);
-        assertEquals(employee01.registeredHours.get(date), (Double) 7.5);
+        // creating an extra employee
+        Employee employee02 = new Employee("Arne", firm01);
+
+        // Test02 of updateAbsence
+        employee01.updateAbsence();
+        assertTrue(employee01.absence);
+
+        // creating dates
+        Date date01 = new Date(1,5,2017); // in the past
+        Calendar date02H = Calendar.getInstance();
+        int day = date02H.get(Calendar.DATE);
+        int month = date02H.get(Calendar.MONTH)+1;
+        int year = date02H.get(Calendar.YEAR);
+        Date date02 = new Date(day, month, year); // current
+        Date date03 = new Date(1,5,2020); // in the future
+
+        // Test of updateRegisteredHours
+        assertTrue(employee01.updateRegisteredHours(date01, 7.5));
+        assertTrue(employee01.updateRegisteredHours(date02, 7.5));
+        assertFalse(employee01.updateRegisteredHours(date03, 7.5));
+        
+        // Test of regHoursOnAct
+        //employee01.regHoursOnAct();
     }
 
     @Test
@@ -281,7 +333,7 @@ public class Test1 {
         for (int i = 1; i <= 5; i++){
             ongoingactivities.add(new Activity("activity"+i, project01));
         }
-        employee01.setActivities(ongoingactivities);
+        //employee01.setActivities(ongoingactivities);
 
         // Creating a projectManager
         ProjectManager manager = new ProjectManager(employee01, project01, firm01);

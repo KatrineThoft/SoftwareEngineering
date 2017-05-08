@@ -10,8 +10,8 @@ public class Client {
     public Date endDate;
     public double estimatedTimeUse;
     public String projectName;
-    public Employee wantedPM;
     public TimeManager firm;
+    public Employee wantedPM;
     public ProjectManager projectManager;
 
     public Client (String clientName, Date endDate, double estimatedTimeUse, String projectName, TimeManager firm){

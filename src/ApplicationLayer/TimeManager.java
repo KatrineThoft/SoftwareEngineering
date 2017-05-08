@@ -37,13 +37,13 @@ public class TimeManager {
     }
 
     public void addProjectManager(ProjectManager projectManager){ this.allProjectManagers.add(projectManager); }
-*/
+
     public void addFreeEmployee(Employee employee) {
         if (employee.absence == false && employee.getActivities().size() < 10) {
             this.freeEmployees.add(employee);
         }
     }
-
+*/
     public List<Client> getClients() {
         return allClients;
     }
@@ -54,6 +54,10 @@ public class TimeManager {
 
     public List<Employee> getEmployees() {
         return allEmployees;
+    }
+
+    public List<Employee> getFreeEmployees() {
+        return freeEmployees;
     }
 
     public List<ProjectManager> getProjectManagers(){ return allProjectManagers; }
@@ -81,7 +85,6 @@ public class TimeManager {
                 return p.getEmployee();
             }
         }
-
         return null;
     }
 
@@ -91,12 +94,7 @@ public class TimeManager {
                 return p;
             }
         }
-
         return null;
-    }
-
-    public List<Employee> getFreeEmployees() {
-        return freeEmployees;
     }
 
 }

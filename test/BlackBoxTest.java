@@ -131,7 +131,6 @@ public class BlackBoxTest {
         Date date03 = new Date(1,5,2020); // in the future
 
         // A
-        System.out.println("d: " + day + " m: " + month + " y: " + year);
         assertTrue(employee01.updateRegisteredHours(date01, 7.5));
 
         // B
