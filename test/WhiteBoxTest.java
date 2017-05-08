@@ -1,3 +1,4 @@
+
 /**
  * Created by Daniel Hildebrand on 03-05-2017.
  */
@@ -27,7 +28,7 @@ public class WhiteBoxTest {
         Project project01 = new Project(client01, firm01);
         ProjectManager manager = new ProjectManager(employee01, project01,firm01);
 
-        
+
 
         //No input
         //assertEquals(manager.delayProject(),null);
@@ -37,7 +38,7 @@ public class WhiteBoxTest {
         //chechk that time is updated
         manager.delayProject(hourse);
         assertEquals(project01.getEstimatedTimeUse(),100+hourse,0.0);
-    
+
         //pre
         double hours = 6.5;
         project01 = new Project(client01, firm01);
@@ -46,7 +47,7 @@ public class WhiteBoxTest {
 
         //returnere 1 dage til tag udgangs punkt i end date som er 23
         assertEquals(project01.endDate.date, 24,0.0);
-    
+
         //pre
         hourse=17;
         endDate = new Date(23,1,2018);
@@ -54,11 +55,11 @@ public class WhiteBoxTest {
         project01 = new Project(client01, firm01);
         manager = new ProjectManager(employee01, project01,firm01);
         manager.delayProject(hourse);
-        
+
         //returnere 3 dage til tag udgangs punkt i end date som er 23
 
         assertEquals(project01.endDate.date,26,0.0);
-    
+
 
 
         //pre
@@ -68,9 +69,9 @@ public class WhiteBoxTest {
         project01 = new Project(client01, firm01);
         manager = new ProjectManager(employee01, project01,firm01);
         manager.delayProject(hourse);
-       //month stiger til 2
+        //month stiger til 2
         assertEquals(project01.endDate.month,2,0.0);
-    
+
         //pre
         hours= 2880.0;
         endDate = new Date(23,1,2018);
@@ -103,8 +104,8 @@ public class WhiteBoxTest {
          String employeename2 = "Helga3";
          Employee employee03 = new Employee(employeename, firm01);
 
-        
-          
+
+
          //pre
          List<Employee> employees = new ArrayList<>();
          for (int i = 0; i < 3; i++) {
@@ -117,7 +118,7 @@ public class WhiteBoxTest {
 
          //False test
          assertFalse(manager.getEmplForProj() == false);
-    
+
          //pre
         List<Employee> Employees2 = new ArrayList<>() ;
         for (int i = 0; i < 10; i++) {
@@ -138,38 +139,38 @@ public class WhiteBoxTest {
         for (int i = 0; i < 10; i++) {
             Employees3.add(new Employee("helga" + i, firm01));
         }
-    
+
         // zero time
         assertEquals(project01.getActivities().size(),0);
         assertEquals(project01.getWorkingEmployees().size(),0);
         assertTrue(manager.getEmplForProj() == true);
-        
+
         //pre
         estimatedTimeUse=10;
         client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
         project01 = new Project(client01, firm01);
         manager = new ProjectManager(employee01, project01,firm01);
         manager.delegateActivities();
-        
-        
+
+
         // one time
         assertEquals(project01.getActivities().size(),1);
         assertEquals(project01.getWorkingEmployees().size(),1);
         assertTrue(manager.getEmplForProj() == true);
-    
-    
+
+
         //pre
-     
+
         estimatedTimeUse=20;
         client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
         project01 = new Project(client01, firm01);
         manager = new ProjectManager(employee01, project01,firm01);
         manager.delegateActivities();
 
-        
+
          //two  employee
-        
-        
+
+
         assertEquals(project01.getActivities().size(),2);
         assertEquals(project01.getWorkingEmployees().size(),2);
         assertTrue(manager.getEmplForProj() == true);
@@ -202,10 +203,10 @@ public class WhiteBoxTest {
          Employee employee02 = new Employee(employeename1, firm01);
          manager.delegateActivities();
 
-         //check that there is create activities and that delegate activities is returning null.
-         assertEquals(project01.getActivities().size(),((estimatedTimeUse-(estimatedTimeUse %10))/10),0.0);
-         //assertFalse(manager.getEmplForProj() == false);
-         //assertFalse(manager.delegateActivities()==null);
+        //check that there is create activities and that delegate activities is returning null.
+        assertEquals(project01.getActivities().size(),((estimatedTimeUse-(estimatedTimeUse %10))/10),0.0);
+        //assertFalse(manager.getEmplForProj() == false);
+        //assertEquals(manager.delegateActivities(),null);
 
          //pre
          estimatedTimeUse = 10;
@@ -213,16 +214,16 @@ public class WhiteBoxTest {
          project01 = new Project(client01, firm01);
          manager = new ProjectManager(employee01, project01,firm01);
          manager.delegateActivities();
-         
-         
-         
+
+
+
          //There is one Employee and activities EO 1
-        
+
          //manager.delegateActivities();
          assertEquals(project01.getWorkingEmployees().size(),1);
          assertEquals(project01.getDelegatedActivities().size(),1);
          assertTrue(manager.getEmplForProj() == true);
-  */   
+  */
          //pre
          List<Employee> Employees = new ArrayList<Employee>();
          for (int i = 1; i<13;i++){
@@ -251,7 +252,7 @@ public class WhiteBoxTest {
         	 activities.add(new Activity("activity"+i, project01));
          }
          project01.getWorkingEmployees().get(1).getActivities().addAll(activities);
-         
+
          estimatedTimeUse = 130;
          client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
          project01 = new Project(client01, firm01);
