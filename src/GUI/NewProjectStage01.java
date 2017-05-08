@@ -1,5 +1,7 @@
 package GUI;
 
+import java.util.Locale;
+
 import ApplicationLayer.*;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -13,8 +15,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by katrinethoft on 04/05/17.
@@ -22,6 +22,7 @@ import java.util.List;
 
 //Stage entered when a client wants to create a new project
 public class NewProjectStage01 extends Stage {
+	//Creating fields
     private CompanyDriver companyDriver;
     private TextField comNameInput;
     private TextField proNameInput;
@@ -36,6 +37,7 @@ public class NewProjectStage01 extends Stage {
     public double estimate;
 
     public NewProjectStage01(CompanyDriver companyDriver){
+    	//Setting the scene
         this.companyDriver = companyDriver;
 
         Scene scene = new Scene(NPS01Pane(), companyDriver.WIDTH, companyDriver.HEIGHT);
@@ -50,16 +52,21 @@ public class NewProjectStage01 extends Stage {
 
 
     private GridPane NPS01Pane() {
-
+    	//Creating a pane, textfields, DatePicker and a button
         GridPane NPS01Pane = new GridPane();
 
         //Textfields for the different information needed to create a project
         comNameInput = new TextField();
         proNameInput= new TextField();
         empNameInput = new TextField();
-        endDateInput = new DatePicker();
         estimateInput = new TextField();
+        
+        Locale.setDefault(Locale.UK);
+        endDateInput = new DatePicker();
+        endDateInput.setShowWeekNumbers(true);
 
+
+        //Creating a label for each textfield
         Label comNamelabel = new Label("Company Name:");
         Label proNameLabel = new Label("Project Name:");
         Label empNameLabel = new Label("Name of project manager (optional):");
@@ -92,18 +99,21 @@ public class NewProjectStage01 extends Stage {
         return NPS01Pane;
     }
 
+    //Enters MenuStage when backButton is clicked
     private void back(){
         companyDriver.startMenuStage();
         this.close();
     }
 
-
+    //Creates a new project and enters the NewProjectStage to confirm
     private void confirm(){
         if(!(comNameInput.getText().isEmpty()) && !(proNameInput.getText().isEmpty())  && !(endDateInput.getValue() == null) && !(estimateInput.getText().isEmpty()))  {
 
             String conName = comNameInput.getText();
             String proName = proNameInput.getText();
 
+            
+            //Parsing the DatePicker input to our own date class
             String[] endDateSplit = endDateInput.getValue().toString().split("-");
             day = Integer.parseInt(endDateSplit[0]);
             month = Integer.parseInt(endDateSplit[1]);
@@ -111,15 +121,15 @@ public class NewProjectStage01 extends Stage {
             endDate = new Date(day, month, year);
 
             estimate = Double.parseDouble(estimateInput.getText());
-
             String  empName = empNameInput.getText();
 
+            //Creates a new client with or without a specific project manager
             if(!(empName.isEmpty()) &&
                     CompanyDriver.SoftwareHuset.getEmployeeNames().contains(empName)) {
 
-                this.empl = companyDriver.SoftwareHuset.getEmployee(empNameInput.getText());
+                this.empl = CompanyDriver.SoftwareHuset.getEmployee(empNameInput.getText());
                 companyDriver.currentClient = new Client(conName, endDate, estimate, proName, empl, CompanyDriver.SoftwareHuset);
-                companyDriver.currentProject = new Project(companyDriver.currentClient, companyDriver.SoftwareHuset);
+                companyDriver.currentProject = new Project(companyDriver.currentClient, CompanyDriver.SoftwareHuset);
                 companyDriver.currentProjectManager = companyDriver.currentClient.projectManager;
                 companyDriver.currentProject.projectManager.createActivities();
 
@@ -128,7 +138,7 @@ public class NewProjectStage01 extends Stage {
 
             }  else{
                 companyDriver.currentClient = new Client(conName, endDate, estimate, proName, CompanyDriver.SoftwareHuset);
-                companyDriver.currentProject = new Project(companyDriver.currentClient, companyDriver.SoftwareHuset);
+                companyDriver.currentProject = new Project(companyDriver.currentClient, CompanyDriver.SoftwareHuset);
                 companyDriver.currentProjectManager = companyDriver.currentProject.projectManager;
             }
                 companyDriver.startNewProjectStage02();

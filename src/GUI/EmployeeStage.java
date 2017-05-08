@@ -1,7 +1,5 @@
 package GUI;
 
-import ApplicationLayer.Employee;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -17,12 +15,11 @@ public class EmployeeStage extends Stage {
     CompanyDriver companyDriver;
 
     public EmployeeStage(CompanyDriver companyDriver){
-        Scene scene = new Scene(employeePane(), companyDriver.WIDTH, companyDriver.HEIGHT);
+    	//Setting the scene
         this.companyDriver = companyDriver;
-
-        //Set the stage.
+        Scene scene = new Scene(employeePane(), companyDriver.WIDTH, companyDriver.HEIGHT);
+  
         this.setTitle("What would you like to do?");
-
         this.setScene(scene);
         this.setResizable(false);
         this.centerOnScreen();
@@ -31,6 +28,7 @@ public class EmployeeStage extends Stage {
     }
 
     private GridPane employeePane() {
+    	//Creating pane and buttons for scene
         GridPane employeePane = new GridPane();
 
         Button loginButton = new Button("Login");
@@ -51,6 +49,7 @@ public class EmployeeStage extends Stage {
         return employeePane;
     }
 
+    //Methods enter a stage for login, adding a new employee or going back to the menu depending on which button is clicked
     private void login() {
         companyDriver.startLoginStage();
         this.close();

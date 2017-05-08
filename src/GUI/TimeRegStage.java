@@ -1,19 +1,14 @@
 package GUI;
 
 import ApplicationLayer.Activity;
-import ApplicationLayer.Date;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.Arrays;
 
 /**
  * Created by katrinethoft on 05/05/17.
@@ -22,17 +17,14 @@ import java.util.Arrays;
 //Stage for registering time for today's date.
 public class TimeRegStage extends Stage {
     private CompanyDriver companyDriver;
-    private DatePicker regDateInput;
-    private int day;
-    private int month;
-    private int year;
     private TextField regHours;
     private double totalHours;
 
     public TimeRegStage(CompanyDriver companyDriver){
-
-       Scene scene = new Scene(timeRegPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
+    	//Setting the scene
+    	Scene scene = new Scene(timeRegPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
         this.companyDriver = companyDriver;
+        
         this.setScene(scene);
         this.setResizable(false);
         this.centerOnScreen();
@@ -42,6 +34,7 @@ public class TimeRegStage extends Stage {
     }
 
     private GridPane timeRegPane() {
+    	//Creating pane, textfield and button for scene
         GridPane timeRegPane = new GridPane();
 
         VBox timeRegBox = new VBox();
@@ -58,7 +51,7 @@ public class TimeRegStage extends Stage {
                 hours = Double.parseDouble(regHours.getText());
             }
             companyDriver.getCurrentEmpl().regHoursOnAct(hours,a);
-            totalHours += hours;
+            this.totalHours += hours;
             timeRegBox.getChildren().addAll(hourLabels,regHours);
         }
 
@@ -74,10 +67,16 @@ public class TimeRegStage extends Stage {
         return  timeRegPane;
     }
 
+    //Enters EmpOptStage if hours entered in total is less than or equal the permitted 8 hours
     private void confirm(){
+        if(totalHours > 8.0){
+            this.setTitle("You cannot work more than 8.00 hours pr. day.");
+
+        }else{
             companyDriver.startEmpOptStage();
             this.close();
         }
+    }
 
 
 }

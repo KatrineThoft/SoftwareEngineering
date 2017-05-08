@@ -21,13 +21,11 @@ public class ClientStage extends Stage {
     private CompanyDriver companyDriver;
 
     public ClientStage(CompanyDriver companyDriver) {
-
+        //Setting the scene.
         this.companyDriver = companyDriver;
 
         Scene scene = new Scene(clientPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
 
-
-        //Set the stage.
         this.setTitle("What would you like to do?");
         this.setScene(scene);
         this.setResizable(false);
@@ -36,6 +34,7 @@ public class ClientStage extends Stage {
 
     }
     private GridPane clientPane() {
+    	//Creating a pane and buttons for scene
         GridPane clientPane = new GridPane();
 
         Button newProjectButton = new Button("Create new project");
@@ -64,6 +63,7 @@ public class ClientStage extends Stage {
 
     }
 
+    //Following methods start a new stage when button is clicked
     private void newProject() {
         companyDriver.startNewProjectStage01();
         this.close();

@@ -1,18 +1,12 @@
 package GUI;
 
-import ApplicationLayer.Date;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import org.omg.CORBA.portable.ValueBase;
-
 import javafx.scene.control.TextField;
 
 /**
@@ -25,9 +19,11 @@ public class EditTimeStage extends Stage {
     private Label labelHour;
 
     public EditTimeStage(CompanyDriver companyDriver){
-
+    	//Setting the scene
         Scene scene = new Scene(editTimePane(), companyDriver.WIDTH, companyDriver.HEIGHT);
+        
         this.companyDriver = companyDriver;
+        
         this.setScene(scene);
         this.setResizable(false);
         this.centerOnScreen();
@@ -36,8 +32,10 @@ public class EditTimeStage extends Stage {
     }
 
     private GridPane editTimePane() {
+    	//Creating pane, textfield and button
         GridPane editTimePane = new GridPane();
 
+        //Checks if the chosen date already have hours saved
         if(companyDriver.getCurrentEmpl().registeredHours.get(companyDriver.regTimeDate) == null){
             labelHour = new Label("You have worked 0.0 hours on " + companyDriver.regTimeDate);
         } else {
@@ -59,6 +57,8 @@ public class EditTimeStage extends Stage {
         return editTimePane;
     }
 
+    
+    //Enters EmpOptStage if textfield is non-empty
     private void confirm(){
         if(!(newHoursText.getText().isEmpty())){
            Double newHours = Double.parseDouble(newHoursText.getText());

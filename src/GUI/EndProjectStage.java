@@ -9,17 +9,17 @@ import javafx.scene.control.Button;
 /**
  * Created by katrinethoft on 06/05/17.
  */
+//Stage where project manager ends the project
 public class EndProjectStage extends Stage {
     private CompanyDriver companyDriver;
 
     public EndProjectStage(CompanyDriver companyDriver) {
+    	//Setting the scene.
         this.companyDriver = companyDriver;
 
         Scene scene = new Scene(endProjectPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
-
-        //Set the stage.
+        
         this.setTitle("Your project is now complete");
-
         this.setScene(scene);
         this.setResizable(false);
         this.centerOnScreen();
@@ -27,6 +27,7 @@ public class EndProjectStage extends Stage {
 
     }
     private GridPane endProjectPane(){
+    	//Creating a pane and button 
         GridPane endProjectPane = new GridPane();
         Button backButton = new Button("Back to employee menu");
         backButton.setOnAction(e->back());
@@ -36,6 +37,8 @@ public class EndProjectStage extends Stage {
 
         return endProjectPane;
     }
+    
+    //Ends project and enters EmployeeStage when button is clicked
     private  void back(){
         companyDriver.currentProjectManager.endProject();
         companyDriver.startEmployeeStage();

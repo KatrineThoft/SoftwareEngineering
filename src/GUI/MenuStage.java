@@ -21,14 +21,11 @@ public class MenuStage extends Stage{
 
 
     public MenuStage(CompanyDriver driver) {
-
+    	//Setting the scene.
         this.companyDriver = driver;
-
         Scene scene = new Scene(menuPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
 
-        //Set the stage.
         this.setTitle("Welcome to SoftwareHuset A/S");
-
         this.setScene(scene);
         this.setResizable(false);
         this.centerOnScreen();
@@ -37,15 +34,20 @@ public class MenuStage extends Stage{
 
 
     private GridPane menuPane() {
+    	//Creating a pane and the buttons for the menu
         GridPane menuPane = new GridPane();
 
         Button cliButton = new Button("Client");
-        Button empButton = new Button("Employee");
-        Button exitButton = new Button("Exit");
         cliButton.setOnAction(e -> client());
+        
+        Button empButton = new Button("Employee");
         empButton.setOnAction(e -> employee());
+        
+        //Exits the system
+        Button exitButton = new Button("Exit");
         exitButton.setOnAction(actionEvent -> Platform.exit());
 
+        //Makes it possible to use keys to choose an option
         cliButton.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.C) {
                 client();
@@ -68,11 +70,13 @@ public class MenuStage extends Stage{
         return menuPane;
     }
 
+    //Enters ClientStage when button is clicked
     private void client() {
         companyDriver.startClientStage();
         this.close();
     }
 
+    //Enters EmployeeStage when button is clicked
     private void employee() {
         companyDriver.startEmployeeStage();
         this.close();

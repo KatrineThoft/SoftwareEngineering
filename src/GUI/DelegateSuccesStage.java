@@ -1,27 +1,25 @@
 package GUI;
 
-import ApplicationLayer.Employee;
-import ApplicationLayer.ProjectManager;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
 /**
  * Created by katrinethoft on 05/05/17.
  */
+//Stage entered when project manager succeeded in delegating all activities in project
 public class DelegateSuccesStage extends Stage {
     private  CompanyDriver companyDriver;
 
     public DelegateSuccesStage(CompanyDriver companyDriver) {
+    	//Set the scene
         this.companyDriver = companyDriver;
 
-
         Scene scene = new Scene(delegateActPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
-
-        //Set the stage.
+        
         this.setTitle("All activities in projects has been delegated.");
         this.setScene(scene);
         this.setResizable(false);
@@ -31,10 +29,8 @@ public class DelegateSuccesStage extends Stage {
     }
 
     private GridPane delegateActPane() {
+    	//Creating pane and buttons
        GridPane delegateActPane = new GridPane();
-
-
-
 
         Button backButton = new Button("Back to project manager menu");
         backButton.setOnAction(e-> back());
@@ -45,6 +41,7 @@ public class DelegateSuccesStage extends Stage {
         return delegateActPane;
     }
 
+    //Enters ProjectManagerStage
     private void back() {
         companyDriver.startProjectManagerStage();
         this.close();

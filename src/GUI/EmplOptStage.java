@@ -1,6 +1,6 @@
 package GUI;
 
-import ApplicationLayer.Employee;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -14,11 +14,12 @@ import javafx.scene.control.Button;
  */
 
 //Stage entered when an employee has logged in.
-// Shows the different options for actions an employee can make
+// Shows the different options for actions of an employee
 public class EmplOptStage extends Stage {
     private CompanyDriver companyDriver;
 
     public EmplOptStage(CompanyDriver companyDriver) {
+    	//Setting the scene
         this.companyDriver = companyDriver;
         Scene scene = new Scene(emplOptPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
 
@@ -31,6 +32,7 @@ public class EmplOptStage extends Stage {
 
 
     private GridPane emplOptPane(){
+    	//Creating pane and buttons for each option
         GridPane emplOptPane = new GridPane();
 
         Button hourButton = new Button("Time registering");
@@ -50,17 +52,14 @@ public class EmplOptStage extends Stage {
 
         VBox empOptBox = new VBox();
         empOptBox.getChildren().addAll(hourButton, actButton , pMButton, absenceButton,backButton);
-
         empOptBox.setAlignment(Pos.CENTER);
 
-
         emplOptPane.add(empOptBox, 2, 1);
-
         return emplOptPane;
     }
 
 
-
+    //Following methods enter a new stage when a button is clicked
     private void hours(){
         companyDriver.startHourStage();
         this.close();
@@ -72,8 +71,8 @@ public class EmplOptStage extends Stage {
     }
 
     private void pManager(){
-        if(companyDriver.SoftwareHuset.getProjectManagerAsEmployee(companyDriver.getCurrentEmpl()) != null) {
-            companyDriver.currentProjectManager = companyDriver.SoftwareHuset.getEmployeeAsProjectManager(companyDriver.getCurrentEmpl());
+        if(CompanyDriver.SoftwareHuset.getProjectManagerAsEmployee(companyDriver.getCurrentEmpl()) != null) {
+            companyDriver.currentProjectManager = CompanyDriver.SoftwareHuset.getEmployeeAsProjectManager(companyDriver.getCurrentEmpl());
             companyDriver.startProjectManagerStage();
 
             this.close();

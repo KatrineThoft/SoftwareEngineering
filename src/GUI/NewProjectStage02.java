@@ -16,13 +16,11 @@ public class NewProjectStage02 extends Stage {
 
     //Stage entered when client has created a new project
     public NewProjectStage02 (CompanyDriver companyDriver){
-
+    	//Setting the scene
         this.companyDriver = companyDriver;
         Scene scene = new Scene(NPS02Pane(), companyDriver.WIDTH, companyDriver.HEIGHT);
 
-        //Set the stage.
         this.setTitle("Thank you! Your project has been created.");
-
         this.setScene(scene);
         this.setResizable(false);
         this.centerOnScreen();
@@ -30,6 +28,7 @@ public class NewProjectStage02 extends Stage {
     }
 
     public GridPane NPS02Pane(){
+    	//Creating pane and button
         GridPane NPS02Pane =new GridPane();
 
         Button backButton = new Button("Go back");
@@ -45,7 +44,7 @@ public class NewProjectStage02 extends Stage {
         return NPS02Pane;
     }
 
-
+    //Entering the MenuStage
     private void back(){
         companyDriver.startMenuStage();
         this.close();

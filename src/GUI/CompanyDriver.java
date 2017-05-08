@@ -10,9 +10,11 @@ import java.util.List;
 
 //Driver class for the GUI, runs the stages
 public class CompanyDriver extends Application {
+	//Setting the size of scenes
     public final  int HEIGHT = 475;
     public final int WIDTH = 500;
 
+    //Creating the necessary fields
     public static TimeManager SoftwareHuset;
     private Employee currentEmpl;
     public ProjectManager currentProjectManager;
@@ -21,6 +23,7 @@ public class CompanyDriver extends Application {
     public List<Activity> currentActivities;
     public Date regTimeDate;
 
+    //A field for all stages is created
     private MenuStage menuStage;
     private ClientStage clientStage;
     private EmployeeStage employeeStage;
@@ -37,39 +40,36 @@ public class CompanyDriver extends Application {
     private ProjectManagerStage projectManagerStage;
     private DelegateSuccesStage delegateSuccesStage;
     private DelegateFailStage delegateFailStage;
+    private MakeProjectRepStage makeRepStage;
     private EndProjectStage endProjectStage;
     private DelayProjectStage delayProjectStage;
     private DelayProjectEndStage delayProjectEndStage;
 
     public static void main(String[] args) {
         SoftwareHuset = new TimeManager();
-
         Application.launch(args);
     }
 
     public void start(Stage first) {
 
-        //Create the login stage
+        //Creating the menu page
         first = new MenuStage(this);
 
-        //To start just show the loginstage.
+        //Showing the stage
         first.show();
     }
-
-    /*public void setLoggedId(Employee currentEmpl) {
-        this.currentEmpl = currentEmpl;
-    }*/
-
-//All the different stages in GUI:
+    
+    //Getter and setter for field currentEmployee
     public Employee getCurrentEmpl(){
-     return currentEmpl;
-    }
+        return currentEmpl;
+       }
 
-    public void setCurrentEmpl(Employee emp){
-        this.currentEmpl = emp;
+       public void setCurrentEmpl(Employee emp){
+           this.currentEmpl = emp;
 
-    }
+       }
 
+    //All the different stages in GUI is called by using the following methods
     public void startMenuStage(){
         menuStage = new MenuStage(this);
         menuStage.show();
@@ -153,6 +153,10 @@ public class CompanyDriver extends Application {
         delegateFailStage.show();
     }
 
+   public void startMakeProjectRepStage(){
+	   makeRepStage = new MakeProjectRepStage(this);
+	   makeRepStage.show();
+   }
 
     public void startDelayStage(){
         delayProjectStage = new DelayProjectStage(this);

@@ -1,12 +1,18 @@
 /**
  * Created by Daniel Hildebrand on 03-05-2017.
  */
-import ApplicationLayer.Date;
-import org.junit.jupiter.api.Test;
-import ApplicationLayer.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import java.util.*;
+import java.util.Calendar;
+
+import org.junit.Test;
+import ApplicationLayer.Client;
+import ApplicationLayer.Date;
+import ApplicationLayer.Employee;
+import ApplicationLayer.Project;
+import ApplicationLayer.TimeManager;
 
 public class BlackBoxTest {
     @Test
@@ -36,8 +42,8 @@ public class BlackBoxTest {
         assertEquals(project01.client,client01);
         assertEquals(project01.projectName,projectName);
         assertEquals(project01.endDate,endDate);
-        assertEquals(project01.getEstimatedTimeUse(),estimatedTimeUse);
-        assertEquals(project01.getTimeUsed(),0);
+        assertEquals(project01.getEstimatedTimeUse(),estimatedTimeUse,0);
+        assertEquals(project01.getTimeUsed(),0,0);
         assertTrue(project01.active);
         assertFalse(project01.projectManager == null); // pm has been chosen at random
         // delegating activities
@@ -52,8 +58,8 @@ public class BlackBoxTest {
         assertEquals(project02.client,client02);
         assertEquals(project02.projectName,projectName);
         assertEquals(project02.endDate,endDate);
-        assertEquals(project02.getEstimatedTimeUse(),estimatedTimeUse);
-        assertEquals(project02.getTimeUsed(),0);
+        assertEquals(project02.getEstimatedTimeUse(),estimatedTimeUse,0);
+        assertEquals(project02.getTimeUsed(),0,0);
         assertTrue(project02.active);
         assertEquals(project02.projectManager.employee.getName(),"Cori"); // employee01 has been chosen by the firm to be pm
         // delegate activities
@@ -76,8 +82,8 @@ public class BlackBoxTest {
         assertEquals(project03.client,client01);
         assertEquals(project03.projectName,projectName);
         assertEquals(project03.endDate,endDate);
-        assertEquals(project03.getEstimatedTimeUse(),estimatedTimeUse);
-        assertEquals(project03.getTimeUsed(),0);
+        assertEquals(project03.getEstimatedTimeUse(),estimatedTimeUse,0);
+        assertEquals(project03.getTimeUsed(),0,0);
         assertTrue(project03.active);
         assertFalse(project03.projectManager == null); // pm has been chosen at random
         // delegate activities
@@ -92,8 +98,8 @@ public class BlackBoxTest {
         assertEquals(project04.client,client03);
         assertEquals(project04.projectName,projectName);
         assertEquals(project04.endDate,endDate);
-        assertEquals(project04.getEstimatedTimeUse(),estimatedTimeUse);
-        assertEquals(project04.getTimeUsed(),0);
+        assertEquals(project04.getEstimatedTimeUse(),estimatedTimeUse,0);
+        assertEquals(project04.getTimeUsed(),0,0);
         assertTrue(project04.active);
         assertEquals(project04.projectManager.employee.getName(), "Deana"); // employee04 has been chosen by the firm to be pm
         // delegate activities
@@ -111,8 +117,8 @@ public class BlackBoxTest {
         assertEquals(project05.client,client03);
         assertEquals(project05.projectName,projectName);
         assertEquals(project05.endDate,endDate);
-        assertEquals(project05.getEstimatedTimeUse(),estimatedTimeUse);
-        assertEquals(project05.getTimeUsed(),0);
+        assertEquals(project05.getEstimatedTimeUse(),estimatedTimeUse,0);
+        assertEquals(project05.getTimeUsed(),0,0);
         assertTrue(project05.active);
         assertTrue(project05.projectManager == null); // pm not created
     }

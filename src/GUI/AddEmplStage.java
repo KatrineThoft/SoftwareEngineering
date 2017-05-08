@@ -1,20 +1,15 @@
 package GUI;
 
 
-import ApplicationLayer.Client;
-import ApplicationLayer.Date;
 import ApplicationLayer.Employee;
 import GUI.CompanyDriver;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
+//import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.*;
 
 import javafx.stage.Stage;
 
@@ -30,11 +25,11 @@ public class AddEmplStage extends Stage {
     public Employee newEmployee;
 
     public AddEmplStage(CompanyDriver companyDriver){
+    	   //Setting the scene.
         Scene scene = new Scene(addEmplPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
 
         this.companyDriver = companyDriver;
-
-        //Set the stage.
+     
         this.setTitle("Please enter the name of new employee.");
 
         this.setScene(scene);
@@ -44,6 +39,7 @@ public class AddEmplStage extends Stage {
     }
 
     private GridPane addEmplPane() {
+    	//Creating a pane and the text field for the scene
         GridPane addEmplPane = new GridPane();
 
         newEmplName = new TextField("New employee");
@@ -55,17 +51,17 @@ public class AddEmplStage extends Stage {
         addEmplBox.getChildren().addAll(newEmplName, conButton);
         addEmplBox.setAlignment(Pos.CENTER);
 
- addEmplPane.add(addEmplBox, 2, 1);
+        addEmplPane.add(addEmplBox, 2, 1);
         return addEmplPane;
     }
-
+    
+    //Method for entering a new stage, stage only changed if textfield is non-empty
     private void confirm(){
         String emplName = newEmplName.getText();
         if(!(emplName.isEmpty())) {
-            newEmployee = new Employee(emplName, companyDriver.SoftwareHuset);
-            //companyDriver.SoftwareHuset.addEmployee(newEmployee);
+            newEmployee = new Employee(emplName, CompanyDriver.SoftwareHuset);
+        
             companyDriver.startEmployeeStage();
-           // Label lbl = new Label(String.format("Employee " + this.newEmployee.getName()) + "was added to SoftwareHuset A/S." );
             this.close();
 
         } else{

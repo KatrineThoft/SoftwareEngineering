@@ -1,7 +1,6 @@
 package GUI;
 
 import ApplicationLayer.Activity;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -12,11 +11,13 @@ import javafx.scene.control.Button;
 /**
  * Created by katrinethoft on 05/05/17.
  */
+//Stage for seeing employees onogoing activities
 public class ActivityStage extends Stage{
 
     private CompanyDriver companyDriver;
 
     public ActivityStage(CompanyDriver companyDriver) {
+    	//Setting the scene
         Scene scene = new Scene(activityPane(), companyDriver.WIDTH, companyDriver.HEIGHT);
         this.companyDriver = companyDriver;
 
@@ -29,6 +30,7 @@ public class ActivityStage extends Stage{
     }
 
     private GridPane activityPane() {
+    	//Creating a pane, buttons and text for the scene
         GridPane activityPane = new GridPane();
         VBox viewActsBox = new VBox();
 
@@ -53,6 +55,8 @@ public class ActivityStage extends Stage{
         activityPane.add(viewActsBox,2,1);
         return activityPane;
     }
+    
+    //Method for entering a new stage
     private void back(){
         companyDriver.startEmpOptStage();
         this.close();
