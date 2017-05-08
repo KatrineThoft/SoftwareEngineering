@@ -1,21 +1,19 @@
+
 /**
  * Created by Daniel Hildebrand on 03-05-2017.
  */
+import ApplicationLayer.Date;
+
 import ApplicationLayer.*;
+
 import static org.junit.Assert.*;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-//import org.junit.jupiter.api.Test;
+import java.util.*;
 public class WhiteBoxTest {
-/*
-	@Test
+
+    @Test
     public void delayProjectTest(){
         //pre
         TimeManager firm01 = new TimeManager();
@@ -28,98 +26,113 @@ public class WhiteBoxTest {
 
         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
         Project project01 = new Project(client01, firm01);
-        ProjectManager manager = new ProjectManager(employee01, project01, firm01);
+        ProjectManager manager = new ProjectManager(employee01, project01,firm01);
 
-        assertFalse
+
 
         //No input
-        assertEquals(manager.delayProject()==null);
+        //assertEquals(manager.delayProject(),null);
 
         //pre
-        double hourse=17;
+        double hourse=0;
         //chechk that time is updated
         manager.delayProject(hourse);
-        assertEquals(project01.getEstimatedTimeUse(hourse),hourse);
+        assertEquals(project01.getEstimatedTimeUse(),100+hourse,0.0);
 
         //pre
         double hours = 6.5;
+        project01 = new Project(client01, firm01);
+        manager = new ProjectManager(employee01, project01,firm01);
         manager.delayProject(hours);
 
         //returnere 1 dage til tag udgangs punkt i end date som er 23
-        assertTrue(project01.endDate.date == 24);
+        assertEquals(project01.endDate.date, 24,0.0);
+
         //pre
-        double hourse=17;
+        hourse=17;
+        endDate = new Date(23,1,2018);
+        client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
+        project01 = new Project(client01, firm01);
+        manager = new ProjectManager(employee01, project01,firm01);
+        manager.delayProject(hourse);
 
         //returnere 3 dage til tag udgangs punkt i end date som er 23
 
-        assertTrue(project01.endDate.date==26);
+        assertEquals(project01.endDate.date,26,0.0);
 
 
 
         //pre
-        double hourse=240;
-        manager.delayProject(hours);
+        hourse=240;
+        endDate = new Date(23,1,2018);
+        client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
+        project01 = new Project(client01, firm01);
+        manager = new ProjectManager(employee01, project01,firm01);
+        manager.delayProject(hourse);
         //month stiger til 2
-        assertTrue(project01.endDate.month == 2);
+        assertEquals(project01.endDate.month,2,0.0);
 
         //pre
-        double hours= 2880;
+        hours= 2880.0;
+        endDate = new Date(23,1,2018);
+        client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
+        project01 = new Project(client01, firm01);
+        manager = new ProjectManager(employee01, project01,firm01);
         manager.delayProject(hours);
         //year change to 2019
-        assertTrue(project01.endDate.year == 2019);
+        assertEquals(project01.endDate.year,2019,0.0);
 
     }
 
 
     @Test
     public void getEmpForProTest(){
-         //pre
-         TimeManager firm01 = new TimeManager();
-         String employeename = "Helga";
-         Employee employee01 = new Employee(employeename, firm01);
-         Date endDate = new Date(23,1,2018);
-         double estimatedTimeUse = 100;
-         String projectName = "novoProject";
-         String clientName = "NovoNordisk";
-         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
-         Project project01 = new Project(client01, firm01);
-         ProjectManager manager = new ProjectManager(employee01, project01);
-         List<Activity> newActivities = new ArrayList<Activity>();
-         String employeename = "Helga2";
-         Employee employee02 = new Employee(employeename, firm01);
-         String employeename = "Helga3";
-         Employee employee03 = new Employee(employeename, firm01);
+        //pre
+        TimeManager firm01 = new TimeManager();
+        String employeename = "Helga";
+        Employee employee01 = new Employee(employeename, firm01);
+        Date endDate = new Date(23,1,2018);
+        double estimatedTimeUse = 100;
+        String projectName = "novoProject";
+        String clientName = "NovoNordisk";
+        Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
+        Project project01 = new Project(client01, firm01);
+        ProjectManager manager = new ProjectManager(employee01, project01,firm01);
+        List<Activity> newActivities = new ArrayList<Activity>();
+        String employeename1 = "Helga2";
+        Employee employee02 = new Employee(employeename, firm01);
+        String employeename2 = "Helga3";
+        Employee employee03 = new Employee(employeename, firm01);
 
-        //return no employee
-         assertTrue(manager.getEmpForProj()==null);
 
-         //pre
-         List<Employee> employees = new ArrayList<>();
-         for (int i = 0; i < 3; i++) {
-             employees.add(new Employee("helga" + i, firm01));
-             firm01.addFreeEmployee();
-         }
-         List<Activity> newActivities = new ArrayList<Activity>();
-         for (int i = 1; i <= 10; i++){
-             newActivities.add(new Activity("activity"+i, 10));
-         }*/
 
-       /*  //False test
-         assertFalse(manager.getEmpForProj() == false);
+        //pre
+        List<Employee> employees = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            employees.add(new Employee("helga" + i, firm01));
+            //firm01.addFreeEmployee(employees);
+        }
+        newActivities = new ArrayList<Activity>();
+        for (int i = 1; i <= 10; i++){
+            newActivities.add(new Activity("activity"+i, project01));
+        }
 
-         //pre
-        List<Employee> Employees2 = new ArrayList<>();
+        //False test
+        assertFalse(manager.getEmplForProj() == false);
+
+        //pre
+        List<Employee> Employees2 = new ArrayList<>() ;
         for (int i = 0; i < 10; i++) {
             Employees2.add(new Employee("helga" + i, firm01));
-            firm01.addFreeEmployee(employees2);
+            //firm01.addFreeEmployee(employees2);
         }
-         List<Activity> NewActivities2 = new ArrayList<Activity>();
-         for (int i = 0; i <= 2; i++){
-             NewActivities2.add(new Activity("activity"+i, 10));
-         }
+        List<Activity> NewActivities2 = new ArrayList<Activity>();
+        for (int i = 0; i <= 2; i++){
+            NewActivities2.add(new Activity("activity"+i, project01));
+        }
 
-         //true
-        assertTrue(manager.getEmpForProj() == true);
+        //true
+        assertTrue(manager.getEmplForProj() == true);
 
         //pre
         List<Activity> NewActivities3 = new ArrayList<Activity>();
@@ -127,92 +140,99 @@ public class WhiteBoxTest {
         List<Employee> Employees3 = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Employees3.add(new Employee("helga" + i, firm01));
-            firm01.addFreeEmployee(employees3);
+            //firm01.addFreeEmployee(employees3);
         }
 
         // zero time
-        assertEquals(getNewActivities().size,0);
-        assertEquals(project.getWorkingEmployees().size,0);
-        assertTrue(getEmpForProj() == true);
+        assertEquals(project01.getActivities().size(),0);
+        assertEquals(project01.getWorkingEmployees().size(),0);
+        assertTrue(manager.getEmplForProj() == true);
 
         //pre
         List<Activity> NewActivities4 = new ArrayList<Activity>();
         for (int i = 0; i <= 1; i++){
-            NewActivities4.add(new Activity("activity"+i, 10));
+            NewActivities4.add(new Activity("activity"+i, project01));
         }
         List<Employee> Employees4 = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             Employees4.add(new Employee("helga" + i, firm01));
-            firm01.addFreeEmployee(employees4);
+            //firm01.addFreeEmployee(employees4);
         }
 
+
         // one time
-        assertEquals(getNewActivities().size,1);
-        assertEquals(project.getWorkingEmployees().size,1);
-        assertTrue(getEmpForProj() == true);
+        //assertEquals(project01.getActivities().size(),1);
+        //assertEquals(project01.getWorkingEmployees().size(),1);
+        assertTrue(manager.getEmplForProj() == true);
 
 
         //pre
         List<Activity> NewActivities5 = new ArrayList<Activity>();
         for (int i = 0; i <= 1; i++){
-            NewActivities5.add(new Activity("activity"+i, 10));
+            NewActivities5.add(new Activity("activity"+i, project01));
         }
         List<Employee> Employees5 = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             Employees5.add(new Employee("helga" + i, firm01));
-            firm01.addFreeEmployee(employees5);
+            //firm01.addFreeEmployee(employees5);
         }
 
 
-         //two  employee
-        assertEquals(getNewActivities().size,2);
-        assertEquals(project.getWorkingEmployees().size,2);
-        assertTrue(getEmpForProj() == true);
-     }
 
-     @Test
+
+        //two  employee
+
+        //assertEquals(project01.getActivities().size(),2);
+        //assertEquals(project01.getWorkingEmployees().size(),2);
+        assertTrue(manager.getEmplForProj() == true);
+    }
+
+    @Test
 
     public void DelegacteActivitiesTest(){
         //pre
-         TimeManager firm01 = new TimeManager();
-         String employeename = "Helga";
-         Employee employee01 = new Employee(employeename, firm01);
-         Date endDate = new Date(23,1,2018);
-         double estimatedTimeUse = 100;
-         String projectName = "novoProject";
-         String clientName = "NovoNordisk";
+        TimeManager firm01 = new TimeManager();
+        String employeename = "Helga";
+        Employee employee01 = new Employee(employeename, firm01);
+        Date endDate = new Date(23,1,2018);
+        double estimatedTimeUse = 100;
+        String projectName = "novoProject";
+        String clientName = "NovoNordisk";
 
-         Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
-         Project project01 = new Project(client01, firm01);
-         ProjectManager manager = new ProjectManager(employee01, project01);
-
-
-*/
-
-       /*  //when there is no employees the EO is none caus for loop is not running
-         assertEquals(manager.delegateActivities(), null);
-
-         //pre
-         String employeename = "Helga02";
-         Employee employee02 = new Employee(employeename, firm01);
-
-         //check that there is create activities and that delegate activities is returning null.
-         assertEquals(getActivities().size,((estimatedTimeUse-(estimatedTimeUse %10))/10);
-         assertFalse(getEmpForProj() == false);
-         assertEquals(manager.delegateActivities(),null);
-
-         //pre
-         estimatedTimeUse = 10;
-         List<Employee> Employees1 = new ArrayList<Employee>)();
-         for (int i = 1; i<13;i++){
-             Employees1.add(new Employee("employee"+i, firm01));
-         }
+        Client client01 = new Client(clientName, endDate, estimatedTimeUse, projectName, firm01);
+        Project project01 = new Project(client01, firm01);
+        ProjectManager manager = new ProjectManager(employee01, project01,firm01);
 
 
-         //There is one Employee and activities EO 1
-         assertTrue(getEmpForProj() == true);
-         assertEquals(manager.delegateActivities(),1);
 
+
+        //when there is no employees the EO is none caus for loop is not running
+        //assertEquals(manager.delegateActivities(), null);
+
+        //pre
+        String employeename1 = "Helga02";
+        Employee employee02 = new Employee(employeename1, firm01);
+        manager.delegateActivities();
+
+        //check that there is create activities and that delegate activities is returning null.
+        assertEquals(project01.getActivities().size(),((estimatedTimeUse-(estimatedTimeUse %10))/10),0.0);
+        //assertFalse(manager.getEmplForProj() == false);
+        //assertEquals(manager.delegateActivities(),null);
+
+        //pre
+        estimatedTimeUse = 10;
+        List<Employee> Employees1 = new ArrayList<Employee>();
+        for (int i = 1; i<13;i++){
+            Employees1.add(new Employee("employee"+i, firm01));
+        }
+
+
+        //There is one Employee and activities EO 1
+        assertTrue(manager.getEmplForProj() == true);
+        manager.delegateActivities();
+        //assertEquals(project01.getWorkingEmployees().size(),13);
+        assertEquals(project01.getDelegatedActivities().size(),1);
+    }/*
          //pre
          List<Employee> Employees = new ArrayList<Employee>)();
          for (int i = 1; i<3;i++){
