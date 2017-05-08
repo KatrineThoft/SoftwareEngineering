@@ -62,36 +62,6 @@ public class Project {
         this.projectID = endDate.year + val;
     }
 
-    public void setWorkingEmployees(List<Employee> workingEmployees) {
-        this.workingEmployees = workingEmployees;
-    }
-
-   /* public void setActivities(List<Activity> activities) {
-        this.activities = activities;
-    }
-*/
-    public void setDelegatedActivities(Map<Activity,Employee> delegatedActivities) {
-        this.delegatedActivities = delegatedActivities;
-    }
-
-    public void updateEstimatedTimeUse(double h) {
-        this.estimatedTimeUse = this.estimatedTimeUse + h;
-    }
-
-    public void updateTimeUsed(double timeUsed) {
-        this.timeUsed = timeUsed;
-    }
-
-    public double getRemainingTime() {
-        double remainingTime=estimatedTimeUse-timeUsed;
-        return remainingTime;
-    }
-
-    public String makeProjectReport() {
-        return  "Name = " + projectName + ", ID = " + projectID + ", Time used = " + timeUsed
-                + ", Remaining time = " + (estimatedTimeUse-timeUsed) + ", Employees = " + workingEmployees + ", Activities = " + activities;
-    }
-
     public String getProjectID() {
         return projectID;
     }
@@ -112,8 +82,35 @@ public class Project {
         return activities;
     }
 
+    public void setDelegatedActivities(Map<Activity,Employee> delegatedActivities) {
+        this.delegatedActivities = delegatedActivities;
+    }
+
     public Map<Activity, Employee> getDelegatedActivities() {
         return delegatedActivities;
+    }
+
+
+    /*    public void setWorkingEmployees(List<Employee> workingEmployees) {
+        this.workingEmployees = workingEmployees;
+    }
+*/
+   /* public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
+*/
+
+    public void updateTimeUsed(double timeUsed) {
+        this.timeUsed = timeUsed;
+    }
+
+    public void updateEstimatedTimeUse(double h) {
+        this.estimatedTimeUse = this.estimatedTimeUse + h;
+    }
+
+    public double getRemainingTime() {
+        double remainingTime=estimatedTimeUse-timeUsed;
+        return remainingTime;
     }
 
     public void addToFirm(TimeManager firm){

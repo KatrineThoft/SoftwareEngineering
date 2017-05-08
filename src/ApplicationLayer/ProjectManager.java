@@ -96,6 +96,19 @@ public class ProjectManager{
         project.getDelegatedActivities().replace(act, empl, newEmpl);
     }
 
+    public String makeProjectReport() {
+        String emplAsStr = "";
+        for (Employee e : project.getWorkingEmployees()) {
+            emplAsStr += e.getName() + "\n";
+        }
+        String actsAsStr = "";
+        for (Activity a : project.getActivities()) {
+            actsAsStr += a.getActivityName() + "\n";
+        }
+        return  "Name = " + project.projectName + "\nID = " + project.getProjectID() + "\nTime used = " + project.getTimeUsed()
+                + "\nRemaining time = " + project.getRemainingTime() + "\nEmployees = " + emplAsStr + "\nActivities = " + actsAsStr;
+    }
+
     public void delayProject(double hours){
         project.updateEstimatedTimeUse(hours);
         project.endDate.date = project.endDate.date + (int)(Math.ceil(hours/8));    // amount of hours/8 (8 hrs. on a regular work day)

@@ -2,9 +2,6 @@ package ApplicationLayer;
 
 import java.util.*;
 
-
-
-
 /**
  * Created by katrinethoft on 27/03/17.
  */
@@ -24,16 +21,16 @@ public class Employee {
         addToFirm(firm);
     }
 
-    public void addActivities(Activity activity) {
-        this.ongoingActivities.add(activity);
-    }
-
     public String getName() {
         return employeeName;
     }
 
     public List<Activity> getActivities() {
         return ongoingActivities;
+    }
+
+    public void addActivities(Activity activity) {
+        this.ongoingActivities.add(activity);
     }
 
     public void updateAbsence() {
