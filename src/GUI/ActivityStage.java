@@ -62,5 +62,4 @@ public class ActivityStage extends Stage{
         companyDriver.startEmpOptStage();
         this.close();
     }
-
 }
